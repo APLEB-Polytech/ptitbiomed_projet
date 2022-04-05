@@ -12,12 +12,14 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {ReactiveFormsModule} from "@angular/forms";
+import {NavbarComponent} from './shared/components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

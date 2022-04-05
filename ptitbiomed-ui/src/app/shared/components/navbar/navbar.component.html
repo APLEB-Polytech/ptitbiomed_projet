@@ -1,0 +1,5 @@
+<div id="navbar-main">
+  <a routerLink=""><p>Accueil</p></a>
+  <a *ngIf="!userService.user" routerLink="login"><p>Connexion</p></a>
+  <a (click)="logout()" *ngIf="userService.user"><p>Deconnexion</p></a>
+</div>
