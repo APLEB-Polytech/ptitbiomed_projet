@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HelloComponent} from "./hello/hello.component";
-import {LoginComponent} from "./auth/login/login.component"; // CLI imports router
+import {LoginComponent} from "./auth/login/login.component";
+import {AccueilComponent} from "./accueil/accueil.component"; // CLI imports router
 
 const routes: Routes = [
-  {path: '', component: HelloComponent},
+  {path: '', component: AccueilComponent},
   {path: 'login', component: LoginComponent},
 ]; // sets up routes constant where you define your routes
 

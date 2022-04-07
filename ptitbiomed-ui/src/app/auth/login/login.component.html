@@ -11,7 +11,9 @@
               matSuffix>
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
+      <mat-error *ngIf="invalid">Identifiant ou mot de passe invalide</mat-error>
     </mat-form-field>
     <button (click)="submit()" [disabled]="!loginForm.valid" color="primary" mat-raised-button>Valider</button>
+    <mat-error *ngIf="invalid">Identifiant ou mot de passe invalide</mat-error>
   </form>
 </div>

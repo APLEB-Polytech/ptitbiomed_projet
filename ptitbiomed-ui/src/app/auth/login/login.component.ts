@@ -4,6 +4,7 @@ import {LoginService} from "./login.service";
 import {AuthRequest} from "./AuthRequest";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   hide = true;
+  invalid = false
   loginForm = new FormGroup({
     id: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
@@ -25,12 +27,20 @@ export class LoginComponent implements OnInit {
 
   public submit(): void {
     const authRequest = new AuthRequest(this.loginForm.controls['id'].value, this.loginForm.controls['password'].value)
-    this.loginService.login(authRequest).subscribe((res) => {
-      if (res.ok && res.body) {
-        this.userService.user = res.body
-        this.router.navigate([''])
-      }
-    })
+    this.loginService.login(authRequest)
+      .subscribe({
+        next: (res) => {
+          if (res.ok && res.body) {
+            this.userService.user = res.body
+            this.router.navigate([''])
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            this.invalid = true
+          }
+        }
+      })
   }
 
 }
