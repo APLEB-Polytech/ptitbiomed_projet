@@ -12,14 +12,16 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {ReactiveFormsModule} from "@angular/forms";
-import {NavbarComponent} from './shared/components/navbar/navbar.component';
+import {NavbarComponent} from './layouts/navbar/navbar.component';
+import {FooterComponent} from './layouts/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

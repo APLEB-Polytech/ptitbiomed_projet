@@ -1,0 +1,31 @@
+<div id="header">
+  <div id="logo_ptitbiomed">
+    <img alt="ptitBioMed Logo" src="../../../assets/img/ptitbiomed_logo.png">
+  </div>
+  <div id="liens">
+    <div class="lien">
+      <a routerLink=""><p>Accueil</p></a>
+    </div>
+    <div class="lien">
+      <a routerLink=""><p>AFIB</p></a>
+    </div>
+    <div class="lien">
+      <a routerLink=""><p>Editions</p></a>
+    </div>
+    <div class="lien">
+      <a routerLink=""><p>Partenaires</p></a>
+    </div>
+    <div class="lien">
+      <a routerLink=""><p>Actualités</p></a>
+    </div>
+    <div class="lien">
+      <a routerLink=""><p>Nous</p></a>
+    </div>
+    <div *ngIf="!userService.user" class="lien">
+      <a routerLink="login"><p>Connexion</p></a>
+    </div>
+    <div *ngIf="userService.user" class="lien">
+      <a (click)="logout()" href=""><p>Deconnexion</p></a>
+    </div>
+  </div>
+</div>
