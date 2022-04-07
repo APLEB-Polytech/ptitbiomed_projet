@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="JpaBuddyIdeaProjectConfig">
+  <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="maria">
+    <option name="liquibaseDirectory" value="db/changelog" />
+    <option name="targetDiffType" value="SNAPSHOT" />
     <option name="defaultUnitInitialized" value="true" />
+    <option name="sourceModelValue" value="Default" />
+    <option name="targetDbValue" value="fa4144b1-7270-4968-889f-688c446b8cd7" />
+    <option name="targetSnapshotValue" value="C:\Users\Bastien Audu\Documents\apleb\ptitbiomed-api\src\main\resources\db\changelog\test.json" />
+    <option name="snapshotDbValue" value="fa4144b1-7270-4968-889f-688c446b8cd7" />
+    <option name="snapshotModelValue" value="Default" />
+    <option name="snapshotDirValue" value="$PROJECT_DIR$/ptitbiomed-api/src/main/resources/db/changelog" />
   </component>
 </project>

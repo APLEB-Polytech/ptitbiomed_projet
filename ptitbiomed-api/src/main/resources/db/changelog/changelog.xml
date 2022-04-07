@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+
+    <changeSet id="1649188149917-1" author="Bastien Audu">
+        <createTable tableName="roles">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_roles"/>
+            </column>
+            <column name="name" type="VARCHAR(20)"/>
+        </createTable>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_MODERATOR"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="username" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+        </createTable>
+        <addUniqueConstraint columnNames="email" constraintName="uc_74165e195b2f7b25de690d14a" tableName="users"/>
+        <addUniqueConstraint columnNames="username" constraintName="uc_77584fbe74cc86922be2a3560" tableName="users"/>
+        <createTable tableName="user_roles">
+            <column name="role_id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_roles"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_roles"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_roles" constraintName="fk_userol_on_role"
+                                 referencedColumnNames="id" referencedTableName="roles"/>
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_roles" constraintName="fk_userol_on_user"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+        <insert tableName="users">
+            <column name="username" value="user"/>
+            <column name="email" value="user@test.com"/>
+            <column name="password" value="$2a$10$l3yASI.nYTAmG08kCRs05er1Qul/MEunk536rT.vparf3oFfdZcxu"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="modo"/>
+            <column name="email" value="modo@test.com"/>
+            <column name="password" value="$2a$10$AyBjnNL7JZf3FAWjy0XuFOnbWW3UlYpQiyILJceYWkHcbwmT3DDIO"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="admin"/>
+            <column name="email" value="admin@test.com"/>
+            <column name="password" value="$2a$10$enDEQ43/RMpAGawPSpaQ/.2z5BG/LMtWkSaxdo7WvvolYSuBNyfYy"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="role_id" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="role_id" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="role_id" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="role_id" valueNumeric="2"/>
+            <column name="user_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="role_id" valueNumeric="2"/>
+            <column name="user_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="role_id" valueNumeric="3"/>
+            <column name="user_id" valueNumeric="3"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
