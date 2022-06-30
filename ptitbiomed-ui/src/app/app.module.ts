@@ -15,6 +15,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {FooterComponent} from './layouts/footer/footer.component';
 import {AccueilComponent} from './accueil/accueil.component';
+import {MatMenuModule} from "@angular/material/menu";
+import {ListeUtilisateursComponent} from './admin/utilisateurs/liste-utilisateurs/liste-utilisateurs.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import {AccueilComponent} from './accueil/accueil.component';
     LoginComponent,
     NavbarComponent,
     FooterComponent,
-    AccueilComponent
+    AccueilComponent,
+    ListeUtilisateursComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import {AccueilComponent} from './accueil/accueil.component';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

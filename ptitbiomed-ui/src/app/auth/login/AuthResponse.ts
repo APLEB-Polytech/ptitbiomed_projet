@@ -4,5 +4,7 @@ export interface IAuthResponse {
   roles: string[]
   accessToken: string
   tokenType: string
+  admin?: boolean
+  modo?: boolean
 }
 

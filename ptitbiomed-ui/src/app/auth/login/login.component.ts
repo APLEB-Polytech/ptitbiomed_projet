@@ -19,7 +19,11 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private loginService: LoginService, private userService: UserService, private router: Router) {
+  constructor(
+    private loginService: LoginService,
+    private userService: UserService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -32,6 +36,7 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           if (res.ok && res.body) {
             this.userService.user = res.body
+            this.userService.makeRight()
             this.router.navigate([''])
           }
         },

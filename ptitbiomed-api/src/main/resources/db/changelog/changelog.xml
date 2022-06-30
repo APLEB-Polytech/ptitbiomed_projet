@@ -83,6 +83,5 @@
             <column name="role_id" valueNumeric="3"/>
             <column name="user_id" valueNumeric="3"/>
         </insert>
-
     </changeSet>
 </databaseChangeLog>

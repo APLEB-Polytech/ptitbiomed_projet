@@ -21,6 +21,14 @@
     <div class="lien">
       <a routerLink=""><p>Nous</p></a>
     </div>
+    <div *ngIf="userService.user && userService.user.admin" class="lien">
+      <a [matMenuTriggerFor]="administration" routerLink=""><p>Administration</p></a>
+      <mat-menu #administration="matMenu">
+        <a routerLink="admin/utilisateurs">
+          <button mat-menu-item>Utilisateurs</button>
+        </a>
+      </mat-menu>
+    </div>
     <div *ngIf="!userService.user" class="lien">
       <a routerLink="login"><p>Connexion</p></a>
     </div>
