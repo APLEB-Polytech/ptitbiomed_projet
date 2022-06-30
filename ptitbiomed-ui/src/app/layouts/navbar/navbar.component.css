@@ -1,0 +1,20 @@
+#header {
+  display: flex;
+  flex-direction: row;
+  padding: 2%;
+  height: 15%;
+}
+
+img {
+  max-width: 350px;
+}
+
+#liens {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.lien {
+  margin-right: 30px;
+}
