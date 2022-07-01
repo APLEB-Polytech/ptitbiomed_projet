@@ -59,6 +59,11 @@
             <column name="email" value="admin@test.com"/>
             <column name="password" value="$2a$10$enDEQ43/RMpAGawPSpaQ/.2z5BG/LMtWkSaxdo7WvvolYSuBNyfYy"/>
         </insert>
+        <insert tableName="users">
+            <column name="username" value="root"/>
+            <column name="email" value="root@root.com"/>
+            <column name="password" value="$2a$10$XQqNX38JMkX/aRzthwcj0ePIU52Y0wMDQ96iD6BaX0O9.VjnE8spC"/>
+        </insert>
         <insert tableName="user_roles">
             <column name="role_id" valueNumeric="1"/>
             <column name="user_id" valueNumeric="1"/>
@@ -83,16 +88,31 @@
             <column name="role_id" valueNumeric="3"/>
             <column name="user_id" valueNumeric="3"/>
         </insert>
+        <insert tableName="user_roles">
+            <column name="role_id" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="role_id" valueNumeric="2"/>
+            <column name="user_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="role_id" valueNumeric="3"/>
+            <column name="user_id" valueNumeric="4"/>
+        </insert>
     </changeSet>
     <changeSet id="1656619866855-1" author="baudu">
         <createTable tableName="media">
-            <column name="hash">
+            <column name="hash" type="number">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_image"/>
             </column>
-            <column name="nom">
+            <column name="nom" type="varchar2">
                 <constraints nullable="false"/>
             </column>
-            <column name="type">
+            <column name="type" type="varchar2">
+                <constraints nullable="false"/>
+            </column>
+            <column name="taille" type="number">
                 <constraints nullable="false"/>
             </column>
         </createTable>

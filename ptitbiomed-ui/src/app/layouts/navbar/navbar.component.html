@@ -18,6 +18,9 @@
     <div class="lien">
       <a routerLink=""><p>Actualités</p></a>
     </div>
+    <div *ngIf="userService.user && userService.user.admin" class="lien">
+      <a routerLink="medias"><p>Upload</p></a>
+    </div>
     <div class="lien">
       <a routerLink=""><p>Nous</p></a>
     </div>

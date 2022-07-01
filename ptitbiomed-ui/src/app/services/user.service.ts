@@ -21,4 +21,14 @@ export class UserService {
       this.user.modo = this.user.roles.includes("ROLE_MODERATOR");
     }
   }
+
+  isAdmin(): boolean {
+    if (this.user?.admin === undefined) return false;
+    return this.user.admin;
+  }
+
+  isModo(): boolean {
+    if (this.user?.admin === undefined) return false;
+    return this.user.admin;
+  }
 }
