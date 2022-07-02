@@ -1,0 +1,18 @@
+<h1>Liste des médias</h1>
+<mat-tab-group>
+  <mat-tab label="Images">
+    <ng-template matTabContent>
+      <div class="listeMedias">
+        <app-media-details *ngFor="let media of images" [media]="media"></app-media-details>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Vidéos">
+    <ng-template matTabContent>
+      {{loadVideos()}}
+      <div class="listeMedias">
+        <app-media-details *ngFor="let media of videos" [media]="media"></app-media-details>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

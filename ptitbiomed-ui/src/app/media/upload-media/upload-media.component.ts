@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MediaService} from "../../services/media.service";
 import {Clipboard} from '@angular/cdk/clipboard';
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
-import {IUploadResponse} from "../../shared/model/UploadResponse";
+import {IMedia} from "../../shared/model/IMedia";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -15,7 +15,7 @@ export class UploadMediaComponent implements OnInit {
   currentFile: File | undefined | null;
   progress = 0;
   message = '';
-  response: IUploadResponse | undefined;
+  response: IMedia | undefined;
 
   constructor(
     private mediaService: MediaService,
@@ -41,7 +41,7 @@ export class UploadMediaComponent implements OnInit {
     if (this.currentFile === null) throw new Error('No current file selected');
     const currentFile: File = this.currentFile;
     this.mediaService.upload(currentFile).subscribe({
-      next: (event: HttpEvent<IUploadResponse>) => {
+      next: (event: HttpEvent<IMedia>) => {
         if (event.type === HttpEventType.UploadProgress) {
           if (event.total === undefined) throw new Error('No total');
           this.progress = Math.round(100 * event.loaded / event.total);

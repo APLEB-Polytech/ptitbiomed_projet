@@ -4,14 +4,17 @@ import fr.apleb.ptitbiomedapi.exception.FileStorageException;
 import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.Media;
 import fr.apleb.ptitbiomedapi.repository.MediaRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -76,5 +79,25 @@ public class FileStorageService {
 		} catch (IOException e) {
 			throw new NotFoundException();
 		}
+	}
+
+	/**
+	 * @param type image ou vidéo
+	 * @return Liste des médias
+	 */
+	public List<Media> getMedias(String type) {
+		if (type.equals("image")) {
+			return mediaRepository.findAll()
+					.stream()
+					.filter(media -> media.getType().startsWith("image"))
+					.toList();
+		}
+		if (type.equals("video")) {
+			return mediaRepository.findAll()
+					.stream()
+					.filter(media -> media.getType().startsWith("video"))
+					.toList();
+		}
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
 	}
 }

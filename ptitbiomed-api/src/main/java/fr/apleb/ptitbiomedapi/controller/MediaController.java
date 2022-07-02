@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/media")
@@ -50,5 +51,12 @@ public class MediaController {
 				.header(HttpHeaders.CONTENT_TYPE, media.getType())
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + media.getNom())
 				.body(content);
+	}
+
+	@GetMapping("/{type}")
+	public ResponseEntity<List<Media>> getLesMedias(@PathVariable String type) {
+		logger.info("REST GET getLesMedias: {}", type);
+		List<Media> medias = fileStorageService.getMedias(type);
+		return ResponseEntity.ok(medias);
 	}
 }
