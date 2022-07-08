@@ -1,12 +1,12 @@
 plugins {
   id 'java'
-  id "com.github.node-gradle.node" version "3.1.1"
+  id "com.github.node-gradle.node" version "3.4.0"
 }
 
 // 2
 node {
-  version = '17.8.0'
-  npmVersion = '8.5.5'
+  version = '16.15.1'
+  npmVersion = '8.13.2'
   download = true
 }
 
