@@ -103,16 +103,16 @@
     </changeSet>
     <changeSet id="1656619866855-1" author="baudu">
         <createTable tableName="media">
-            <column name="hash" type="number">
+            <column name="hash" type="INT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_image"/>
             </column>
-            <column name="nom" type="varchar2">
+            <column name="nom" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="type" type="varchar2">
+            <column name="type" type="VARCHAR(30)">
                 <constraints nullable="false"/>
             </column>
-            <column name="taille" type="number">
+            <column name="taille" type="INT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
