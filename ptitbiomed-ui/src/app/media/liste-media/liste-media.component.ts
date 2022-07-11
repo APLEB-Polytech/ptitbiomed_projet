@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IMedia} from "../../shared/model/IMedia";
 import {MediaService} from "../media.service";
 import {HttpResponse} from "@angular/common/http";
+import {IPaginator} from "../../shared/model/Paginator";
 
 @Component({
   selector: 'app-liste-media',
@@ -10,8 +11,19 @@ import {HttpResponse} from "@angular/common/http";
 })
 export class ListeMediaComponent implements OnInit {
 
-  images: IMedia[] = []
-  videos: IMedia[] = []
+  images: IPaginator<IMedia> = {
+    data: [],
+    pageSize: 10,
+    itemMax: 0,
+    actualPage: 0
+  }
+
+  videos: IPaginator<IMedia> = {
+    data: [],
+    pageSize: 10,
+    itemMax: 0,
+    actualPage: 0
+  }
   isLoaded: boolean = false
 
   constructor(private mediaService: MediaService) {
@@ -22,8 +34,8 @@ export class ListeMediaComponent implements OnInit {
   }
 
   loadImages(): void {
-    this.mediaService.getAllImages().subscribe({
-      next: (response: HttpResponse<IMedia[]>) => {
+    this.mediaService.getAllImages(this.images).subscribe({
+      next: (response: HttpResponse<IPaginator<IMedia>>) => {
         if (response.ok && response.body) {
           this.images = response.body
         }
@@ -37,8 +49,8 @@ export class ListeMediaComponent implements OnInit {
   loadVideos(): void {
     if (this.isLoaded) return
     this.isLoaded = true
-    this.mediaService.getAllVideos().subscribe({
-      next: (response: HttpResponse<IMedia[]>) => {
+    this.mediaService.getAllVideos(this.videos).subscribe({
+      next: (response: HttpResponse<IPaginator<IMedia>>) => {
         if (response.ok && response.body) {
           this.videos = response.body
         }

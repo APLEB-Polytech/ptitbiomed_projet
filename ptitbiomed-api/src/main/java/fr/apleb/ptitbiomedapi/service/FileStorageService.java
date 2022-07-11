@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -85,18 +84,33 @@ public class FileStorageService {
 	 * @param type image ou vidéo
 	 * @return Liste des médias
 	 */
-	public List<Media> getMedias(String type) {
+	public Paginator<Media> getMedias(String type, Paginator<Media> paginator) {
 		if (type.equals("image")) {
-			return mediaRepository.findAll()
+			Media[] medias = mediaRepository.findAll()
+					.stream()
+					.skip((long) paginator.actualPage() * paginator.pageSize())
+					.filter(media -> media.getType().startsWith("image"))
+					.limit(paginator.pageSize())
+					.toList()
+					.toArray(new Media[0]);
+			long nbImages = mediaRepository.findAll()
 					.stream()
 					.filter(media -> media.getType().startsWith("image"))
-					.toList();
+					.count();
+			return new Paginator<>(medias, paginator.pageSize(), nbImages, paginator.actualPage());
 		}
 		if (type.equals("video")) {
-			return mediaRepository.findAll()
+			Media[] medias = mediaRepository.findAll()
+					.stream()
+					.skip((long) paginator.actualPage() * paginator.pageSize())
+					.filter(media -> media.getType().startsWith("video"))
+					.limit(paginator.pageSize()).toList()
+					.toArray(new Media[0]);
+			long nbImages = mediaRepository.findAll()
 					.stream()
 					.filter(media -> media.getType().startsWith("video"))
-					.toList();
+					.count();
+			return new Paginator<>(medias, paginator.pageSize(), nbImages, paginator.actualPage());
 		}
 		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
 	}

@@ -2,6 +2,7 @@ package fr.apleb.ptitbiomedapi.controller;
 
 import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.Media;
+import fr.apleb.ptitbiomedapi.model.paginator.Paginator;
 import fr.apleb.ptitbiomedapi.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/media")
@@ -53,10 +53,10 @@ public class MediaController {
 				.body(content);
 	}
 
-	@GetMapping("/{type}")
-	public ResponseEntity<List<Media>> getLesMedias(@PathVariable String type) {
-		logger.info("REST GET getLesMedias: {}", type);
-		List<Media> medias = fileStorageService.getMedias(type);
+	@PostMapping("/{type}")
+	public ResponseEntity<Paginator<Media>> getLesMedias(@PathVariable String type, @RequestBody Paginator<Media> paginator) {
+		logger.info("REST GET getLesMedias: {} {}", type, paginator);
+		Paginator<Media> medias = fileStorageService.getMedias(type, paginator);
 		return ResponseEntity.ok(medias);
 	}
 }

@@ -7,6 +7,7 @@ import {ListeMediaComponent} from './liste-media/liste-media.component';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MediaDetailsComponent} from './media-details/media-details.component';
 import {MatCardModule} from "@angular/material/card";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {MatCardModule} from "@angular/material/card";
     MediaRoutingModule,
     MatProgressBarModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatPaginatorModule
   ]
 })
 export class MediaModule {
