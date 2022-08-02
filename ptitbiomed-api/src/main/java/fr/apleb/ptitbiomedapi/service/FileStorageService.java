@@ -3,6 +3,7 @@ package fr.apleb.ptitbiomedapi.service;
 import fr.apleb.ptitbiomedapi.exception.FileStorageException;
 import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.Media;
+import fr.apleb.ptitbiomedapi.model.paginator.Paginator;
 import fr.apleb.ptitbiomedapi.repository.MediaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,6 @@ public class FileStorageService {
 			Media media = new Media();
 			media.setHash(Objects.hashCode(file.getInputStream()));
 			media.setNom(StringUtils.cleanPath(file.getOriginalFilename()));
-			media.setType(file.getContentType());
 			media.setType(file.getContentType());
 			media.setTaille(file.getSize());
 
@@ -85,33 +85,20 @@ public class FileStorageService {
 	 * @return Liste des médias
 	 */
 	public Paginator<Media> getMedias(String type, Paginator<Media> paginator) {
-		if (type.equals("image")) {
-			Media[] medias = mediaRepository.findAll()
-					.stream()
-					.skip((long) paginator.actualPage() * paginator.pageSize())
-					.filter(media -> media.getType().startsWith("image"))
-					.limit(paginator.pageSize())
-					.toList()
-					.toArray(new Media[0]);
-			long nbImages = mediaRepository.findAll()
-					.stream()
-					.filter(media -> media.getType().startsWith("image"))
-					.count();
-			return new Paginator<>(medias, paginator.pageSize(), nbImages, paginator.actualPage());
-		}
-		if (type.equals("video")) {
-			Media[] medias = mediaRepository.findAll()
-					.stream()
-					.skip((long) paginator.actualPage() * paginator.pageSize())
-					.filter(media -> media.getType().startsWith("video"))
-					.limit(paginator.pageSize()).toList()
-					.toArray(new Media[0]);
-			long nbImages = mediaRepository.findAll()
-					.stream()
-					.filter(media -> media.getType().startsWith("video"))
-					.count();
-			return new Paginator<>(medias, paginator.pageSize(), nbImages, paginator.actualPage());
-		}
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
+		if (!type.equals("image") && !type.equals("video"))
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
+
+		Media[] medias = mediaRepository.findAll()
+				.stream()
+				.filter(media -> media.getType().startsWith(type))
+				.skip((long) paginator.actualPage() * paginator.pageSize())
+				.limit(paginator.pageSize())
+				.toList()
+				.toArray(new Media[0]);
+		long nbMedias = mediaRepository.findAll()
+				.stream()
+				.filter(media -> media.getType().startsWith(type))
+				.count();
+		return new Paginator<>(medias, paginator.pageSize(), nbMedias, paginator.actualPage());
 	}
 }
