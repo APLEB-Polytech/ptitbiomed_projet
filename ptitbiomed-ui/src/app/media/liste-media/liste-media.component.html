@@ -1,0 +1,26 @@
+<h1>Liste des médias</h1>
+<mat-tab-group>
+  <mat-tab label="Images">
+    <ng-template matTabContent>
+      <div class="listeMedias">
+        <app-media-details *ngFor="let media of images.data" [media]="media"></app-media-details>
+      </div>
+      <mat-paginator (change)="loadImages()"
+                     (page)="loadImages()"
+                     [length]="images.itemMax"
+                     [pageIndex]="images.actualPage"
+                     [pageSizeOptions]="[1, 2, 5, 100]"
+                     [pageSize]="images.pageSize"
+                     aria-label="Select page">
+      </mat-paginator>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Vidéos">
+    <ng-template matTabContent>
+      {{loadVideos()}}
+      <div class="listeMedias">
+        <app-media-details *ngFor="let media of videos.data" [media]="media"></app-media-details>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
