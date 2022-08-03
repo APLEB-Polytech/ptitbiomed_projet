@@ -18,16 +18,16 @@
     <div class="lien">
       <a routerLink=""><p>Actualités</p></a>
     </div>
-    <div *ngIf="userService.user && userService.user.admin" class="lien">
+    <div *ngIf="userService.isAdmin | async" class="lien">
       <a routerLink="medias/upload"><p>Upload</p></a>
     </div>
-    <div *ngIf="userService.user && userService.user.admin" class="lien">
+    <div *ngIf="userService.isAdmin | async" class="lien">
       <a routerLink="medias"><p>Liste des médias</p></a>
     </div>
     <div class="lien">
       <a routerLink=""><p>Nous</p></a>
     </div>
-    <div *ngIf="userService.user && userService.user.admin" class="lien">
+    <div *ngIf="userService.isAdmin | async" class="lien">
       <a [matMenuTriggerFor]="administration" routerLink=""><p>Administration</p></a>
       <mat-menu #administration="matMenu">
         <a routerLink="admin/utilisateurs">
@@ -35,10 +35,10 @@
         </a>
       </mat-menu>
     </div>
-    <div *ngIf="!userService.user" class="lien">
+    <div *ngIf="!(userService.isConnected | async)" class="lien">
       <a routerLink="login"><p>Connexion</p></a>
     </div>
-    <div *ngIf="userService.user" class="lien">
+    <div *ngIf="userService.isConnected | async" class="lien">
       <a (click)="logout()" href=""><p>Deconnexion</p></a>
     </div>
   </div>

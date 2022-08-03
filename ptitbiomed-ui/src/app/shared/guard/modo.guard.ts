@@ -14,8 +14,6 @@ export class ModoGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.userService.user?.roles)
-      return this.userService.user?.roles.includes("ROLE_MODERATOR")
     return false;
   }
 

@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.userService.user = undefined
+    this.userService.logout()
     this.router.navigate(['']);
   }
 
