@@ -30,6 +30,6 @@ public class ConfigurationApp {
 
 	@Bean
 	public ObjectMapper objectMapper() {
-		return new ObjectMapper();
+		return new ObjectMapper().findAndRegisterModules();
 	}
 }

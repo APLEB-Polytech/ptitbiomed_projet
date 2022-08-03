@@ -1,34 +1,31 @@
 import {Injectable} from '@angular/core';
 import {IAuthResponse} from "../auth/login/AuthResponse";
+import {BehaviorSubject, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  user?: IAuthResponse
+  userAuthResponse?: IAuthResponse
+  user: Subject<IAuthResponse> = new Subject<IAuthResponse>()
+  isConnected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
 
   constructor() {
   }
 
-  /**
-   * Attribue les variables booléenes definissant l'état de droit d'un untilisateur
-   */
-  makeRight(): void {
-    if (this.user?.roles) {
-      this.user.admin = this.user.roles.includes("ROLE_ADMIN");
-      this.user.modo = this.user.roles.includes("ROLE_MODERATOR");
-    }
+  authenticate(authResponse: IAuthResponse) {
+    this.isConnected.next(true)
+    this.isAdmin.next(authResponse.roles.includes('ROLE_ADMIN'))
+    this.user.next(authResponse)
+    this.userAuthResponse = authResponse
   }
 
-  isAdmin(): boolean {
-    if (this.user?.admin === undefined) return false;
-    return this.user.admin;
-  }
-
-  isModo(): boolean {
-    if (this.user?.admin === undefined) return false;
-    return this.user.admin;
+  logout() {
+    this.isAdmin.next(false)
+    this.userAuthResponse = undefined
+    this.isConnected.next(false)
   }
 }
