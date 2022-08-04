@@ -17,6 +17,6 @@ export class MediaService {
   }
 
   getAllVideos(paginator: IPaginator<IMedia>): Observable<HttpResponse<IPaginator<IMedia>>> {
-    return this.http.post<IPaginator<IMedia>>('/api/media/video', {paginator: paginator}, {observe: 'response'});
+    return this.http.post<IPaginator<IMedia>>('/api/media/video', paginator, {observe: 'response'});
   }
 }

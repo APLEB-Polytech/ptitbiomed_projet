@@ -9,7 +9,7 @@
       </ng-container>
       <ng-container *ngIf="isVideo()">
         <video controls width="250">
-          <source src="/api/media/downloadFile/{{media.hash}}" type="{{media.type}}">
+          <source src="/api/media/stream/{{media.hash}}" type="{{media.type}}">
         </video>
       </ng-container>
     </mat-card-content>
