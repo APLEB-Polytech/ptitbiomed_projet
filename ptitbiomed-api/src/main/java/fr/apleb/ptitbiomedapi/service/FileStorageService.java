@@ -5,11 +5,14 @@ import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.Media;
 import fr.apleb.ptitbiomedapi.model.paginator.Paginator;
 import fr.apleb.ptitbiomedapi.repository.MediaRepository;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,9 +26,12 @@ public class FileStorageService {
 	private final Path fileStorageLocation;
 	private final MediaRepository mediaRepository;
 
-	public FileStorageService(Path fileStorageLocation, MediaRepository mediaRepository) {
+	private final ResourceLoader resourceLoader;
+
+	public FileStorageService(Path fileStorageLocation, MediaRepository mediaRepository, ResourceLoader resourceLoader) {
 		this.fileStorageLocation = fileStorageLocation;
 		this.mediaRepository = mediaRepository;
+		this.resourceLoader = resourceLoader;
 	}
 
 
@@ -78,6 +84,13 @@ public class FileStorageService {
 		} catch (IOException e) {
 			throw new NotFoundException();
 		}
+	}
+
+	public Mono<Resource> getVideo(int hash) {
+		Media media = getMedia(hash).orElseThrow(NotFoundException::new);
+		return Mono.fromSupplier(() -> this.resourceLoader.getResource(
+				"file:" + fileStorageLocation.resolve(getHashNomFichier(media)).toString()
+		));
 	}
 
 	/**

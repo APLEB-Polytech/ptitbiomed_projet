@@ -20,6 +20,14 @@
       {{loadVideos()}}
       <div class="listeMedias">
         <app-media-details *ngFor="let media of videos.data" [media]="media"></app-media-details>
+        <mat-paginator (change)="loadVideos()"
+                       (page)="loadVideos()"
+                       [length]="videos.itemMax"
+                       [pageIndex]="videos.actualPage"
+                       [pageSizeOptions]="[1, 2, 5, 100]"
+                       [pageSize]="videos.pageSize"
+                       aria-label="Select page">
+        </mat-paginator>
       </div>
     </ng-template>
   </mat-tab>
