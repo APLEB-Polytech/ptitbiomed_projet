@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Media {
 	@Id
 	@Column(nullable = false)
-	private int hash;
+	private String uuid;
 
 	@Column(nullable = false)
 	private String nom;
@@ -22,12 +22,12 @@ public class Media {
 	@Column
 	private long taille;
 
-	public int getHash() {
-		return hash;
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setHash(int id) {
-		this.hash = id;
+	public void setUuid(String id) {
+		this.uuid = id;
 	}
 
 	public String getNom() {
@@ -59,18 +59,18 @@ public class Media {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Media media = (Media) o;
-		return Objects.equals(hash, media.hash) && Objects.equals(nom, media.nom) && Objects.equals(type, media.type) && Objects.equals(taille, media.taille);
+		return Objects.equals(uuid, media.uuid) && Objects.equals(nom, media.nom) && Objects.equals(type, media.type) && Objects.equals(taille, media.taille);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(hash, nom, type, taille);
+		return Objects.hash(uuid, nom, type, taille);
 	}
 
 	@Override
 	public String toString() {
 		return "Media{" +
-				"hash='" + hash + '\'' +
+				"hash='" + uuid + '\'' +
 				", nom='" + nom + '\'' +
 				", type='" + type + '\'' +
 				", taille='" + taille + '\'' +

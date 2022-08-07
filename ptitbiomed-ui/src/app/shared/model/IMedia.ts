@@ -1,5 +1,5 @@
 export interface IMedia {
-  hash: number;
+  uuid: string;
   nom: string;
   type: string;
   taille: number;

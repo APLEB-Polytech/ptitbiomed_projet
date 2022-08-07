@@ -103,7 +103,7 @@
     </changeSet>
     <changeSet id="1656619866855-1" author="baudu">
         <createTable tableName="media">
-            <column name="hash" type="INT">
+            <column name="uuid" type="INT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_image"/>
             </column>
             <column name="nom" type="VARCHAR(50)">
@@ -116,5 +116,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+    <changeSet id="1659862121351-1" author="baudu">
+        <renameColumn tableName="media" oldColumnName="uuid" newColumnName="uuid"/>
+        <modifyDataType tableName="media" columnName="uuid" newDataType="varchar(50)"/>
     </changeSet>
 </databaseChangeLog>

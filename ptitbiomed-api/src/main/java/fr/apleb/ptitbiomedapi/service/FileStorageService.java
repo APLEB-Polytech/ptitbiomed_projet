@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FileStorageService {
@@ -41,7 +41,7 @@ public class FileStorageService {
 
 		try {
 			Media media = new Media();
-			media.setHash(Objects.hashCode(file.getInputStream()));
+			media.setUuid(UUID.randomUUID().toString());
 			media.setNom(StringUtils.cleanPath(file.getOriginalFilename()));
 			media.setType(file.getContentType());
 			media.setTaille(file.getSize());
@@ -51,7 +51,7 @@ public class FileStorageService {
 				throw new FileStorageException("Sorry! Filename contains invalid path sequence " + media.getNom());
 			}
 
-			Path targetLocation = this.fileStorageLocation.resolve(getHashNomFichier(media));
+			Path targetLocation = this.fileStorageLocation.resolve(getUUIDNomFichier(media));
 			System.out.println(targetLocation);
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 			mediaRepository.save(media);
@@ -64,21 +64,21 @@ public class FileStorageService {
 
 	/**
 	 * @param media media
-	 * @return hash du fichier . extension du fichier
+	 * @return uuid du fichier . extension du fichier
 	 */
-	private String getHashNomFichier(Media media) {
+	private String getUUIDNomFichier(Media media) {
 		String extension = media.getType().split("/")[1];
 		extension = "." + extension;
-		return media.getHash() + extension;
+		return media.getUuid() + extension;
 	}
 
-	public Optional<Media> getMedia(int hash) {
-		return mediaRepository.findById(hash);
+	public Optional<Media> getMedia(String uuid) {
+		return mediaRepository.findById(uuid);
 	}
 
-	public byte[] getContent(int hash) {
-		Media media = getMedia(hash).orElseThrow(NotFoundException::new);
-		Path path = fileStorageLocation.resolve(getHashNomFichier(media));
+	public byte[] getContent(String uuid) {
+		Media media = getMedia(uuid).orElseThrow(NotFoundException::new);
+		Path path = fileStorageLocation.resolve(getUUIDNomFichier(media));
 		try {
 			return Files.readAllBytes(path);
 		} catch (IOException e) {
@@ -86,10 +86,10 @@ public class FileStorageService {
 		}
 	}
 
-	public Mono<Resource> getVideo(int hash) {
-		Media media = getMedia(hash).orElseThrow(NotFoundException::new);
+	public Mono<Resource> getVideo(String uuid) {
+		Media media = getMedia(uuid).orElseThrow(NotFoundException::new);
 		return Mono.fromSupplier(() -> this.resourceLoader.getResource(
-				"file:" + fileStorageLocation.resolve(getHashNomFichier(media)).toString()
+				"file:" + fileStorageLocation.resolve(getUUIDNomFichier(media)).toString()
 		));
 	}
 

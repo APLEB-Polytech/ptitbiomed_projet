@@ -36,17 +36,17 @@ public class MediaController {
 		String fileDownloadUri = ServletUriComponentsBuilder
 				.fromCurrentContextPath()
 				.path("/api/media/downloadFile/")
-				.path(String.valueOf(media.getHash()))
+				.path(String.valueOf(media.getUuid()))
 				.toUriString();
 
 		return ResponseEntity.created(new URI(fileDownloadUri)).body(media);
 	}
 
-	@GetMapping("/downloadFile/{hashName}")
-	public ResponseEntity<byte[]> downloadFile(@PathVariable int hashName) {
-		logger.info("REST GET downloadFile: {}", hashName);
-		Media media = fileStorageService.getMedia(hashName).orElseThrow(NotFoundException::new);
-		byte[] content = fileStorageService.getContent(hashName);
+	@GetMapping("/downloadFile/{uuid}")
+	public ResponseEntity<byte[]> downloadFile(@PathVariable String uuid) {
+		logger.info("REST GET downloadFile: {}", uuid);
+		Media media = fileStorageService.getMedia(uuid).orElseThrow(NotFoundException::new);
+		byte[] content = fileStorageService.getContent(uuid);
 
 		return ResponseEntity.ok()
 				.contentLength(content.length)
@@ -55,13 +55,13 @@ public class MediaController {
 				.body(content);
 	}
 
-	@GetMapping(value = "/stream/{hashName}")
-	public ResponseEntity<Mono<Resource>> stream(@PathVariable int hashName, @RequestHeader("Range") String range) {
-		logger.info("REST GET stream: {}", hashName);
-		Media media = fileStorageService.getMedia(hashName).orElseThrow(NotFoundException::new);
+	@GetMapping(value = "/stream/{uuid}")
+	public ResponseEntity<Mono<Resource>> stream(@PathVariable String uuid, @RequestHeader("Range") String range) {
+		logger.info("REST GET stream: {}", uuid);
+		Media media = fileStorageService.getMedia(uuid).orElseThrow(NotFoundException::new);
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_TYPE, media.getType())
-				.body(this.fileStorageService.getVideo(hashName));
+				.body(this.fileStorageService.getVideo(uuid));
 	}
 
 	@PostMapping("/{type}")

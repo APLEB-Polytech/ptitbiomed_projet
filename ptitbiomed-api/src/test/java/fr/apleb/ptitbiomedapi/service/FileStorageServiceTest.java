@@ -37,32 +37,32 @@ class FileStorageServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		image.setHash(123456);
+		image.setUuid(123456);
 		image.setType("image/png");
 		image.setTaille(500);
 		image.setNom("ImageMedia");
 
-		image2.setHash(456789);
+		image2.setUuid(456789);
 		image2.setType("image/png");
 		image2.setTaille(500);
 		image2.setNom("Image2");
 
-		video.setHash(98765);
+		video.setUuid(98765);
 		video.setType("video/m4a");
 		video.setTaille(500);
 		video.setNom("VideoMedia");
 
-		video2.setHash(97483);
+		video2.setUuid(97483);
 		video2.setType("video/m4a");
 		video2.setTaille(500);
 		video2.setNom("VideoMedia2");
 
 
 		when(mediaRepositoryMock.findAll()).thenReturn(medias);
-		when(mediaRepositoryMock.findById(image.getHash())).thenReturn(Optional.of(image));
-		when(mediaRepositoryMock.findById(image2.getHash())).thenReturn(Optional.of(image2));
-		when(mediaRepositoryMock.findById(video.getHash())).thenReturn(Optional.of(video));
-		when(mediaRepositoryMock.findById(video2.getHash())).thenReturn(Optional.of(video2));
+		when(mediaRepositoryMock.findById(image.getUuid())).thenReturn(Optional.of(image));
+		when(mediaRepositoryMock.findById(image2.getUuid())).thenReturn(Optional.of(image2));
+		when(mediaRepositoryMock.findById(video.getUuid())).thenReturn(Optional.of(video));
+		when(mediaRepositoryMock.findById(video2.getUuid())).thenReturn(Optional.of(video2));
 		when(mediaRepositoryMock.findById(0)).thenReturn(Optional.empty());
 	}
 
@@ -83,10 +83,10 @@ class FileStorageServiceTest {
 
 	@Test
 	void getMedia() {
-		assertEquals(Optional.of(image), this.fileStorageService.getMedia(image.getHash()));
-		assertEquals(Optional.of(image2), this.fileStorageService.getMedia(image2.getHash()));
-		assertEquals(Optional.of(video), this.fileStorageService.getMedia(video.getHash()));
-		assertEquals(Optional.of(video2), this.fileStorageService.getMedia(video2.getHash()));
+		assertEquals(Optional.of(image), this.fileStorageService.getMedia(image.getUuid()));
+		assertEquals(Optional.of(image2), this.fileStorageService.getMedia(image2.getUuid()));
+		assertEquals(Optional.of(video), this.fileStorageService.getMedia(video.getUuid()));
+		assertEquals(Optional.of(video2), this.fileStorageService.getMedia(video2.getUuid()));
 		assertEquals(Optional.empty(), this.fileStorageService.getMedia(0));
 	}
 
