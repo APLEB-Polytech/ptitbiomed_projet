@@ -30,7 +30,7 @@
     <div *ngIf="userService.isAdmin | async" class="lien">
       <a [matMenuTriggerFor]="administration" routerLink=""><p>Administration</p></a>
       <mat-menu #administration="matMenu">
-        <a routerLink="admin/utilisateurs">
+        <a routerLink="admin/user">
           <button mat-menu-item>Utilisateurs</button>
         </a>
       </mat-menu>

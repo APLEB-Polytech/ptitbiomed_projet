@@ -16,7 +16,6 @@ import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {FooterComponent} from './layouts/footer/footer.component';
 import {AccueilComponent} from './accueil/accueil.component';
 import {MatMenuModule} from "@angular/material/menu";
-import {ListeUtilisateursComponent} from './admin/utilisateurs/liste-utilisateurs/liste-utilisateurs.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {JwtInterceptor} from "./services/jwt.interceptor";
@@ -29,7 +28,6 @@ import {JwtInterceptor} from "./services/jwt.interceptor";
     NavbarComponent,
     FooterComponent,
     AccueilComponent,
-    ListeUtilisateursComponent
   ],
   imports: [
     BrowserModule,
