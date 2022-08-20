@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -42,15 +40,10 @@ public class UserService {
 	}
 
 	private UserDto transformUserToUserDTO(User user) {
-		Set<UserDto.RoleDto> roleDtos = user.getRoles()
-				.stream()
-				.map(role -> new UserDto.RoleDto(role.getId(), role.getName()))
-				.collect(Collectors.toSet());
 		return new UserDto(
 				user.getId(),
 				user.getUsername(),
-				user.getEmail(),
-				roleDtos
+				user.getEmail()
 		);
 	}
 }
