@@ -2,7 +2,47 @@
   <div id="logo_ptitbiomed">
     <img alt="ptitBioMed Logo" src="../../../assets/img/ptitbiomed_logo.png">
   </div>
-  <div id="liens">
+  <ul id="liens" *ngIf="menuItems">
+    <li *ngFor="let item of menuItems">
+      <a *ngIf="item.link; else dropdown" href="{{item.link}}" class="link">{{item.label}}</a>
+      <ng-template #dropdown>
+        <div class="dropdown">
+          <div class="dropdown-button">{{item.label}}</div>
+          <div *ngIf="item.submenuas" class="dropdown-content">
+            <div *ngFor="let submenua of item.submenuas">
+              <a *ngIf="submenua.link; else dropdown2" href="{{submenua.link}}">{{submenua.label}}</a>
+              <ng-template #dropdown2>
+                <div class="dropdown2">
+                  <div class="dropdown-button2">{{submenua.label}}</div>
+                  <div *ngIf="submenua.submenubs" class="dropdown-content2">
+                    <div *ngFor="let submenub of submenua.submenubs">
+                      <a href="{{submenub.link}}">{{submenub.label}}</a>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li *ngIf="userService.user && userService.user.admin">
+      <a [matMenuTriggerFor]="administration" routerLink="" class="link"><p>Administration</p></a>
+      <mat-menu #administration="matMenu">
+        <a routerLink="admin/utilisateurs">
+          <button mat-menu-item>Utilisateurs</button>
+        </a>
+      </mat-menu>
+    </li>
+    <li *ngIf="!userService.user">
+      <a routerLink="login" class="link">Connexion</a>
+    </li>
+    <li *ngIf="userService.user">
+      <a (click)="logout()" href="" class="lien">Déconnexion</a>
+    </li>
+  </ul>
+  <!--
+  <div id="liens" *ngIf="menuItems" [dataSource]="menuItems">
     <div class="lien">
       <a routerLink=""><p>Accueil</p></a>
     </div>
@@ -35,5 +75,5 @@
     <div *ngIf="userService.user" class="lien">
       <a (click)="logout()" href=""><p>Deconnexion</p></a>
     </div>
-  </div>
+  </div>-->
 </div>

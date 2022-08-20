@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import {IMenu} from "../../shared/model/IMenu";
+import {MenuService} from "../../services/menu.service";
 
 @Component({
   selector: 'app-navbar',
@@ -9,15 +11,30 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public userService: UserService, private router: Router) {
+  @Input()
+  menuItems: IMenu[] | undefined;
+
+  constructor(public userService: UserService, public menuService: MenuService, private router: Router) {
   }
 
   ngOnInit(): void {
+    if (this.menuItems == undefined) {
+      this.loadMenu()
+    }
+  }
+
+  loadMenu() {
+    this.menuService.getAllMenu().subscribe(
+      (data) => {
+        if (data.ok && data.body) {
+          this.menuItems = data.body;
+        }
+      });
   }
 
   logout(): void {
     this.userService.user = undefined
-    this.router.navigate(['']);
+    this.router.navigate(['accueil']);
   }
 
 }

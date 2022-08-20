@@ -17,6 +17,9 @@ import {FooterComponent} from './layouts/footer/footer.component';
 import {AccueilComponent} from './accueil/accueil.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {ListeUtilisateursComponent} from './admin/utilisateurs/liste-utilisateurs/liste-utilisateurs.component';
+import {PanelComponent} from './admin/panel/panel.component';
+import {MatTreeModule} from "@angular/material/tree";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import {ListeUtilisateursComponent} from './admin/utilisateurs/liste-utilisateur
     NavbarComponent,
     FooterComponent,
     AccueilComponent,
-    ListeUtilisateursComponent
+    ListeUtilisateursComponent,
+    PanelComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,9 @@ import {ListeUtilisateursComponent} from './admin/utilisateurs/liste-utilisateur
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTreeModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

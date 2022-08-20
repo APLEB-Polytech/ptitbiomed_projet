@@ -83,5 +83,115 @@
             <column name="role_id" valueNumeric="3"/>
             <column name="user_id" valueNumeric="3"/>
         </insert>
+
+
+
+        <createTable tableName="menu">
+            <column name="id" autoIncrement="true" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_menu"/>
+            </column>
+            <column name="rank" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="link" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="submenua">
+            <column name="id" autoIncrement="true" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_submenua"/>
+            </column>
+            <column name="label" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_parent" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="link" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="id_parent" baseTableName="submenua" constraintName="fk_submenu_on_menu"
+                                 referencedColumnNames="id" referencedTableName="menu"/>
+
+        <createTable tableName="submenub">
+            <column name="id" autoIncrement="true" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_submenub"/>
+            </column>
+            <column name="label" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_parent" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="link" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="id_parent" baseTableName="submenub" constraintName="fk_submenub_on_submenua"
+                                 referencedColumnNames="id" referencedTableName="submenua"/>
+
+        <insert tableName="menu">
+            <column name="label" value="Accueil"/>
+            <column name="rank" value="1"/>
+            <column name="link" value="accueil"/>
+        </insert>
+        <insert tableName="menu">
+            <column name="label" value="AFIB"/>
+            <column name="rank" value="2"/>
+        </insert>
+        <insert tableName="menu">
+            <column name="label" value="Editions"/>
+            <column name="rank" value="3"/>
+        </insert>
+        <insert tableName="menu">
+            <column name="label" value="Partenaires"/>
+            <column name="rank" value="4"/>
+        </insert>
+        <insert tableName="menu">
+            <column name="label" value="Actualités"/>
+            <column name="rank" value="5"/>
+        </insert>
+        <insert tableName="menu">
+            <column name="label" value="Nous"/>
+            <column name="rank" value="6"/>
+        </insert>
+        <insert tableName="submenua">
+            <column name="label" value="Conférence des journées de l'AFIB"/>
+            <column name="link" value="z"/>
+            <column name="id_parent" value="2"/>
+        </insert>
+        <insert tableName="submenua">
+            <column name="label" value="Entreprises des journées de l'AFIB"/>
+            <column name="link" value="z"/>
+            <column name="id_parent" value="2"/>
+        </insert>
+        <insert tableName="submenua">
+            <column name="label" value="2022"/>
+            <column name="id_parent" value="3"/>
+        </insert>
+        <insert tableName="submenua">
+            <column name="label" value="2021"/>
+            <column name="id_parent" value="3"/>
+        </insert>
+        <insert tableName="submenub">
+            <column name="label" value="article 1"/>
+            <column name="link" value="2022/article1"/>
+            <column name="id_parent" value="3"/>
+        </insert>
+        <insert tableName="submenub">
+            <column name="label" value="article 2"/>
+            <column name="link" value="2022/article2"/>
+            <column name="id_parent" value="3"/>
+        </insert>
+
+
+    </changeSet>
+
+    <changeSet author="Antoine Breso" id="43151278369">
     </changeSet>
 </databaseChangeLog>
