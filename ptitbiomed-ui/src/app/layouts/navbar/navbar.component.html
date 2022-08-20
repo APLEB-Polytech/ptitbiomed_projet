@@ -19,6 +19,13 @@
       <a routerLink=""><p>Actualités</p></a>
     </div>
     <div *ngIf="userService.user && userService.user.admin" class="lien">
+	    <p [matMenuTriggerFor]="articles">Articles</p>
+	    <mat-menu #articles>
+		    <button mat-menu-item routerLink="article">Liste des articles</button>
+		    <button mat-menu-item routerLink="article/new">Ajouter un article</button>
+	    </mat-menu>
+    </div>
+    <div *ngIf="userService.user && userService.user.admin" class="lien">
       <a routerLink="medias/upload"><p>Upload</p></a>
     </div>
     <div *ngIf="userService.user && userService.user.admin" class="lien">

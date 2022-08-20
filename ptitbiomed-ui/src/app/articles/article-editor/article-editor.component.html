@@ -1,0 +1,30 @@
+<h1>Éditeur d'article</h1>
+
+<div class="editor">
+	<form id="editor-source"
+	      [formGroup]="formArticle"
+	      (ngSubmit)="createArticle()">
+		<mat-form-field>
+			<mat-label>Titre :</mat-label>
+			<input matInput formControlName="title"/>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Auteur :</mat-label>
+			<input matInput formControlName="author"/>
+		</mat-form-field>
+
+		<button [disabled]="!formArticle.valid">Créer</button>
+
+		<mat-form-field>
+			<mat-label>HTML de l'article</mat-label>
+			<textarea matInput
+			          formControlName="content">
+			</textarea>
+		</mat-form-field>
+	</form>
+
+	<app-article-renderer id="editor-render"
+	                      [content]="htmlContent">
+	</app-article-renderer>
+</div>

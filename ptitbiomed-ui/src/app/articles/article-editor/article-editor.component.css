@@ -1,0 +1,18 @@
+.editor {
+	display: flex;
+}
+
+.editor > * {
+	min-height: 1em;
+	width: 50%;
+}
+
+#editor-source {
+	left: 0;
+	background-color: aquamarine;
+}
+
+#editor-render {
+	right: 0;
+	background-color: cadetblue;
+}
