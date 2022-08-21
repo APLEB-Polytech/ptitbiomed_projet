@@ -1,10 +1,9 @@
 package fr.apleb.ptitbiomedapi.controller;
 
-import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.article.ArticleCreationDto;
-import fr.apleb.ptitbiomedapi.model.article.ArticleUpdateDto;
 import fr.apleb.ptitbiomedapi.model.article.ArticleHeaderDto;
 import fr.apleb.ptitbiomedapi.model.article.ArticleReadDto;
+import fr.apleb.ptitbiomedapi.model.article.ArticleUpdateDto;
 import fr.apleb.ptitbiomedapi.service.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +26,13 @@ public class ArticleController {
 
 	@GetMapping
 	private ResponseEntity<List<ArticleHeaderDto>> getAllArticleHeaders() {
-		logger.debug("REST GET articleHeaders");
+		logger.info("REST GET articleHeaders");
 		return ResponseEntity.ok(articleService.getArticleHeaders());
 	}
 
 	@GetMapping("/{uuid}")
 	private ResponseEntity<ArticleReadDto> read_by_uuid(@PathVariable UUID uuid) {
+		logger.info("REST GET read_by_uuid : {}", uuid);
 		return ResponseEntity.of(articleService.getArticle(uuid));
 	}
 

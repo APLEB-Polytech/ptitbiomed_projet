@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ArticleService {
@@ -22,7 +21,7 @@ public class ArticleService {
 	public List<ArticleHeaderDto> getArticleHeaders() {
 		return articleRepository.findAllByOrderByCreationTimeDesc().stream()
 				.map(ArticleHeaderDto::new)
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	public Optional<ArticleReadDto> getArticle(UUID uuid) {
