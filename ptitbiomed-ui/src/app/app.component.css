@@ -1,0 +1,18 @@
+#container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#precontainer {
+  overflow: auto;
+  max-height: 60%;
+}
+
+app-navbar {
+  height: 10%;
+}
+
+app-footer {
+  height: 15%;
+}
+

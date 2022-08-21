@@ -1,10 +1,10 @@
 package fr.apleb.ptitbiomedapi.model.article;
 
-import javax.persistence.*;
-import java.time.Instant;
-import java.util.UUID;
-
 import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "article")
@@ -15,10 +15,10 @@ public class Article {
 	private UUID uuid;
 
 	@Column(nullable = false)
-	private Instant creationTime;
+	private LocalDateTime creationTime;
 
 	@Column(nullable = false)
-	private Instant updateTime;
+	private LocalDateTime updateTime;
 
 	@Column(nullable = false)
 	private String author;
@@ -29,16 +29,51 @@ public class Article {
 	@Column(nullable = false)
 	private String html;
 
-	public UUID getUuid() {return uuid;}
-	public void setUuid(UUID id) {this.uuid = id;}
-	public Instant getCreationTime() {return creationTime;}
-	public void setCreationTime(Instant creationTime) {this.creationTime = creationTime;}
-	public Instant getUpdateTime() {return updateTime;}
-	public void setUpdateTime(Instant updateTime) {this.updateTime = updateTime;}
-	public String getAuthor() {return author;}
-	public void setAuthor(String author) {this.author = author;}
-	public String getTitle() {return title;}
-	public void setTitle(String title) {this.title = title;}
-	public String getHtml() {return html;}
-	public void setHtml(String html) {this.html = html;}
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID id) {
+		this.uuid = id;
+	}
+
+	public LocalDateTime getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(LocalDateTime creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public LocalDateTime getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(LocalDateTime updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
+	}
 }

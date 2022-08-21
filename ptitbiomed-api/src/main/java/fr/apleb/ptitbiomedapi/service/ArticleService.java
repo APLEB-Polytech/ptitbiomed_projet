@@ -1,17 +1,15 @@
 package fr.apleb.ptitbiomedapi.service;
 
-import java.time.Instant;
+import fr.apleb.ptitbiomedapi.exception.NotFoundException;
+import fr.apleb.ptitbiomedapi.model.article.*;
+import fr.apleb.ptitbiomedapi.repository.ArticleRepository;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import fr.apleb.ptitbiomedapi.model.article.Article;
-import fr.apleb.ptitbiomedapi.model.article.ArticleCreationDto;
-import fr.apleb.ptitbiomedapi.model.article.ArticleHeaderDto;
-import fr.apleb.ptitbiomedapi.model.article.ArticleReadDto;
-import fr.apleb.ptitbiomedapi.repository.ArticleRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class ArticleService {
@@ -32,7 +30,7 @@ public class ArticleService {
 	}
 
 	public void createNew(ArticleCreationDto articleCreation) {
-		final Instant now = Instant.now();
+		final LocalDateTime now = LocalDateTime.now();
 
 		final Article article = new Article();
 		article.setCreationTime(now);
@@ -44,4 +42,12 @@ public class ArticleService {
 		articleRepository.save(article);
 	}
 
+	public void updateArticle(ArticleDTO articleReadDto) {
+		Article article = this.articleRepository.findById(articleReadDto.uuid()).orElseThrow(NotFoundException::new);
+		article.setTitle(articleReadDto.title());
+		article.setAuthor(articleReadDto.author());
+		article.setHtml(articleReadDto.html());
+		article.setUpdateTime(LocalDateTime.now());
+		this.articleRepository.save(article);
+	}
 }

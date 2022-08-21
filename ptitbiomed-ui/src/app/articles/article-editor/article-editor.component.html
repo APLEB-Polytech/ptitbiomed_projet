@@ -1,30 +1,36 @@
-<h1>Éditeur d'article</h1>
+<h1>{{titre}}</h1>
 
 <div class="editor">
-	<form id="editor-source"
-	      [formGroup]="formArticle"
-	      (ngSubmit)="createArticle()">
-		<mat-form-field>
-			<mat-label>Titre :</mat-label>
-			<input matInput formControlName="title"/>
-		</mat-form-field>
+  <form (ngSubmit)="createArticle()"
+        [formGroup]="formArticle"
+        id="editor-source">
+    <div id="enteteForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Titre :</mat-label>
+        <input formControlName="title" matInput/>
+      </mat-form-field>
 
-		<mat-form-field>
-			<mat-label>Auteur :</mat-label>
-			<input matInput formControlName="author"/>
-		</mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Auteur :</mat-label>
+        <input formControlName="author" matInput/>
+      </mat-form-field>
+      <div>
+        <button [disabled]="!formArticle.valid" color="primary" mat-raised-button>Sauvegarder</button>
+      </div>
+    </div>
 
-		<button [disabled]="!formArticle.valid">Créer</button>
+    <mat-divider></mat-divider>
 
-		<mat-form-field>
-			<mat-label>HTML de l'article</mat-label>
-			<textarea matInput
-			          formControlName="content">
+    <button (click)="ajouterMedia()" color="primary" mat-raised-button type="button">Ajouter un media</button>
+    <mat-form-field appearance="fill" id="textAreaInput">
+      <mat-label>HTML de l'article</mat-label>
+      <textarea formControlName="content"
+                matInput>
 			</textarea>
-		</mat-form-field>
-	</form>
+    </mat-form-field>
+  </form>
 
-	<app-article-renderer id="editor-render"
-	                      [content]="htmlContent">
-	</app-article-renderer>
+  <app-article-renderer [content]="htmlContent"
+                        id="editor-render">
+  </app-article-renderer>
 </div>

@@ -6,6 +6,7 @@ import {ConnectedGuard} from "../shared/guard/connected.guard";
 
 const routes: Routes = [
   {path: '', component: ListeArticlesComponent, canActivate: [ConnectedGuard]},
+  {path: 'edit/:uuid', component: ArticleEditorComponent, canActivate: [ConnectedGuard]},
   {path: 'new', component: ArticleEditorComponent, canActivate: [ConnectedGuard]},
 ];
 

@@ -1,9 +1,9 @@
 package fr.apleb.ptitbiomedapi.model.article;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
-public record ArticleReadDto(Instant creationTime,
-                             Instant updateTime,
+public record ArticleReadDto(LocalDateTime creationTime,
+                             LocalDateTime updateTime,
                              String author,
                              String title,
                              String html) {

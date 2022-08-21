@@ -4,15 +4,27 @@ import {Observable} from "rxjs";
 import {IArticle} from "../shared/model/IArticle";
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root'
 })
 export class ArticleService {
 
-	constructor(private http: HttpClient) {
-	}
+  constructor(private http: HttpClient) {
+  }
 
-	addArticle(article: IArticle): Observable<HttpResponse<any>> {
-		return this.http.post<any>('/api/article/save-new', article, {observe: 'response'})
-	}
+  addArticle(article: IArticle): Observable<HttpResponse<any>> {
+    return this.http.post<any>('/api/article', article, {observe: 'response'})
+  }
+
+  getAllArticles(): Observable<HttpResponse<IArticle[]>> {
+    return this.http.get<IArticle[]>('/api/article', {observe: 'response'})
+  }
+
+  updateArticle(article: IArticle): Observable<HttpResponse<any>> {
+    return this.http.put<any>('/api/article', article, {observe: 'response'})
+  }
+
+  getArticleByUUID(uuid: string): Observable<HttpResponse<IArticle>> {
+    return this.http.get<IArticle>('/api/article/' + uuid, {observe: 'response'})
+  }
 
 }

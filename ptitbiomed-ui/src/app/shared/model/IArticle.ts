@@ -1,10 +1,10 @@
 export interface IArticle {
-	uuid: string | undefined;
-	creationTime: Date | undefined;
-	updateTime: Date | undefined;
-	author: string;
-	title: string;
-	html: string;
+  uuid: string | undefined;
+  creationTime: Date | undefined;
+  updateTime: Date | undefined;
+  author: string;
+  title: string;
+  html: string | undefined;
 }
 
 export class Article implements IArticle {

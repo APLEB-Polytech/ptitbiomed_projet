@@ -1,4 +1,57 @@
 <h1>Liste des articles</h1>
-<div>
-	<!-- TODO -->
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input #input (keyup)="applyFilter($event)" matInput placeholder="Ex. Mia">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table [dataSource]="dataSource" mat-table matSort matSortActive="creationTime" matSortDirection="desc">
+
+    <ng-container matColumnDef="author">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Auteur</th>
+      <td *matCellDef="let row" mat-cell> {{row.author}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="title">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Titre</th>
+      <td *matCellDef="let row" mat-cell> {{row.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="creationTime">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Date de création</th>
+      <td *matCellDef="let row" mat-cell> {{row.creationTime|date: 'dd-MM-yyyy HH:mm:ss'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updateTime">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Date de modification</th>
+      <td *matCellDef="let row" mat-cell> {{row.updateTime|date: 'dd-MM-yyyy HH:mm:ss'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="outils">
+      <th *matHeaderCellDef mat-header-cell> Outils</th>
+      <td *matCellDef="let row" mat-cell>
+        <button [matMenuTriggerFor]="menu" color="primary" mat-mini-fab>
+          <mat-icon>build</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a routerLink="edit/{{row.uuid}}">
+            <button mat-menu-item>Modifier</button>
+          </a>
+          <button mat-menu-item>Supprimer</button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr *matNoDataRow class="mat-row">
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
