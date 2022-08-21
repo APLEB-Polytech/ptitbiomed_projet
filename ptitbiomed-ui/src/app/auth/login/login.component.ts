@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
 import {AuthRequest} from "./AuthRequest";
 import {UserService} from "../../services/user.service";
@@ -14,9 +14,9 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class LoginComponent implements OnInit {
   hide = true;
   invalid = false
-  loginForm = new FormGroup({
-    id: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+  loginForm = new UntypedFormGroup({
+    id: new UntypedFormControl('', [Validators.required]),
+    password: new UntypedFormControl('', [Validators.required]),
   });
 
   constructor(
@@ -35,8 +35,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res.ok && res.body) {
-            this.userService.user = res.body
-            this.userService.makeRight()
+            this.userService.authenticate(res.body)
             this.router.navigate([''])
           }
         },

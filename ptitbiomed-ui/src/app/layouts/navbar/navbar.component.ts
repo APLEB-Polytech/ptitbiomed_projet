@@ -33,8 +33,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.userService.user = undefined
-    this.router.navigate(['accueil']);
+    this.userService.logout()
+    this.router.navigate(['']);
   }
 
 }

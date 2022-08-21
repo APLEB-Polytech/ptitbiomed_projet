@@ -1,0 +1,17 @@
+<ng-container *ngIf="media">
+  <mat-card>
+    <mat-card-header>
+      {{media.nom}}
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="isImage()">
+        <img alt="{{media.nom}}" src="/api/media/downloadFile/{{media.hash}}" width="250">
+      </ng-container>
+      <ng-container *ngIf="isVideo()">
+        <video controls width="250">
+          <source src="/api/media/stream/{{media.hash}}" type="{{media.type}}">
+        </video>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</ng-container>

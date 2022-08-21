@@ -6,8 +6,9 @@ import {ListeUtilisateursComponent} from "./admin/utilisateurs/liste-utilisateur
 import {AdminGuard} from "./shared/guard/admin.guard";
 
 const routes: Routes = [
-  {path: 'accueil', component: AccueilComponent},
+  {path: '', component: AccueilComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'medias', loadChildren: () => import('./media/media.module').then(m => m.MediaModule)},
   {
     path: 'admin/utilisateurs', component: ListeUtilisateursComponent, canActivate: [AdminGuard]
   },

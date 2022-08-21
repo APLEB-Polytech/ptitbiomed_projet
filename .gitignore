@@ -1,5 +1,6 @@
-/.gradle/
+
 /gradle/wrapper/gradle-wrapper.jar
 /.idea/uiDesigner.xml
 /.idea/
 /.jpb/
+/.gradle/

@@ -1,24 +1,47 @@
 import {Injectable} from '@angular/core';
 import {IAuthResponse} from "../auth/login/AuthResponse";
+import {BehaviorSubject, Subject} from "rxjs";
+import {CookieService} from "./cookie.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  user?: IAuthResponse
+  userAuthResponse?: IAuthResponse
+  user: Subject<IAuthResponse> = new Subject<IAuthResponse>()
+  isConnected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
 
-  constructor() {
+  constructor(private cookieService: CookieService) {
+    this.checkCookie()
   }
 
-  /**
-   * Attribue les variables booléenes definissant l'état de droit d'un untilisateur
-   */
-  makeRight(): void {
-    if (this.user?.roles) {
-      this.user.admin = this.user.roles.includes("ROLE_ADMIN");
-      this.user.modo = this.user.roles.includes("ROLE_MODERATOR");
-    }
+  checkCookie(): void {
+    const authJson: string = this.cookieService.getCookie("userInfo");
+    if (authJson === '')
+      return;
+    const iAuthResponse: IAuthResponse = JSON.parse(atob(authJson)) as IAuthResponse
+    this.authenticate(iAuthResponse)
+  }
+
+  authenticate(authResponse: IAuthResponse): void {
+    this.isConnected.next(true)
+    this.isAdmin.next(authResponse.roles.includes('ROLE_ADMIN'))
+    this.user.next(authResponse)
+    this.userAuthResponse = authResponse
+    this.cookieService.setCookie({
+      name: 'userInfo',
+      value: btoa(JSON.stringify(authResponse)),
+      expireDays: 1
+    })
+  }
+
+  logout(): void {
+    this.isAdmin.next(false)
+    this.userAuthResponse = undefined
+    this.isConnected.next(false)
+    this.cookieService.deleteCookie('userInfo')
   }
 }

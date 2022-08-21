@@ -1,0 +1,20 @@
+<div id="container">
+  <h1>Upload d'un média</h1>
+  <div *ngIf="currentFile" id="barreProgression">
+    <mat-progress-bar mode="determinate" value="{{progress}}"></mat-progress-bar>
+  </div>
+  <label class="btn btn-default">
+    <input (change)="selectFile($event)" type="file"/>
+  </label>
+  <button (click)="upload()" [disabled]="!selectedFiles" class="btn btn-success">
+    Upload
+  </button>
+  <div class="alert alert-light" role="alert">{{ message }}</div>
+  <div *ngIf="response" id="detailsFichier">
+    <p>Hash : {{response.hash}}</p>
+    <p>Nom : {{response.nom}}</p>
+    <p>Type : {{response.type}}</p>
+    <p>Taille : {{response.taille}} bytes</p>
+  </div>
+</div>
+
