@@ -1,2 +1,5 @@
 <h1>{{(article|async)?.title}}</h1>
+<button (click)="modifierArticle()" *ngIf="userService.isConnected|async" color="primary" mat-raised-button>Modifier
+  l'article
+</button>
 <app-article-renderer *ngIf="content" [content]="content"></app-article-renderer>
