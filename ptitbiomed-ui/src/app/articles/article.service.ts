@@ -26,5 +26,9 @@ export class ArticleService {
   getArticleByUUID(uuid: string): Observable<HttpResponse<IArticle>> {
     return this.http.get<IArticle>('/api/article/' + uuid, {observe: 'response'})
   }
+  
+  deleteArticle(uuid: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>('/api/article/' + uuid, {observe: 'response'})
+  }
 
 }

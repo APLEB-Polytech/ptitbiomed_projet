@@ -38,7 +38,7 @@
           <a routerLink="edit/{{row.uuid}}">
             <button mat-menu-item>Modifier</button>
           </a>
-          <button mat-menu-item>Supprimer</button>
+          <button mat-menu-item (click)="deleteArticle(row.uuid)">Supprimer</button>
         </mat-menu>
       </td>
     </ng-container>
