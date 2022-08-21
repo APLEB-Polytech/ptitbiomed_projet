@@ -77,4 +77,11 @@ public class MediaController {
 		logger.info("REST GET getLesMedias: {}", type);
 		return ResponseEntity.ok(fileStorageService.getAllMedias(type));
 	}
+
+	@DeleteMapping("/{hash}")
+	public ResponseEntity<Void> deleteMedia(@PathVariable int hash) {
+		logger.info("REST DELETE deleteMedia : {}", hash);
+		this.fileStorageService.deleteMedia(hash);
+		return ResponseEntity.noContent().build();
+	}
 }
