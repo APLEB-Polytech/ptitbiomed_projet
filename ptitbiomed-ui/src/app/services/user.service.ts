@@ -11,7 +11,6 @@ export class UserService {
   userAuthResponse?: IAuthResponse
   user: Subject<IAuthResponse> = new Subject<IAuthResponse>()
   isConnected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
-  isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
 
   constructor(private cookieService: CookieService) {
@@ -28,7 +27,6 @@ export class UserService {
 
   authenticate(authResponse: IAuthResponse): void {
     this.isConnected.next(true)
-    this.isAdmin.next(authResponse.roles.includes('ROLE_ADMIN'))
     this.user.next(authResponse)
     this.userAuthResponse = authResponse
     this.cookieService.setCookie({
@@ -39,7 +37,6 @@ export class UserService {
   }
 
   logout(): void {
-    this.isAdmin.next(false)
     this.userAuthResponse = undefined
     this.isConnected.next(false)
     this.cookieService.deleteCookie('userInfo')

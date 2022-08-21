@@ -1,0 +1,49 @@
+<a routerLink="add">
+  <button color="primary" mat-raised-button>Ajouter un utilisateur</button>
+</a>
+<mat-form-field appearance="standard">
+  <mat-label>Filtre</mat-label>
+  <input #input (keyup)="applyFilter($event)" matInput placeholder="Ex. root">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table [dataSource]="dataSource" mat-table matSort>
+
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> ID</th>
+      <td *matCellDef="let row" mat-cell> {{row.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="username">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Username</th>
+      <td *matCellDef="let row" mat-cell> {{row.username}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Email</th>
+      <td *matCellDef="let row" mat-cell> {{row.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="outils">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Outils</th>
+      <td *matCellDef="let row" mat-cell>
+        <button [matMenuTriggerFor]="menu" color="primary" mat-mini-fab>
+          <mat-icon>build</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="delUser(row)" mat-menu-item>Supprimer</button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr *matNoDataRow class="mat-row">
+      <td class="mat-cell" colspan="4">Il n'y a pas d'utilisateurs correspondants a : "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>

@@ -1,0 +1,13 @@
+<h1>Import d'un média</h1>
+<mat-tab-group>
+  <mat-tab label="Images">
+    <ng-container *ngFor="let image of images|async">
+      <app-media-details (click)="valider(image)" [media]="image"></app-media-details>
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="Vidéos">
+    <ng-container (click)="valider(video)" *ngFor="let video of videos|async">
+      <app-media-details (click)="valider(video)" [media]="video"></app-media-details>
+    </ng-container>
+  </mat-tab>
+</mat-tab-group>

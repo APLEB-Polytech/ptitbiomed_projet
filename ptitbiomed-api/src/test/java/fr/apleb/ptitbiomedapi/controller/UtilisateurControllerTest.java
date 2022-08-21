@@ -1,16 +1,18 @@
 package fr.apleb.ptitbiomedapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.apleb.ptitbiomedapi.dto.UserDto;
+import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.user.User;
 import fr.apleb.ptitbiomedapi.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -24,8 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-@ActiveProfiles("test")
-class UserControllerTest {
+class UtilisateurControllerTest {
 
 	private final User user1 = new User();
 	private final User user2 = new User();
@@ -33,7 +34,7 @@ class UserControllerTest {
 	private final List<User> users = List.of(user1, user2);
 
 	@MockBean
-	private UserService mockRepository;
+	private UserService mockUserService;
 
 	@Autowired
 	private MockMvc mvc;
@@ -56,37 +57,36 @@ class UserControllerTest {
 		user2.setUsername("test2");
 		user2.setRoles(new HashSet<>());
 
-		when(mockRepository.getUserByID(1L)).thenReturn(Optional.of(user1));
-		when(mockRepository.getUserByID(2L)).thenReturn(Optional.of(user2));
-		when(mockRepository.getAllUsers()).thenReturn(users);
+		when(mockUserService.getUserByID(1L)).thenReturn(Optional.of(user1));
+		when(mockUserService.getUserByID(2L)).thenReturn(Optional.of(user2));
+		when(mockUserService.getAllUsers()).thenReturn(users);
 	}
 
 	@Test
 	void getAllUsers() throws Exception {
+		List<UserDto> usersDTO = List.of(
+				new UserDto(user1.getId(), user1.getUsername(), user1.getEmail()),
+				new UserDto(user2.getId(), user2.getUsername(), user2.getEmail())
+		);
+		when(mockUserService.getAllUsersDTO()).thenReturn(usersDTO);
 		mvc.perform(MockMvcRequestBuilders
 						.get("/api/user")
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().json(objectMapper.writeValueAsString(users)));
+				.andExpect(content().json(objectMapper.writeValueAsString(usersDTO)));
 	}
 
 	@Test
-	void getUserByID() throws Exception {
+	void deleteUser() throws Exception {
+		Mockito.doThrow(new NotFoundException()).when(mockUserService).deleteUser(1L);
 		mvc.perform(MockMvcRequestBuilders
-						.get("/api/user/1")
-						.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(content().json(objectMapper.writeValueAsString(user1)));
-
-		mvc.perform(MockMvcRequestBuilders
-						.get("/api/user/2")
-						.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(content().json(objectMapper.writeValueAsString(user2)));
-
-		mvc.perform(MockMvcRequestBuilders
-						.get("/api/user/3")
+						.delete("/api/user/1")
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNotFound());
+		mvc.perform(MockMvcRequestBuilders
+						.delete("/api/user/2")
+						.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNoContent());
 	}
+
 }

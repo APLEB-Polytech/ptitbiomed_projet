@@ -6,7 +6,7 @@ import {UserService} from "../../services/user.service";
 @Injectable({
   providedIn: 'root'
 })
-export class ModoGuard implements CanActivate {
+export class ConnectedGuard implements CanActivate {
 
   constructor(private userService: UserService) {
   }
@@ -14,7 +14,7 @@ export class ModoGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return false;
+    return this.userService.isConnected
   }
 
 }
