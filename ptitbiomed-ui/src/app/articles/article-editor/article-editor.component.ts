@@ -94,10 +94,14 @@ export class ArticleEditorComponent implements OnInit {
     })
 
     dialog.afterClosed().subscribe((media: IMedia) => {
+      let html: string = ''
       if (media.type.startsWith('image/')) {
-        const html: string = `<img alt="" loading="lazy" src="/api/media/downloadFile/${media.hash}">`
-        this.formArticle.controls['content'].setValue(this.formArticle.controls['content'].value + html)
+        html = `<img alt="" loading="lazy" src="/api/media/downloadFile/${media.hash}\n">`
+      } else {
+        html = `<video controls preload="metadata" width="250"> <source type="${media.type}" src="/api/media/stream/${media.hash}"> </video>\n`
       }
+      this.formArticle.controls['content'].setValue(this.formArticle.controls['content'].value + html)
+
     })
   }
 }
