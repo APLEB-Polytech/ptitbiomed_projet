@@ -50,4 +50,16 @@ export class ListeArticlesComponent implements AfterViewInit {
     }
   }
 
+  deleteArticle(uuid: string) {
+    if (!window.confirm("DELETE?")) return
+    
+    this.articleService.deleteArticle(uuid).subscribe({
+      next: (response:HttpResponse<any>) => {
+        if (!response.ok) {
+          throw new Error('Erreur lors de la suppression de l\'article')
+        }
+        this.loadArticles()
+      }
+    })
+  }
 }

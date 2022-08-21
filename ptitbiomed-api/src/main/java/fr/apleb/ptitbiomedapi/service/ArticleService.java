@@ -42,12 +42,17 @@ public class ArticleService {
 		articleRepository.save(article);
 	}
 
-	public void updateArticle(ArticleDTO articleReadDto) {
+	public void updateArticle(ArticleUpdateDto articleReadDto) {
 		Article article = this.articleRepository.findById(articleReadDto.uuid()).orElseThrow(NotFoundException::new);
 		article.setTitle(articleReadDto.title());
 		article.setAuthor(articleReadDto.author());
 		article.setHtml(articleReadDto.html());
 		article.setUpdateTime(LocalDateTime.now());
 		this.articleRepository.save(article);
+	}
+	
+	public void deleteArticle(UUID uuid) {
+		if (!this.articleRepository.existsById(uuid)) throw new NotFoundException();
+		this.articleRepository.deleteById(uuid);
 	}
 }
