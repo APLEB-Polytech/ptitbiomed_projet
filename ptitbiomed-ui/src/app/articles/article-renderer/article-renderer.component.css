@@ -71,8 +71,10 @@ img, video {
 
 .media {
 	margin: auto;
-	padding: 1rem;
 	text-align: center;
+}
+.medias > .media {
+	margin: 1rem;
 }
 .media > p {
 	max-width: 100%;
