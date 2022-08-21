@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {IMenu} from "../../shared/model/IMenu";
 import {MenuService} from "../../services/menu.service";
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -76,7 +77,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.menuItems == undefined) {
-      this.loadMenu()
+      this.loadMenu();
     }
   }
 
