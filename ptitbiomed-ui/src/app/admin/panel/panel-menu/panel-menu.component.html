@@ -8,6 +8,14 @@
         Rang : {{menu.rank}}
       </mat-panel-description>
     </mat-expansion-panel-header>
+    <button (click)="afficherForm = !afficherForm" color="primary" mat-raised-button>Ajouter un menu</button>
     <app-panel-sub-menu *ngFor="let subMenu of menu.submenuas" [menu]="subMenu"></app-panel-sub-menu>
+    <form *ngIf="afficherForm" [formGroup]="formMenuAdd">
+      <mat-form-field appearance="fill">
+        <mat-label>Nom du menu</mat-label>
+        <input formControlName="name" matInput/>
+      </mat-form-field>
+      <button [disabled]="!formMenuAdd.valid" color="primary" mat-raised-button>Valider</button>
+    </form>
   </mat-expansion-panel>
 </mat-accordion>

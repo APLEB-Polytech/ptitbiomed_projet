@@ -26,60 +26,22 @@
         </div>
       </ng-template>
     </li>
-    <li *ngIf="userService.user && userService.user.admin">
+    <li *ngIf="(userService.user|async) && (userService.isAdmin|async)">
       <a [matMenuTriggerFor]="administration" routerLink="" class="link"><p>Administration</p></a>
       <mat-menu #administration="matMenu">
         <a routerLink="admin/utilisateurs">
           <button mat-menu-item>Utilisateurs</button>
         </a>
+        <a routerLink="admin/panel">
+          <button mat-menu-item>Panel</button>
+        </a>
       </mat-menu>
     </li>
-    <li *ngIf="!userService.user">
+    <li *ngIf="!(userService.user|async)">
       <a routerLink="login" class="link">Connexion</a>
     </li>
-    <li *ngIf="userService.user">
+    <li *ngIf="userService.user|async">
       <a (click)="logout()" href="" class="lien">Déconnexion</a>
     </li>
   </ul>
-  <!--
-  <div id="liens" *ngIf="menuItems" [dataSource]="menuItems">
-    <div class="lien">
-      <a routerLink=""><p>Accueil</p></a>
-    </div>
-    <div class="lien">
-      <a routerLink=""><p>AFIB</p></a>
-    </div>
-    <div class="lien">
-      <a routerLink=""><p>Editions</p></a>
-    </div>
-    <div class="lien">
-      <a routerLink=""><p>Partenaires</p></a>
-    </div>
-    <div class="lien">
-      <a routerLink=""><p>Actualités</p></a>
-    </div>
-    <div *ngIf="userService.isAdmin | async" class="lien">
-      <a routerLink="medias/upload"><p>Upload</p></a>
-    </div>
-    <div *ngIf="userService.isAdmin | async" class="lien">
-      <a routerLink="medias"><p>Liste des médias</p></a>
-    </div>
-    <div class="lien">
-      <a routerLink=""><p>Nous</p></a>
-    </div>
-    <div *ngIf="userService.isAdmin | async" class="lien">
-      <a [matMenuTriggerFor]="administration" routerLink=""><p>Administration</p></a>
-      <mat-menu #administration="matMenu">
-        <a routerLink="admin/utilisateurs">
-          <button mat-menu-item>Utilisateurs</button>
-        </a>
-      </mat-menu>
-    </div>
-    <div *ngIf="!(userService.isConnected | async)" class="lien">
-      <a routerLink="login"><p>Connexion</p></a>
-    </div>
-    <div *ngIf="userService.isConnected | async" class="lien">
-      <a (click)="logout()" href=""><p>Deconnexion</p></a>
-    </div>
-  </div>-->
 </div>
