@@ -26,17 +26,31 @@
         </div>
       </ng-template>
     </li>
-    <li *ngIf="userService.isConnected|async">
-      <a [matMenuTriggerFor]="administration" routerLink="" class="link"><p>Administration</p></a>
-      <mat-menu #administration="matMenu">
-        <a routerLink="admin/user">
-          <button mat-menu-item>Utilisateurs</button>
-        </a>
-        <a routerLink="admin/panel">
-          <button mat-menu-item>Panel</button>
-        </a>
-      </mat-menu>
-    </li>
+    <ng-container *ngIf="userService.isConnected|async">
+      <li *ngFor="let item of menuItemsAdmin">
+        <a *ngIf="item.link; else dropdown" class="link" href="{{item.link}}">{{item.label}}</a>
+        <ng-template #dropdown>
+          <div class="dropdown">
+            <div class="dropdown-button">{{item.label}}</div>
+            <div *ngIf="item.submenuas" class="dropdown-content">
+              <div *ngFor="let submenua of item.submenuas">
+                <a *ngIf="submenua.link; else dropdown2" href="{{submenua.link}}">{{submenua.label}}</a>
+                <ng-template #dropdown2>
+                  <div class="dropdown2">
+                    <div class="dropdown-button2">{{submenua.label}}</div>
+                    <div *ngIf="submenua.submenubs" class="dropdown-content2">
+                      <div *ngFor="let submenub of submenua.submenubs">
+                        <a href="{{submenub.link}}">{{submenub.label}}</a>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ng-container>
     <li *ngIf="!(userService.isConnected|async)">
       <a routerLink="login" class="link">Connexion</a>
     </li>
