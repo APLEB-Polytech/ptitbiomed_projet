@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IMedia} from "../../shared/model/IMedia";
+import {MediaService} from "../media.service";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-media-details',
@@ -11,7 +13,7 @@ export class MediaDetailsComponent implements OnInit {
   @Input()
   media: IMedia | undefined;
 
-  constructor() {
+  constructor(private mediaService: MediaService) {
   }
 
   ngOnInit(): void {
@@ -27,4 +29,20 @@ export class MediaDetailsComponent implements OnInit {
     return this.media.type.startsWith('video');
   }
 
+  supprimer() {
+    if (!this.media) {
+      return;
+    }
+    if (!window.confirm("Voulez-vous vraiment supprimer ?")) {
+      return;
+    }
+    this.mediaService.deleteMedia(this.media.hash).subscribe({
+      next: (response: HttpResponse<any>) => {
+        if (!response.ok) {
+          throw new Error('Erreur lors de la suppression')
+        }
+        location.reload()
+      }
+    })
+  }
 }

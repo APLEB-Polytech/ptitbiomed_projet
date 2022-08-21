@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ArticleService} from "../article.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subject} from "rxjs";
 import {IArticle} from "../../shared/model/IArticle";
 import {HttpResponse} from "@angular/common/http";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-article-viewer',
@@ -15,7 +16,7 @@ export class ArticleViewerComponent implements OnInit {
   article: Subject<IArticle> = new Subject<IArticle>();
   content: string = ''
 
-  constructor(private articleService: ArticleService, private route: ActivatedRoute) {
+  constructor(private articleService: ArticleService, private route: ActivatedRoute, public userService: UserService, private router: Router) {
     if (this.route.snapshot.params['uuid']) {
       this.loadArticle(this.route.snapshot.params['uuid'])
     }
@@ -36,4 +37,8 @@ export class ArticleViewerComponent implements OnInit {
     })
   }
 
+  modifierArticle(): void {
+    const uuid: string = this.route.snapshot.params['uuid']
+    this.router.navigate(['/article/edit/' + uuid])
+  }
 }

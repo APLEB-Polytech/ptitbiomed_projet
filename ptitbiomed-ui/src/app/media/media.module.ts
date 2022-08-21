@@ -10,6 +10,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {ChooseMediaComponent} from "./choose-media/choose-media.component";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatTabsModule,
     MatCardModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ]
 })
 export class MediaModule {

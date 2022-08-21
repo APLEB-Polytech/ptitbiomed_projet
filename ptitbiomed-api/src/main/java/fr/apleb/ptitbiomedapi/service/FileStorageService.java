@@ -124,4 +124,11 @@ public class FileStorageService {
 				.filter(media -> media.getType().startsWith(type))
 				.toList();
 	}
+
+	public void deleteMedia(int hash) {
+		if (!this.mediaRepository.existsById(hash)) {
+			throw new NotFoundException();
+		}
+		this.mediaRepository.deleteById(hash);
+	}
 }

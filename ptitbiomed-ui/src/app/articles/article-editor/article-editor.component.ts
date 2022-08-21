@@ -7,6 +7,8 @@ import {ChooseMediaComponent} from "../../media/choose-media/choose-media.compon
 import {IMedia} from "../../shared/model/IMedia";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpResponse} from "@angular/common/http";
+import {Clipboard} from "@angular/cdk/clipboard";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-article-editor',
@@ -27,7 +29,9 @@ export class ArticleEditorComponent implements OnInit {
   article?: IArticle
   titre: string = 'Ajouter un article'
 
-  constructor(private articleService: ArticleService, public dialog: MatDialog, private route: ActivatedRoute, private router: Router) {
+  constructor(private articleService: ArticleService, public dialog: MatDialog, private route: ActivatedRoute, private router: Router,
+              private clipboard: Clipboard,
+              private snackbar: MatSnackBar) {
     if (this.route.snapshot.params['uuid']) {
       this.titre = 'Modifier l\'article'
       this.uuidArticle = this.route.snapshot.params['uuid']
@@ -96,12 +100,12 @@ export class ArticleEditorComponent implements OnInit {
     dialog.afterClosed().subscribe((media: IMedia) => {
       let html: string = ''
       if (media.type.startsWith('image/')) {
-        html = `<img alt="" loading="lazy" src="/api/media/downloadFile/${media.hash}\n">`
+        html = `<div class="media petit"> <img alt="" loading="lazy" src="/api/media/downloadFile/${media.hash}\n"><p>${media.nom}</p></div>`
       } else {
-        html = `<video controls preload="metadata" width="250"> <source type="${media.type}" src="/api/media/stream/${media.hash}"> </video>\n`
+        html = `<div class="media petit"><video controls preload="metadata" width="250"> <source type="${media.type}" src="/api/media/stream/${media.hash}"> </video><p>${media.nom}</p></div>\n`
       }
-      this.formArticle.controls['content'].setValue(this.formArticle.controls['content'].value + html)
-
+      this.clipboard.copy(html)
+      this.snackbar.open("Le tag a été copié dans le presse-papier")
     })
   }
 }
