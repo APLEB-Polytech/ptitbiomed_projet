@@ -14,12 +14,14 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
+import {ArticleViewerComponent} from './article-viewer/article-viewer.component';
 
 @NgModule({
   declarations: [
     ListeArticlesComponent,
     ArticleEditorComponent,
-    ArticleRendererComponent
+    ArticleRendererComponent,
+    ArticleViewerComponent
   ],
   imports: [
     CommonModule,

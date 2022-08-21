@@ -35,6 +35,9 @@
           <mat-icon>build</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+          <a routerLink="view/{{row.uuid}}">
+            <button mat-menu-item>Afficher</button>
+          </a>
           <a routerLink="edit/{{row.uuid}}">
             <button mat-menu-item>Modifier</button>
           </a>
