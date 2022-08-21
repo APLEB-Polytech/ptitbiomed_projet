@@ -19,7 +19,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -91,7 +90,7 @@ public class FileStorageService {
 	public Mono<Resource> getVideo(String uuid) {
 		Media media = getMedia(uuid).orElseThrow(NotFoundException::new);
 		return Mono.fromSupplier(() -> this.resourceLoader.getResource(
-				"file:" + fileStorageLocation.resolve(getUUIDNomFichier(media)).toString()
+				"file:" + fileStorageLocation.resolve(getUUIDNomFichier(media))
 		));
 	}
 
