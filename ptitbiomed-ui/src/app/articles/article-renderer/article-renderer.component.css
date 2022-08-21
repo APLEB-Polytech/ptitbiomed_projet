@@ -1,0 +1,47 @@
+
+article {
+	padding: 2em 0;
+}
+
+p {
+	margin:  0;
+	text-align: justify;
+}
+
+p:not(p+p):not(br+p)::first-letter {
+	font-size: 1.7rem;
+	font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 1em 0 1rem;
+}
+
+h1, h2 {
+	text-align: center;
+}
+h3, h4, h5, h6 {
+	margin-left: 2rem;
+}
+
+h1 {
+	font-size: 3rem;
+}
+h2 {
+	font-size: 2.5rem;
+}
+h3 {
+	font-size: 2rem;
+}
+h4 {
+	font-size: 1.5rem;
+}
+h5 {
+	font-size: 1.25rem;
+}
+h6 {
+	font-size: 1.1rem;
+	font-variant: small-caps;
+}
+
+

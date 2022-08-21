@@ -4,7 +4,6 @@ import {MediaService} from "../media.service";
 import {HttpResponse} from "@angular/common/http";
 import {IPaginator} from "../../shared/model/Paginator";
 import {MatDialog} from "@angular/material/dialog";
-import {ChooseMediaComponent} from "../choose-media/choose-media.component";
 
 @Component({
   selector: 'app-liste-media',
@@ -33,9 +32,6 @@ export class ListeMediaComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadImages()
-    this.dialog.open(ChooseMediaComponent, {
-      width: '1500px',
-    });
   }
 
   loadImages(): void {

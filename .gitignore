@@ -4,3 +4,5 @@
 /.idea/
 /.jpb/
 /.gradle/
+/build.mv.db
+/build.trace.db
