@@ -26,7 +26,7 @@
         </div>
       </ng-template>
     </li>
-    <li *ngIf="(userService.user|async) && (userService.isAdmin|async)">
+    <li *ngIf="userService.isConnected|async">
       <a [matMenuTriggerFor]="administration" routerLink="" class="link"><p>Administration</p></a>
       <mat-menu #administration="matMenu">
         <a routerLink="admin/user">

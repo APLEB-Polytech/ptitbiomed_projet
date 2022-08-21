@@ -116,9 +116,8 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-
-
+    </changeSet>
+    <changeSet id="1661104099097-1" author="Antoine Breso">
         <createTable tableName="menu">
             <column name="id" autoIncrement="true" type="int">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_menu"/>
@@ -221,10 +220,7 @@
             <column name="link" value="2022/article2"/>
             <column name="id_parent" value="3"/>
         </insert>
-
-
     </changeSet>
-
     <changeSet author="Antoine Breso" id="43151278369">
     </changeSet>
 	<changeSet id="1659476125-1" author="alexis">
