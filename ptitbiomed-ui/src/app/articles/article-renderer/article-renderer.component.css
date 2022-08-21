@@ -8,7 +8,7 @@ p {
 	text-align: justify;
 }
 
-p:not(p+p):not(br+p)::first-letter {
+p:not(p+p):not(br+p):not(.media>p)::first-letter {
 	font-size: 1.7rem;
 	font-weight: bold;
 }
@@ -44,4 +44,35 @@ h6 {
 	font-variant: small-caps;
 }
 
+img, video {
+	max-width: 100%;
+}
 
+.medias {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: auto;
+}
+
+.media.petit {
+	width: 10em;
+}
+
+.media.moyen {
+	width: 20em;
+}
+
+.media.grand {
+	width: 40em;
+}
+
+.media {
+	margin: 1rem;
+	text-align: center;
+}
+.media > p {
+	max-width: 100%;
+	text-align: center;
+}
