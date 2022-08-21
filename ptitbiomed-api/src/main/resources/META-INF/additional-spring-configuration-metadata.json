@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "apleb.uploadDirectory",
+      "type": "java.lang.String",
+      "description": "Directory where medias should be upload."
+    },
+    {
+      "name": "apleb.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Secret pass for sal JWT."
+    },
+    {
+      "name": "apleb.jwtExpiration",
+      "type": "java.lang.Integer",
+      "description": "JWT expiration (ms)."
+    }
+  ]
+}

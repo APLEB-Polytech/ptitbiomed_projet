@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -113,5 +114,14 @@ public class FileStorageService {
 				.filter(media -> media.getType().startsWith(type))
 				.count();
 		return new Paginator<>(medias, paginator.pageSize(), nbMedias, paginator.actualPage());
+	}
+
+	public List<Media> getAllMedias(String type) {
+		if (!type.equals("image") && !type.equals("video"))
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
+		return mediaRepository.findAll()
+				.stream()
+				.filter(media -> media.getType().startsWith(type))
+				.toList();
 	}
 }

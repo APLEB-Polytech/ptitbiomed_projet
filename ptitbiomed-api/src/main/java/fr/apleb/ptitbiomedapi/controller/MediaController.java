@@ -17,6 +17,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/media")
@@ -29,7 +30,7 @@ public class MediaController {
 	}
 
 	@PostMapping("/uploadFile")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Media> uploadFile(@RequestParam("file") MultipartFile file) throws URISyntaxException {
 		logger.info("REST POST uploadFile: {}", file.getOriginalFilename());
 		Media media = fileStorageService.storeFile(file);
@@ -69,5 +70,11 @@ public class MediaController {
 		logger.info("REST GET getLesMedias: {} {}", type, paginator);
 		Paginator<Media> medias = fileStorageService.getMedias(type, paginator);
 		return ResponseEntity.ok(medias);
+	}
+
+	@GetMapping("/{type}")
+	public ResponseEntity<List<Media>> getLesMedias(@PathVariable String type) {
+		logger.info("REST GET getLesMedias: {}", type);
+		return ResponseEntity.ok(fileStorageService.getAllMedias(type));
 	}
 }
