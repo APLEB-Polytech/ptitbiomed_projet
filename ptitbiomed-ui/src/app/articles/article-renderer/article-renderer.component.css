@@ -1,15 +1,23 @@
 
 article {
 	padding: 2em 0;
-	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+	max-width: 868px;
+	margin: auto;
 }
 
 p {
-	margin:  0;
+	margin: 0;
 	text-align: justify;
 }
 
-p:not(p+p):not(br+p):not(.media>p)::first-letter {
+h1 + p::first-letter,
+h2 + p::first-letter,
+h3 + p::first-letter,
+h4 + p::first-letter,
+h5 + p::first-letter,
+h6 + p::first-letter,
+article > p:first-child::first-letter {
 	font-size: 1.7rem;
 	font-weight: bold;
 }
@@ -21,6 +29,7 @@ h1, h2, h3, h4, h5, h6 {
 h1, h2 {
 	text-align: center;
 }
+
 h3, h4, h5, h6 {
 	margin-left: 2rem;
 }
@@ -28,18 +37,23 @@ h3, h4, h5, h6 {
 h1 {
 	font-size: 3rem;
 }
+
 h2 {
 	font-size: 2.5rem;
 }
+
 h3 {
 	font-size: 2rem;
 }
+
 h4 {
 	font-size: 1.5rem;
 }
+
 h5 {
 	font-size: 1.25rem;
 }
+
 h6 {
 	font-size: 1.1rem;
 	font-variant: small-caps;
@@ -73,9 +87,11 @@ img, video {
 	margin: auto;
 	text-align: center;
 }
+
 .medias > .media {
 	margin: 1rem;
 }
+
 .media > p {
 	max-width: 100%;
 	text-align: center;
@@ -89,4 +105,8 @@ a {
 
 a:hover {
 	text-decoration-color: #8CC1CF;
+}
+
+ul, ol {
+	margin: 0;
 }
