@@ -1,0 +1,7 @@
+<h1>{{(article|async)?.title}}</h1>
+<button (click)="modifierArticle()" *ngIf="userService.isConnected|async" color="primary" mat-raised-button>Modifier
+  l'article
+</button>
+<app-article-renderer *ngIf="content" [content]="content"></app-article-renderer>
+<i>Article écrit par <b>{{(article|async)?.author}}</b> créé le {{(article|async)?.creationTime|date:'dd/MM/yyyy'}} et
+  mis à jour le {{(article|async)?.updateTime|date:'dd/MM/yyyy'}} à {{(article|async)?.updateTime|date:'HH:mm:ss'}}</i>

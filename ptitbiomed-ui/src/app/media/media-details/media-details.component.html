@@ -8,10 +8,11 @@
         <img alt="{{media.nom}}" src="/api/media/downloadFile/{{media.hash}}" width="250">
       </ng-container>
       <ng-container *ngIf="isVideo()">
-        <video controls width="250">
+        <video controls preload="metadata" width="250">
           <source src="/api/media/stream/{{media.hash}}" type="{{media.type}}">
         </video>
       </ng-container>
+      <button (click)="supprimer()" color="warn" mat-raised-button>Supprimer</button>
     </mat-card-content>
   </mat-card>
 </ng-container>

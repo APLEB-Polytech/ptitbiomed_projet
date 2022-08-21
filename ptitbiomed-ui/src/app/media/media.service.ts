@@ -12,11 +12,25 @@ export class MediaService {
   constructor(private http: HttpClient) {
   }
 
-  getAllImages(paginator: IPaginator<IMedia>): Observable<HttpResponse<IPaginator<IMedia>>> {
+  getAllImagesPaginated(paginator: IPaginator<IMedia>): Observable<HttpResponse<IPaginator<IMedia>>> {
     return this.http.post<IPaginator<IMedia>>('/api/media/image', paginator, {observe: 'response'});
   }
 
-  getAllVideos(paginator: IPaginator<IMedia>): Observable<HttpResponse<IPaginator<IMedia>>> {
+  getAllVideosPaginated(paginator: IPaginator<IMedia>): Observable<HttpResponse<IPaginator<IMedia>>> {
     return this.http.post<IPaginator<IMedia>>('/api/media/video', paginator, {observe: 'response'});
   }
+
+  getAllImages(): Observable<HttpResponse<IMedia[]>> {
+    return this.http.get<IMedia[]>(`/api/media/image`, {observe: "response"})
+  }
+
+  getAllVideos(): Observable<HttpResponse<IMedia[]>> {
+    return this.http.get<IMedia[]>(`/api/media/video`, {observe: "response"})
+  }
+
+  deleteMedia(hash: number): Observable<HttpResponse<any>> {
+    return this.http.delete(`/api/media/${hash}`, {observe: "response"})
+  }
+
+
 }

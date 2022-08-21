@@ -227,4 +227,26 @@
 
     <changeSet author="Antoine Breso" id="43151278369">
     </changeSet>
+	<changeSet id="1659476125-1" author="alexis">
+		<createTable tableName="article">
+			<column name="uuid" type="CHAR(36)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="creation_time" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="update_time" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="author" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="html" type="TEXT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
 </databaseChangeLog>

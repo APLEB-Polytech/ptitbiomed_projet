@@ -1,0 +1,92 @@
+
+article {
+	padding: 2em 0;
+	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+}
+
+p {
+	margin:  0;
+	text-align: justify;
+}
+
+p:not(p+p):not(br+p):not(.media>p)::first-letter {
+	font-size: 1.7rem;
+	font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 1em 0 1rem;
+}
+
+h1, h2 {
+	text-align: center;
+}
+h3, h4, h5, h6 {
+	margin-left: 2rem;
+}
+
+h1 {
+	font-size: 3rem;
+}
+h2 {
+	font-size: 2.5rem;
+}
+h3 {
+	font-size: 2rem;
+}
+h4 {
+	font-size: 1.5rem;
+}
+h5 {
+	font-size: 1.25rem;
+}
+h6 {
+	font-size: 1.1rem;
+	font-variant: small-caps;
+}
+
+img, video {
+	max-width: 100%;
+}
+
+.medias {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: auto;
+}
+
+.media.petit {
+	width: 10em;
+}
+
+.media.moyen {
+	width: 20em;
+}
+
+.media.grand {
+	width: 40em;
+}
+
+.media {
+	margin: auto;
+	text-align: center;
+}
+.medias > .media {
+	margin: 1rem;
+}
+.media > p {
+	max-width: 100%;
+	text-align: center;
+}
+
+a {
+	color: #8CC1CF;
+	text-decoration-color: transparent;
+	transition: .2s;
+}
+
+a:hover {
+	text-decoration-color: #8CC1CF;
+}

@@ -8,13 +8,17 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MediaDetailsComponent} from './media-details/media-details.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {ChooseMediaComponent} from "./choose-media/choose-media.component";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
   declarations: [
     UploadMediaComponent,
     ListeMediaComponent,
-    MediaDetailsComponent
+    MediaDetailsComponent,
+    ChooseMediaComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +26,9 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatProgressBarModule,
     MatTabsModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
+    MatButtonModule
   ]
 })
 export class MediaModule {

@@ -1,8 +1,9 @@
 package fr.apleb.ptitbiomedapi.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import fr.apleb.ptitbiomedapi.exception.FileStorageException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,12 +14,15 @@ import java.nio.file.Paths;
 @Configuration
 public class ConfigurationApp {
 
-	@Value("${apleb.api.upload.dir}")
-	private String uploadDir;
+	private final ApplicationProperties applicationProperties;
+
+	public ConfigurationApp(ApplicationProperties applicationProperties) {
+		this.applicationProperties = applicationProperties;
+	}
 
 	@Bean
 	public Path fileStorageLocation() {
-		Path fileStorageLocation = Paths.get(uploadDir)
+		Path fileStorageLocation = Paths.get(this.applicationProperties.getUploadDirectory())
 				.toAbsolutePath().normalize();
 		try {
 			Files.createDirectories(fileStorageLocation);
@@ -30,6 +34,6 @@ public class ConfigurationApp {
 
 	@Bean
 	public ObjectMapper objectMapper() {
-		return new ObjectMapper().findAndRegisterModules();
+		return new ObjectMapper().registerModule(new JavaTimeModule()).configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 	}
 }

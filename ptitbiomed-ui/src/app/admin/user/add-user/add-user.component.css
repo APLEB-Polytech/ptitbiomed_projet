@@ -1,0 +1,19 @@
+#formAddUser {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 30em;
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+}
