@@ -24,15 +24,6 @@
       <td *matCellDef="let row" mat-cell> {{row.email}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="roles">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header> Roles</th>
-      <td *matCellDef="let row" mat-cell>
-        <ng-container *ngFor="let role of row.roles">
-          {{role.name}}
-        </ng-container>
-      </td>
-    </ng-container>
-
     <ng-container matColumnDef="outils">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> Outils</th>
       <td *matCellDef="let row" mat-cell>

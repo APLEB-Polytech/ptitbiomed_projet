@@ -14,7 +14,7 @@ import {MatTableDataSource} from "@angular/material/table";
 })
 export class ListeUsersComponent implements AfterContentInit {
 
-  displayedColumns: string[] = ['id', 'username', 'email', 'roles', 'outils'];
+  displayedColumns: string[] = ['id', 'username', 'email', 'outils'];
   dataSource: MatTableDataSource<IUser> = new MatTableDataSource<IUser>();
 
   // @ts-ignore
