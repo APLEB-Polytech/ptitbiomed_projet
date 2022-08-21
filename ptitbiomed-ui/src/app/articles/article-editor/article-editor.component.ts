@@ -100,9 +100,9 @@ export class ArticleEditorComponent implements OnInit {
     dialog.afterClosed().subscribe((media: IMedia) => {
       let html: string = ''
       if (media.type.startsWith('image/')) {
-        html = `<img alt="" loading="lazy" src="/api/media/downloadFile/${media.hash}\n">`
+        html = `<div class="media petit"> <img alt="" loading="lazy" src="/api/media/downloadFile/${media.hash}\n"><p>${media.nom}</p></div>`
       } else {
-        html = `<video controls preload="metadata" width="250"> <source type="${media.type}" src="/api/media/stream/${media.hash}"> </video>\n`
+        html = `<div class="media petit"><video controls preload="metadata" width="250"> <source type="${media.type}" src="/api/media/stream/${media.hash}"> </video><p>${media.nom}</p></div>\n`
       }
       this.clipboard.copy(html)
       this.snackbar.open("Le tag a été copié dans le presse-papier")
