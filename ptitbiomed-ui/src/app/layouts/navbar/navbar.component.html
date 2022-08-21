@@ -37,10 +37,10 @@
         </a>
       </mat-menu>
     </li>
-    <li *ngIf="!(userService.user|async)">
+    <li *ngIf="!(userService.isConnected|async)">
       <a routerLink="login" class="link">Connexion</a>
     </li>
-    <li *ngIf="userService.user|async">
+    <li *ngIf="userService.isConnected|async">
       <a (click)="logout()" href="" class="lien">Déconnexion</a>
     </li>
   </ul>
