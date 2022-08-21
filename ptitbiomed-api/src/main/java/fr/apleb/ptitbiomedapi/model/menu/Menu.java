@@ -1,8 +1,6 @@
 package fr.apleb.ptitbiomedapi.model.menu;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "menu")
@@ -16,7 +14,7 @@ public class Menu {
     private String label;
 
     @Column(name = "rank", nullable = false)
-    private String rank;
+    private int rank;
 
     @Column(name = "link")
     private String link;
@@ -37,11 +35,11 @@ public class Menu {
         this.label = label;
     }
 
-    public String getRank() {
+    public int getRank() {
         return rank;
     }
 
-    public void setRank(String rank) {
+    public void setRank(int rank) {
         this.rank = rank;
     }
 

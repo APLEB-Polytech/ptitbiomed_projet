@@ -1,0 +1,13 @@
+<mat-accordion *ngIf="menu">
+  <mat-expansion-panel [hideToggle]="menu.submenuas.length === 0">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{menu.label}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Rang : {{menu.rank}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-panel-sub-menu *ngFor="let subMenu of menu.submenuas" [menu]="subMenu"></app-panel-sub-menu>
+  </mat-expansion-panel>
+</mat-accordion>

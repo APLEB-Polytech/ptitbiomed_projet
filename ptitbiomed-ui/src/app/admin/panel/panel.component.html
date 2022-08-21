@@ -1,12 +1,13 @@
-<div id="container">
-  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
-      <button mat-icon-button disabled></button>
-      <mat-form-field appearance="fill">
-        <mat-label>New item...</mat-label>
-        <input matInput #itemValue placeholder="Ex. Lettuce">
-      </mat-form-field>
-      <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
-    </mat-tree-node>
-  </mat-tree>
-</div>
+<button color="primary" mat-raised-button>Ajouter un menu</button>
+<app-panel-menu *ngFor="let menu of menus|async" [menu]="menu"></app-panel-menu>
+<form [formGroup]="formAddMenu">
+  <mat-form-field appearance="fill">
+    <mat-label>Nom du menu</mat-label>
+    <input matInput/>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Rang du menu</mat-label>
+    <input matInput/>
+  </mat-form-field>
+  <button color="primary" mat-raised-button>Valider</button>
+</form>

@@ -16,11 +16,12 @@ public class MenuService {
     private final SubmenuaRepository submenuaRepository;
     private final SubmenubRepository submenubRepository;
 
-    public MenuService(MenuRepository menuRepository, SubmenuaRepository submenuaRepository, SubmenubRepository submenubRepository, SubmenuaRepository submenuaRepository1, SubmenubRepository submenubRepository1) {
+    public MenuService(MenuRepository menuRepository, SubmenuaRepository submenuaRepository, SubmenubRepository submenubRepository) {
         this.menuRepository = menuRepository;
-        this.submenuaRepository = submenuaRepository1;
-        this.submenubRepository = submenubRepository1;
+        this.submenuaRepository = submenuaRepository;
+        this.submenubRepository = submenubRepository;
     }
+
 
     public List<MenuDto> getAllMenuDto() {
         return this.menuRepository.findByOrderByRankAsc();
