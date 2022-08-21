@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {UploadMediaComponent} from "./upload-media/upload-media.component";
-import {AdminGuard} from "../shared/guard/admin.guard";
 import {ListeMediaComponent} from "./liste-media/liste-media.component";
+import {ConnectedGuard} from "../shared/guard/connected.guard";
 
 
 const routes: Routes = [
-  {path: 'upload', component: UploadMediaComponent, canActivate: [AdminGuard]},
-  {path: '', component: ListeMediaComponent, canActivate: [AdminGuard]}
+  {path: 'upload', component: UploadMediaComponent, canActivate: [ConnectedGuard]},
+  {path: '', component: ListeMediaComponent, canActivate: [ConnectedGuard]}
 ];
 
 @NgModule({

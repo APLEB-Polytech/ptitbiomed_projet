@@ -1,26 +1,29 @@
 package fr.apleb.ptitbiomedapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.apleb.ptitbiomedapi.config.ApplicationProperties;
 import fr.apleb.ptitbiomedapi.config.security.payload.LoginRequest;
 import fr.apleb.ptitbiomedapi.config.security.payload.SignupRequest;
 import fr.apleb.ptitbiomedapi.model.user.User;
 import fr.apleb.ptitbiomedapi.repository.user.UserRepository;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -28,7 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-@ActiveProfiles("test")
 class AuthControllerTest {
 
 	final User user = new User();
@@ -41,6 +43,9 @@ class AuthControllerTest {
 
 	@Autowired
 	private ObjectMapper objectMapper;
+
+	@Autowired
+	private ApplicationProperties applicationProperties;
 
 	@Autowired
 	private MockMvc mvc;
@@ -67,9 +72,7 @@ class AuthControllerTest {
 
 	@Test
 	void authenticateUser() throws Exception {
-		LoginRequest correct = new LoginRequest();
-		correct.setUsername(user.getUsername());
-		correct.setPassword("password");
+		LoginRequest correct = new LoginRequest(user.getUsername(), "password");
 
 		mvc.perform(MockMvcRequestBuilders
 						.post("/api/auth/signin")
@@ -79,9 +82,7 @@ class AuthControllerTest {
 				.andExpect(status().isOk());
 
 
-		LoginRequest badPassword = new LoginRequest();
-		badPassword.setUsername(user.getUsername());
-		badPassword.setPassword("badPassword");
+		LoginRequest badPassword = new LoginRequest(user.getUsername(), "badPassword");
 
 		mvc.perform(MockMvcRequestBuilders
 						.post("/api/auth/signin")
@@ -90,9 +91,7 @@ class AuthControllerTest {
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isUnauthorized());
 
-		LoginRequest badUsername = new LoginRequest();
-		badUsername.setUsername("badUsername");
-		badUsername.setPassword("badPassword");
+		LoginRequest badUsername = new LoginRequest("badUsername", "badPassword");
 
 		mvc.perform(MockMvcRequestBuilders
 						.post("/api/auth/signin")
@@ -105,29 +104,12 @@ class AuthControllerTest {
 	@Test
 	void registerUser() throws Exception {
 
-		SignupRequest nullMail = new SignupRequest();
-		nullMail.setEmail(null);
-		nullMail.setPassword("testdtesttest");
-		nullMail.setUsername("test1");
-		nullMail.setRole(new HashSet<>());
+		SignupRequest nullMail = new SignupRequest("test1", null, "fjdsfmdsijf");
+		SignupRequest nullPassword = new SignupRequest("testdtesttest", "nullPassword@null.fr", null);
 
-		SignupRequest nullPassword = new SignupRequest();
-		nullPassword.setEmail("nullPassword@null.fr");
-		nullPassword.setPassword(null);
-		nullPassword.setUsername("test2");
-		nullPassword.setRole(new HashSet<>());
+		SignupRequest toSmallPassword = new SignupRequest("test3", "toosmallpassword@null.fr", "123");
 
-		SignupRequest toSmallPassword = new SignupRequest();
-		toSmallPassword.setEmail("toosmallpassword@null.fr");
-		toSmallPassword.setPassword("rre");
-		toSmallPassword.setUsername("test3");
-		toSmallPassword.setRole(new HashSet<>());
-
-		SignupRequest nullUsername = new SignupRequest();
-		nullUsername.setEmail("nullUsername@test.fr");
-		nullUsername.setPassword("erefeifefe");
-		nullUsername.setUsername(null);
-		nullUsername.setRole(new HashSet<>());
+		SignupRequest nullUsername = new SignupRequest(null, "nullUsername@test.fr", "dsadasdas");
 
 		mvc.perform(MockMvcRequestBuilders
 						.post("/api/auth/signup")
@@ -155,70 +137,42 @@ class AuthControllerTest {
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest());
 
-		SignupRequest valid = new SignupRequest();
-		valid.setEmail("valid@test.fr");
-		valid.setPassword("validpassword");
-		valid.setUsername("validUsername");
-		valid.setRole(Set.of("admin", "mod", "user"));
+		SignupRequest valid = new SignupRequest("validUsername", "valid@test.fr", "validPassword");
+
+		String token = Jwts.builder()
+				.setSubject((user.getUsername()))
+				.setIssuedAt(new Date())
+				.setExpiration(new Date((new Date()).getTime() + this.applicationProperties.getJwtExpiration()))
+				.signWith(SignatureAlgorithm.HS512, this.applicationProperties.getJwtSecret())
+				.compact();
 
 		mvc.perform(MockMvcRequestBuilders
 						.post("/api/auth/signup")
+						.header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(valid))
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
 
-		SignupRequest badRole = new SignupRequest();
-		badRole.setEmail("vbadrole@test.fr");
-		badRole.setPassword("badRolepassword");
-		badRole.setUsername("badRoleUsername");
-		badRole.setRole(Set.of("bad_role"));
+		SignupRequest existUsername = new SignupRequest(user.getUsername(), "existUsername@test.fr", "existUsernamepassword");
 
 		mvc.perform(MockMvcRequestBuilders
 						.post("/api/auth/signup")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(badRole))
-						.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest());
-
-		SignupRequest existUsername = new SignupRequest();
-		existUsername.setEmail("existUsername@test.fr");
-		existUsername.setPassword("existUsernamepassword");
-		existUsername.setUsername(user.getUsername());
-		existUsername.setRole(new HashSet<>());
-
-		mvc.perform(MockMvcRequestBuilders
-						.post("/api/auth/signup")
+						.header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(existUsername))
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest());
 
-		SignupRequest existEmail = new SignupRequest();
-		existEmail.setEmail(user.getEmail());
-		existEmail.setPassword("existEmailpassword");
-		existEmail.setUsername("existEmailUsername");
-		existEmail.setRole(new HashSet<>());
+		SignupRequest existEmail = new SignupRequest("existEmailUsername", user.getEmail(), "existEmailpassword");
 
 		mvc.perform(MockMvcRequestBuilders
 						.post("/api/auth/signup")
 						.contentType(MediaType.APPLICATION_JSON)
+						.header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
 						.content(objectMapper.writeValueAsString(existEmail))
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest());
-
-		SignupRequest roleNull = new SignupRequest();
-		roleNull.setEmail("roleNull@test.fr");
-		roleNull.setPassword("roleNullpassword");
-		roleNull.setUsername("roleNullUsername");
-		roleNull.setRole(null);
-
-		mvc.perform(MockMvcRequestBuilders
-						.post("/api/auth/signup")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(roleNull))
-						.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk());
 	}
 }

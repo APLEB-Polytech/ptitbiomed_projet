@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HelloService} from "./hello.service";
 
 @Component({
@@ -14,7 +14,6 @@ export class HelloComponent implements OnInit {
 
   ngOnInit(): void {
     this.helloService.getHello().subscribe((res) => {
-      console.log(res.body)
       this.helloMessage = res.body || '';
     })
   }

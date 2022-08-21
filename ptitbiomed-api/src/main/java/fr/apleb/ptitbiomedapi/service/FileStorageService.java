@@ -5,16 +5,20 @@ import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.Media;
 import fr.apleb.ptitbiomedapi.model.paginator.Paginator;
 import fr.apleb.ptitbiomedapi.repository.MediaRepository;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -23,9 +27,12 @@ public class FileStorageService {
 	private final Path fileStorageLocation;
 	private final MediaRepository mediaRepository;
 
-	public FileStorageService(Path fileStorageLocation, MediaRepository mediaRepository) {
+	private final ResourceLoader resourceLoader;
+
+	public FileStorageService(Path fileStorageLocation, MediaRepository mediaRepository, ResourceLoader resourceLoader) {
 		this.fileStorageLocation = fileStorageLocation;
 		this.mediaRepository = mediaRepository;
+		this.resourceLoader = resourceLoader;
 	}
 
 
@@ -80,6 +87,13 @@ public class FileStorageService {
 		}
 	}
 
+	public Mono<Resource> getVideo(int hash) {
+		Media media = getMedia(hash).orElseThrow(NotFoundException::new);
+		return Mono.fromSupplier(() -> this.resourceLoader.getResource(
+				"file:" + fileStorageLocation.resolve(getHashNomFichier(media)).toString()
+		));
+	}
+
 	/**
 	 * @param type image ou vidéo
 	 * @return Liste des médias
@@ -100,5 +114,14 @@ public class FileStorageService {
 				.filter(media -> media.getType().startsWith(type))
 				.count();
 		return new Paginator<>(medias, paginator.pageSize(), nbMedias, paginator.actualPage());
+	}
+
+	public List<Media> getAllMedias(String type) {
+		if (!type.equals("image") && !type.equals("video"))
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
+		return mediaRepository.findAll()
+				.stream()
+				.filter(media -> media.getType().startsWith(type))
+				.toList();
 	}
 }

@@ -6,7 +6,7 @@ import {UserService} from "../../services/user.service";
 @Injectable({
   providedIn: 'root'
 })
-export class UserGuard implements CanActivate {
+export class ConnectedGuard implements CanActivate {
 
   constructor(private userService: UserService) {
   }
@@ -14,9 +14,7 @@ export class UserGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.userService.user?.roles)
-      return this.userService.user?.roles.includes("ROLE_USER")
-    return false;
+    return this.userService.isConnected
   }
 
 }

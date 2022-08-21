@@ -6,15 +6,18 @@ import fr.apleb.ptitbiomedapi.model.paginator.Paginator;
 import fr.apleb.ptitbiomedapi.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/media")
@@ -27,7 +30,7 @@ public class MediaController {
 	}
 
 	@PostMapping("/uploadFile")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Media> uploadFile(@RequestParam("file") MultipartFile file) throws URISyntaxException {
 		logger.info("REST POST uploadFile: {}", file.getOriginalFilename());
 		Media media = fileStorageService.storeFile(file);
@@ -53,10 +56,25 @@ public class MediaController {
 				.body(content);
 	}
 
+	@GetMapping(value = "/stream/{hashName}")
+	public ResponseEntity<Mono<Resource>> stream(@PathVariable int hashName, @RequestHeader("Range") String range) {
+		logger.info("REST GET stream: {}", hashName);
+		Media media = fileStorageService.getMedia(hashName).orElseThrow(NotFoundException::new);
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_TYPE, media.getType())
+				.body(this.fileStorageService.getVideo(hashName));
+	}
+
 	@PostMapping("/{type}")
 	public ResponseEntity<Paginator<Media>> getLesMedias(@PathVariable String type, @RequestBody Paginator<Media> paginator) {
 		logger.info("REST GET getLesMedias: {} {}", type, paginator);
 		Paginator<Media> medias = fileStorageService.getMedias(type, paginator);
 		return ResponseEntity.ok(medias);
+	}
+
+	@GetMapping("/{type}")
+	public ResponseEntity<List<Media>> getLesMedias(@PathVariable String type) {
+		logger.info("REST GET getLesMedias: {}", type);
+		return ResponseEntity.ok(fileStorageService.getAllMedias(type));
 	}
 }

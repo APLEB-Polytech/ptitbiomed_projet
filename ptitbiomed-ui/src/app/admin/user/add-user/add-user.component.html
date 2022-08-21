@@ -1,0 +1,20 @@
+<form (ngSubmit)="submit()" [formGroup]="formGroup" id="formAddUser">
+  <h1>Ajouter un utilisateur</h1>
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input formControlName="username" matInput>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>email</mat-label>
+    <input formControlName="email" matInput>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input formControlName="password" matInput type="password">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password Confirm</mat-label>
+    <input formControlName="passwordConfirm" matInput type="password">
+  </mat-form-field>
+  <button [disabled]="!formGroup.valid" color="primary" mat-raised-button type="submit">Ajouter l'utilisteur</button>
+</form>

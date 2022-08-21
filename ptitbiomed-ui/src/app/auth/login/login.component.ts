@@ -35,8 +35,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res.ok && res.body) {
-            this.userService.user = res.body
-            this.userService.makeRight()
+            this.userService.authenticate(res.body)
             this.router.navigate([''])
           }
         },
