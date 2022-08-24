@@ -1,6 +1,5 @@
 <button (click)="afficherForm = !afficherForm" color="primary" mat-raised-button>Ajouter un menu</button>
-<app-panel-menu *ngFor="let menu of menus|async" [menu]="menu"></app-panel-menu>
-<form *ngIf="afficherForm" [formGroup]="formMenuAdd">
+<form *ngIf="afficherForm" (ngSubmit)="createMenu()" [formGroup]="formMenuAdd">
   <mat-form-field appearance="fill">
     <mat-label>Nom du menu</mat-label>
     <input formControlName="name" matInput/>
@@ -11,3 +10,4 @@
   </mat-form-field>
   <button [disabled]="!formMenuAdd.valid" color="primary" mat-raised-button>Valider</button>
 </form>
+<app-panel-menu *ngFor="let menu of menus|async" [menu]="menu"></app-panel-menu>

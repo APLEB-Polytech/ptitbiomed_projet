@@ -117,7 +117,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1661104099097-1" author="Antoine Breso">
+    <changeSet id="1661104099097-1" author="antoine">
         <createTable tableName="menu">
             <column name="id" autoIncrement="true" type="int">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_menu"/>
@@ -221,8 +221,6 @@
             <column name="id_parent" value="3"/>
         </insert>
     </changeSet>
-    <changeSet author="Antoine Breso" id="43151278369">
-    </changeSet>
 	<changeSet id="1659476125-1" author="alexis">
 		<createTable tableName="article">
 			<column name="uuid" type="CHAR(36)">
@@ -245,4 +243,27 @@
 			</column>
 		</createTable>
 	</changeSet>
+    <changeSet id="1893740327-1" author="antoine">
+        <createTable tableName="menu_article">
+            <column name="menu_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="article_uuid" type="CHAR(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_menu_article"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="menu_id" baseTableName="menu_article" constraintName="fk_menu_article_on_menu"
+                                 referencedColumnNames="id" referencedTableName="menu"/>
+
+        <createTable tableName="submenua_article">
+            <column name="submenua_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="article_uuid" type="CHAR(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_submenua_article"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="submenua_id" baseTableName="submenua_article" constraintName="fk_submenua_article_on_submenua"
+                                 referencedColumnNames="id" referencedTableName="submenua"/>
+    </changeSet>
 </databaseChangeLog>

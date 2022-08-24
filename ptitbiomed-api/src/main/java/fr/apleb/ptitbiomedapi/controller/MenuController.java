@@ -1,13 +1,15 @@
 package fr.apleb.ptitbiomedapi.controller;
 
+import fr.apleb.ptitbiomedapi.model.article.ArticleCreationDto;
+import fr.apleb.ptitbiomedapi.model.menu.MenuCreationDto;
 import fr.apleb.ptitbiomedapi.model.menu.MenuDto;
+import fr.apleb.ptitbiomedapi.model.menu.SubmenuaCreationDto;
 import fr.apleb.ptitbiomedapi.service.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,18 +32,17 @@ public class MenuController {
         return ResponseEntity.ok(menus);
     }
 
-
-
-    /*
-    @GetMapping("/{id}/submenua")
-    public ResponseEntity<List<Submenua>> getSubmenuaFromMenu(@PathVariable int id) {
-        logger.info("REST GET getSubmenuaFromMenu id menu : " + id);
-        return ResponseEntity.ok(this.menuService.getSubmenuaFromMenu(id));
+    @PostMapping("/add/menu")
+    public ResponseEntity<Void> addMenu(@RequestBody MenuCreationDto menu) {
+        logger.info("REST POST addNewMenu: {}", menu.toString());
+        menuService.addMenu(menu);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/{id}/submenub")
-    public ResponseEntity<List<Submenub>> getSubmenubFromMenu(@PathVariable int id) {
-        logger.info("REST GET getSubmenubFromMenu id submenua : " + id);
-        return ResponseEntity.ok(this.menuService.getSubmenubFromMenu(id));
-    }*/
+    @PostMapping("/add/submenua")
+    public ResponseEntity<Void> addSubmenua(@RequestBody SubmenuaCreationDto submenua) {
+        logger.info("REST POST addNewSubmenua: {}", submenua.toString());
+        menuService.addSubmenua(submenua);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }

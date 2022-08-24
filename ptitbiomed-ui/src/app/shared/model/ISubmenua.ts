@@ -1,8 +1,16 @@
 import {ISubmenub} from "./ISubmenub";
 
 export interface ISubmenua {
-  id: number,
+  id: number | undefined,
   label: string,
-  link: string,
-  submenubs: ISubmenub[]
+  link: string | undefined,
+  submenubs: ISubmenub[] | undefined
+}
+
+export class Submenua implements ISubmenua {
+  constructor(public label: string, public idParent: number) {}
+
+  id: number | undefined;
+  link: string | undefined;
+  submenubs: ISubmenub[] | undefined;
 }

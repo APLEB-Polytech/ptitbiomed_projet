@@ -1,5 +1,5 @@
 <mat-accordion *ngIf="menu">
-  <mat-expansion-panel [hideToggle]="menu.submenuas.length === 0">
+  <mat-expansion-panel [hideToggle]="menu.submenuas?.length === 0">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{menu.label}}
@@ -8,14 +8,14 @@
         Rang : {{menu.rank}}
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <button (click)="afficherForm = !afficherForm" color="primary" mat-raised-button>Ajouter un menu</button>
-    <app-panel-sub-menu *ngFor="let subMenu of menu.submenuas" [menu]="subMenu"></app-panel-sub-menu>
-    <form *ngIf="afficherForm" [formGroup]="formMenuAdd">
+    <button (click)="afficherForm = !afficherForm" color="primary" mat-raised-button>Ajouter un sous-menu</button>
+    <form *ngIf="afficherForm" (ngSubmit)="createSubmenu()" [formGroup]="formMenuAdd">
       <mat-form-field appearance="fill">
         <mat-label>Nom du menu</mat-label>
         <input formControlName="name" matInput/>
       </mat-form-field>
       <button [disabled]="!formMenuAdd.valid" color="primary" mat-raised-button>Valider</button>
     </form>
+    <app-panel-sub-menu *ngFor="let subMenu of menu.submenuas" [menu]="subMenu"></app-panel-sub-menu>
   </mat-expansion-panel>
 </mat-accordion>

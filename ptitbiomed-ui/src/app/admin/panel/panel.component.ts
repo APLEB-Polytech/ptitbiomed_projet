@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../../services/menu.service";
 import {HttpResponse} from "@angular/common/http";
-import {IMenu} from "../../shared/model/IMenu";
+import {IMenu, Menu} from "../../shared/model/IMenu";
 import {Subject} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -39,6 +40,22 @@ export class PanelComponent implements OnInit {
         this.menus.next(reponse.body)
       }
     })
+  }
+
+  createMenu() {
+    const menu: IMenu = new Menu(
+      this.formMenuAdd.controls['name'].value,
+      this.formMenuAdd.controls['rank'].value
+    );
+    this.menuService.addMenu(menu).subscribe({
+      next: (response) => {
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          alert('KO');
+        }
+      }
+    });
   }
 
 }

@@ -4,7 +4,7 @@
       <mat-panel-title>
         {{menu.label}}
       </mat-panel-title>
-      <mat-panel-description>
+      <mat-panel-description *ngIf="menu.link">
         Lien : {{menu.link}}
       </mat-panel-description>
     </mat-expansion-panel-header>

@@ -1,8 +1,6 @@
 package fr.apleb.ptitbiomedapi.service;
 
-import fr.apleb.ptitbiomedapi.model.menu.MenuDto;
-import fr.apleb.ptitbiomedapi.model.menu.Submenua;
-import fr.apleb.ptitbiomedapi.model.menu.Submenub;
+import fr.apleb.ptitbiomedapi.model.menu.*;
 import fr.apleb.ptitbiomedapi.repository.menu.MenuRepository;
 import fr.apleb.ptitbiomedapi.repository.menu.SubmenuaRepository;
 import fr.apleb.ptitbiomedapi.repository.menu.SubmenubRepository;
@@ -22,7 +20,6 @@ public class MenuService {
         this.submenubRepository = submenubRepository;
     }
 
-
     public List<MenuDto> getAllMenuDto() {
         return this.menuRepository.findByOrderByRankAsc();
     }
@@ -33,5 +30,19 @@ public class MenuService {
 
     public List<Submenub> getSubmenubFromMenu(int idParent) {
         return this.submenubRepository.findByIdParent(idParent);
+    }
+
+    public void addMenu(MenuCreationDto menuDto) {
+        Menu menu = new Menu();
+        menu.setLabel(menuDto.label());
+        menu.setRank(menuDto.rank());
+        this.menuRepository.save(menu);
+    }
+
+    public void addSubmenua(SubmenuaCreationDto submenuaDto) {
+        Submenua submenua = new Submenua();
+        submenua.setLabel(submenuaDto.label());
+        submenua.setIdParent(submenuaDto.idParent());
+        this.submenuaRepository.save(submenua);
     }
 }
