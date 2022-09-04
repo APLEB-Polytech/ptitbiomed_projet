@@ -10,24 +10,27 @@ public class Submenub {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "label", nullable = false)
-    private String label;
+	@Column(name = "label", nullable = false)
+	private String label;
 
-    @Column(name = "id_parent", nullable = false)
-    private Integer idParent;
+	@Column(name = "id_parent", nullable = false)
+	private Integer idParent;
 
-    @Column(name = "link", nullable = false)
-    private String link;
+	@Column(name = "link")
+	private String link;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column
+	private String idArticle;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getLabel() {
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getLabel() {
         return label;
     }
 
@@ -43,12 +46,19 @@ public class Submenub {
         this.idParent = idParent;
     }
 
-    public String getLink() {
-        return link;
-    }
+	public String getLink() {
+		return link;
+	}
 
-    public void setLink(String link) {
-        this.link = link;
-    }
+	public void setLink(String link) {
+		this.link = link;
+	}
 
+	public String getIdArticle() {
+		return idArticle;
+	}
+
+	public void setIdArticle(String idArticle) {
+		this.idArticle = idArticle;
+	}
 }

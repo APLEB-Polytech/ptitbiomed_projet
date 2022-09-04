@@ -1,6 +1,5 @@
 package fr.apleb.ptitbiomedapi.controller;
 
-import fr.apleb.ptitbiomedapi.model.article.ArticleCreationDto;
 import fr.apleb.ptitbiomedapi.model.menu.MenuCreationDto;
 import fr.apleb.ptitbiomedapi.model.menu.MenuDto;
 import fr.apleb.ptitbiomedapi.model.menu.SubmenuaCreationDto;
@@ -44,5 +43,12 @@ public class MenuController {
         logger.info("REST POST addNewSubmenua: {}", submenua.toString());
         menuService.addSubmenua(submenua);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/{idMenuOrSubmenu}/{idArticle}/{typeMenu}")
+    public ResponseEntity<Void> addArticleToMenu(@PathVariable String idArticle, @PathVariable int idMenuOrSubmenu, @PathVariable String typeMenu) {
+        logger.info("REST GET addArticleToMenu : {} - {} - {}", idArticle, idMenuOrSubmenu, typeMenu);
+        this.menuService.addArticleToMenu(idArticle, idMenuOrSubmenu, typeMenu);
+        return ResponseEntity.noContent().build();
     }
 }

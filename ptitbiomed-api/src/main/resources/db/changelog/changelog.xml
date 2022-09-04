@@ -192,34 +192,6 @@
             <column name="label" value="Nous"/>
             <column name="rank" value="6"/>
         </insert>
-        <insert tableName="submenua">
-            <column name="label" value="Conférence des journées de l'AFIB"/>
-            <column name="link" value="z"/>
-            <column name="id_parent" value="2"/>
-        </insert>
-        <insert tableName="submenua">
-            <column name="label" value="Entreprises des journées de l'AFIB"/>
-            <column name="link" value="z"/>
-            <column name="id_parent" value="2"/>
-        </insert>
-        <insert tableName="submenua">
-            <column name="label" value="2022"/>
-            <column name="id_parent" value="3"/>
-        </insert>
-        <insert tableName="submenua">
-            <column name="label" value="2021"/>
-            <column name="id_parent" value="3"/>
-        </insert>
-        <insert tableName="submenub">
-            <column name="label" value="article 1"/>
-            <column name="link" value="2022/article1"/>
-            <column name="id_parent" value="3"/>
-        </insert>
-        <insert tableName="submenub">
-            <column name="label" value="article 2"/>
-            <column name="link" value="2022/article2"/>
-            <column name="id_parent" value="3"/>
-        </insert>
     </changeSet>
 	<changeSet id="1659476125-1" author="alexis">
 		<createTable tableName="article">
@@ -263,7 +235,33 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_submenua_article"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="submenua_id" baseTableName="submenua_article" constraintName="fk_submenua_article_on_submenua"
+        <addForeignKeyConstraint baseColumnNames="submenua_id" baseTableName="submenua_article"
+                                 constraintName="fk_submenua_article_on_submenua"
                                  referencedColumnNames="id" referencedTableName="submenua"/>
     </changeSet>
+    <changeSet id="1662288428279-1" author="baudu">
+        <addPrimaryKey tableName="article" columnNames="uuid"/>
+    </changeSet>
+    <changeSet id="1662287664197-1" author="baudu">
+        <addColumn tableName="menu">
+            <column type="char(36)" name="id_article"/>
+        </addColumn>
+        <addColumn tableName="submenua">
+            <column type="char(36)" name="id_article"/>
+        </addColumn>
+        <addColumn tableName="submenub">
+            <column type="char(36)" name="id_article"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="menu" baseColumnNames="id_article" referencedTableName="article"
+                                 referencedColumnNames="uuid" constraintName="FK_menu_article"/>
+        <addForeignKeyConstraint baseTableName="submenua" baseColumnNames="id_article" referencedTableName="article"
+                                 referencedColumnNames="uuid" constraintName="FK_submenua_article"/>
+        <addForeignKeyConstraint baseTableName="submenub" baseColumnNames="id_article" referencedTableName="article"
+                                 referencedColumnNames="uuid" constraintName="FK_submenub_article"/>
+    </changeSet>
+    <changeSet id="1662292160886-1" author="baudu">
+        <dropNotNullConstraint columnDataType="varchar(30)" tableName="submenub" columnName="link"/>
+    </changeSet>
+
+
 </databaseChangeLog>

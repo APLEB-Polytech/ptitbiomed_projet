@@ -12,24 +12,27 @@ public class Submenua {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "label", nullable = false)
-    private String label;
+	@Column(name = "label", nullable = false)
+	private String label;
 
-    @Column(name = "id_parent", nullable = false)
-    private Integer idParent;
+	@Column(name = "id_parent", nullable = false)
+	private Integer idParent;
 
-    @Column(name = "link")
-    private String link;
+	@Column(name = "link")
+	private String link;
 
-    @OneToMany(orphanRemoval = true)
-    private List<Submenub> submenubs = new ArrayList<>();
+	@Column
+	private String idArticle;
 
-    public List<Submenub> getSubmenubs() {
-        return submenubs;
-    }
+	@OneToMany(orphanRemoval = true)
+	private List<Submenub> submenubs = new ArrayList<>();
 
-    public void setSubmenubs(List<Submenub> submenubs) {
-        this.submenubs = submenubs;
+	public List<Submenub> getSubmenubs() {
+		return submenubs;
+	}
+
+	public void setSubmenubs(List<Submenub> submenubs) {
+		this.submenubs = submenubs;
     }
 
     public Integer getId() {
@@ -64,14 +67,22 @@ public class Submenua {
         this.link = link;
     }
 
-    @Override
-    public String toString() {
-        return "Submenua{" +
-                "id=" + id +
-                ", label='" + label + '\'' +
-                ", idParent=" + idParent +
-                ", link='" + link + '\'' +
-                ", submenubs=" + submenubs +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Submenua{" +
+				"id=" + id +
+				", label='" + label + '\'' +
+				", idParent=" + idParent +
+				", link='" + link + '\'' +
+				", submenubs=" + submenubs +
+				'}';
+	}
+
+	public String getIdArticle() {
+		return idArticle;
+	}
+
+	public void setIdArticle(String idArticle) {
+		this.idArticle = idArticle;
+	}
 }

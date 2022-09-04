@@ -4,7 +4,8 @@ import {HttpResponse} from "@angular/common/http";
 import {IMenu, Menu} from "../../shared/model/IMenu";
 import {Subject} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {ArticleListDialogComponent} from "./article-list-dialog/article-list-dialog.component";
 
 
 @Component({
@@ -23,7 +24,7 @@ export class PanelComponent implements OnInit {
   })
 
 
-  constructor(private menuService: MenuService) {
+  constructor(private menuService: MenuService, public dialog: MatDialog) {
   }
 
 
@@ -58,4 +59,11 @@ export class PanelComponent implements OnInit {
     });
   }
 
+  linkArticle() {
+    this.dialog.open(ArticleListDialogComponent, {
+      data: {
+        idMenu: null
+      }
+    })
+  }
 }

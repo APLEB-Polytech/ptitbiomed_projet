@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from '@angular/material/dialog';
-import {Article, IArticle} from "../../shared/model/IArticle";
+import {Article, IArticle, MenuArticle} from "../../shared/model/IArticle";
 import {ArticleService} from "../article.service";
 import {ChooseMediaComponent} from "../../media/choose-media/choose-media.component";
 import {IMedia} from "../../shared/model/IMedia";
@@ -9,6 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpResponse} from "@angular/common/http";
 import {Clipboard} from "@angular/cdk/clipboard";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {AddArticleToMediaDialogComponent} from "./add-article-to-media-dialog/add-article-to-media-dialog.component";
 
 @Component({
   selector: 'app-article-editor',
@@ -18,6 +19,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class ArticleEditorComponent implements OnInit {
 
   htmlContent: string = '';
+  menuArticle?: MenuArticle
 
   formArticle: FormGroup = new FormGroup<any>({
     title: new FormControl<string>("", [Validators.required]),
@@ -67,6 +69,7 @@ export class ArticleEditorComponent implements OnInit {
       this.formArticle.controls['title'].value,
       this.formArticle.controls['content'].value,
     );
+    article.menuArticle = this.menuArticle
     if (this.uuidArticle) {
       article.uuid = this.uuidArticle
       this.articleService.updateArticle(article).subscribe({
@@ -106,6 +109,17 @@ export class ArticleEditorComponent implements OnInit {
       }
       this.clipboard.copy(html)
       this.snackbar.open("Le tag a été copié dans le presse-papier")
+    })
+  }
+
+  ajouterMenu(): void {
+    this.dialog.open(AddArticleToMediaDialogComponent, {
+      width: '1500px',
+      data: {
+        idArticle: this.article?.uuid
+      }
+    }).afterClosed().subscribe((ret: MenuArticle) => {
+      this.menuArticle = ret
     })
   }
 }

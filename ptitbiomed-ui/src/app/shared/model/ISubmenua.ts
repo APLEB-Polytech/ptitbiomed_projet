@@ -4,6 +4,7 @@ export interface ISubmenua {
   id: number | undefined,
   label: string,
   link: string | undefined,
+  idArticle?: string
   submenubs: ISubmenub[] | undefined
 }
 
@@ -13,4 +14,5 @@ export class Submenua implements ISubmenua {
   id: number | undefined;
   link: string | undefined;
   submenubs: ISubmenub[] | undefined;
+  idArticle?: string
 }

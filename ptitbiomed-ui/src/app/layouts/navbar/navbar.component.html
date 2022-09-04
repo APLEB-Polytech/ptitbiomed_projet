@@ -4,18 +4,20 @@
   </div>
   <ul id="liens" *ngIf="menuItems">
     <li *ngFor="let item of menuItems">
-      <a *ngIf="item.link; else dropdown" routerLink="{{item.link}}" class="link">{{item.label}}</a>
+      <a *ngIf="item.link || item.idArticle else dropdown" class="link"
+         routerLink="{{item.link || '/article/view/'+item.idArticle}}">{{item.label}}</a>
       <ng-template #dropdown>
         <div class="dropdown">
           <div class="dropdown-button">{{item.label}}</div>
           <div *ngIf="item.submenuas" class="dropdown-content">
             <div *ngFor="let submenua of item.submenuas">
-              <a *ngIf="submenua.link; else dropdown2" routerLink="{{submenua.link}}">{{submenua.label}}</a>
+              <a *ngIf="submenua.link || submenua.idArticle; else dropdown2"
+                 routerLink="{{submenua.link|| '/article/view/'+submenua.idArticle}}">{{submenua.label}}</a>
               <ng-template #dropdown2>
                 <div class="dropdown2">
                   <div *ngIf="submenua.submenubs" class="dropdown-content2">
                     <div *ngFor="let submenub of submenua.submenubs">
-                      <a routerLink="{{submenub.link}}">{{submenub.label}}</a>
+                      <a routerLink="{{submenub.link || '/article/view/'+submenub.idArticle}}">{{submenub.label}}</a>
                     </div>
                   </div>
                   <div class="dropdown-button2">{{submenua.label}}</div>

@@ -1,4 +1,5 @@
-<button (click)="afficherForm = !afficherForm" color="primary" mat-raised-button>Ajouter un menu</button>
+<button (click)="linkArticle()" color="primary" mat-raised-button>Ajouter un menu</button>
+<button (click)="afficherForm = !afficherForm" color="primary" mat-raised-button>Lier un article</button>
 <form *ngIf="afficherForm" (ngSubmit)="createMenu()" [formGroup]="formMenuAdd">
   <mat-form-field appearance="fill">
     <mat-label>Nom du menu</mat-label>

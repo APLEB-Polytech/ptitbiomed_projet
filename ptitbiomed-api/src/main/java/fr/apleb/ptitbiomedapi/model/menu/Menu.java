@@ -10,24 +10,27 @@ public class Menu {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "label", nullable = false)
-    private String label;
+	@Column(name = "label", nullable = false)
+	private String label;
 
-    @Column(name = "rank", nullable = false)
-    private int rank;
+	@Column(name = "rank", nullable = false)
+	private int rank;
 
-    @Column(name = "link")
-    private String link;
+	@Column(name = "link")
+	private String link;
 
-    public Long getId() {
-        return id;
-    }
+	@Column
+	private String idArticle;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getLabel() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getLabel() {
         return label;
     }
 
@@ -43,12 +46,19 @@ public class Menu {
         this.rank = rank;
     }
 
-    public String getLink() {
-        return link;
-    }
+	public String getLink() {
+		return link;
+	}
 
-    public void setLink(String link) {
-        this.link = link;
-    }
+	public void setLink(String link) {
+		this.link = link;
+	}
 
+	public String getIdArticle() {
+		return idArticle;
+	}
+
+	public void setIdArticle(String idArticle) {
+		this.idArticle = idArticle;
+	}
 }

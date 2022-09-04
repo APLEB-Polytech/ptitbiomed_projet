@@ -5,7 +5,7 @@
 
 #precontainer {
   overflow: auto;
-  max-height: 60%;
+  min-height: 80%;
 }
 
 app-navbar {

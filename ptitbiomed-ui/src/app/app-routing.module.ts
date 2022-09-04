@@ -14,7 +14,8 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [ConnectedGuard]
   },
-  {path: 'admin/panel', loadChildren: () => import('./admin/panel/panel.module').then(m => m.PanelModule)}
+  {path: 'admin/panel', loadChildren: () => import('./admin/panel/panel.module').then(m => m.PanelModule)},
+  {path: 'accueil', redirectTo: ''}
 ];
 
 @NgModule({

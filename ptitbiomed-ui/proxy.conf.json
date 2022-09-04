@@ -2,5 +2,9 @@
   "/api": {
     "target": "http://localhost:1655",
     "secure": false
+  },
+  "/h2-console": {
+    "target": "http://localhost:1655",
+    "secure": false
   }
 }

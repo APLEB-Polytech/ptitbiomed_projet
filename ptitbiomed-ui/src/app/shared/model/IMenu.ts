@@ -5,6 +5,7 @@ export interface IMenu {
   label: string,
   link: string | undefined,
   rank: number,
+  idArticle?: string,
   submenuas: ISubmenua[] | undefined
 }
 
@@ -14,4 +15,5 @@ export class Menu implements IMenu {
   id: number | undefined;
   link: string | undefined;
   submenuas: ISubmenua[] | undefined;
+  idArticle?: string
 }
