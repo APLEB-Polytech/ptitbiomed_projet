@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import {IMenu} from "../../shared/model/IMenu";
+import {MenuService} from "../../services/menu.service";
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +12,82 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public userService: UserService, private router: Router) {
+  @Input()
+  menuItems: IMenu[] | undefined;
+  menuItemsAdmin: IMenu[] = [
+    {
+      id: 0,
+      label: 'Administration',
+      link: '',
+      rank: 0,
+      submenuas: [
+        {
+          id: 0,
+          label: 'Utilisateurs',
+          link: '/admin/user',
+          submenubs: []
+        },
+        {
+          id: 1,
+          label: 'Panel',
+          link: '/admin/panel',
+          submenubs: []
+        },
+        {
+          id: 2,
+          label: 'Medias',
+          link: '',
+          submenubs: [
+            {
+              id: 1,
+              label: 'Liste des medias',
+              link: '/medias'
+            },
+            {
+              id: 2,
+              label: 'Upload d\'un media',
+              link: '/medias/upload'
+            }
+          ]
+        },
+        {
+          id: 3,
+          label: 'Articles',
+          link: '',
+          submenubs: [
+            {
+              id: 1,
+              label: 'Liste des articles',
+              link: '/article'
+            },
+            {
+              id: 2,
+              label: 'Upload d\'un article',
+              link: '/article/new'
+            }
+          ]
+        }
+      ]
+    },
+
+  ]
+
+  constructor(public userService: UserService, public menuService: MenuService, private router: Router) {
   }
 
   ngOnInit(): void {
+    if (this.menuItems == undefined) {
+      this.loadMenu();
+    }
+  }
+
+  loadMenu() {
+    this.menuService.getAllMenu().subscribe(
+      (data) => {
+        if (data.ok && data.body) {
+          this.menuItems = data.body;
+        }
+      });
   }
 
   logout(): void {

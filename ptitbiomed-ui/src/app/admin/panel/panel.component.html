@@ -1,0 +1,14 @@
+<button (click)="linkArticle()" color="primary" mat-raised-button>Ajouter un menu</button>
+<button (click)="afficherForm = !afficherForm" color="primary" mat-raised-button>Lier un article</button>
+<form *ngIf="afficherForm" (ngSubmit)="createMenu()" [formGroup]="formMenuAdd">
+  <mat-form-field appearance="fill">
+    <mat-label>Nom du menu</mat-label>
+    <input formControlName="name" matInput/>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Rang du menu</mat-label>
+    <input formControlName="rank" matInput min="0" type="number"/>
+  </mat-form-field>
+  <button [disabled]="!formMenuAdd.valid" color="primary" mat-raised-button>Valider</button>
+</form>
+<app-panel-menu *ngFor="let menu of menus|async" [menu]="menu"></app-panel-menu>

@@ -1,0 +1,19 @@
+<div>
+  <button (click)="ajouter()" color="primary" mat-raised-button>Ajouter à la racine</button>
+</div>
+<div *ngFor="let menu of menus" class="menu">
+  <div class="contenu">
+    <b>{{menu.label}}</b>
+    <button (click)="ajouter(menu.id)" *ngIf="menu.idArticle !== data.idArticle" color="primary" mat-raised-button>
+      Ajouter
+    </button>
+  </div>
+  <div *ngFor="let sousMenuA of menu.submenuas" class="menu">
+    <div class="contenu">
+      <b>{{sousMenuA.label}}</b>
+      <button (click)="ajouter(menu.id, sousMenuA.id)" *ngIf="sousMenuA.idArticle !== data.idArticle" color="primary"
+              mat-raised-button>Ajouter
+      </button>
+    </div>
+  </div>
+</div>

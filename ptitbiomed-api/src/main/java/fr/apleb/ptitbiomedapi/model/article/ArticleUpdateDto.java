@@ -6,5 +6,6 @@ import java.util.UUID;
 public record ArticleUpdateDto(String author,
                                String title,
                                String html,
-                               UUID uuid) implements Serializable {
+                               UUID uuid,
+                               MenuArticleDto menuArticle) implements Serializable, EditArticleDTO {
 }

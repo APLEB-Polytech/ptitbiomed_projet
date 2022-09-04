@@ -15,13 +15,17 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {ArticleViewerComponent} from './article-viewer/article-viewer.component';
+import {
+  AddArticleToMediaDialogComponent
+} from './article-editor/add-article-to-media-dialog/add-article-to-media-dialog.component';
 
 @NgModule({
   declarations: [
     ListeArticlesComponent,
     ArticleEditorComponent,
     ArticleRendererComponent,
-    ArticleViewerComponent
+    ArticleViewerComponent,
+    AddArticleToMediaDialogComponent
   ],
   imports: [
     CommonModule,

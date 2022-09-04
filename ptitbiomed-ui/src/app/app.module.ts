@@ -19,6 +19,9 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {JwtInterceptor} from "./services/jwt.interceptor";
+import {MatTreeModule} from "@angular/material/tree";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -41,7 +44,11 @@ import {JwtInterceptor} from "./services/jwt.interceptor";
     ReactiveFormsModule,
     MatMenuModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule,
+    MatTreeModule,
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   providers: [
     {
