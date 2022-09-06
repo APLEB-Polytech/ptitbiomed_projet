@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ArticleRepository extends JpaRepository<Article, UUID> {
+	Optional<Article> findByTitle(String title);
+
 	Optional<Article> findByCreationTime(LocalDateTime creationTime);
 
 	List<Article> findAllByOrderByCreationTimeDesc();
