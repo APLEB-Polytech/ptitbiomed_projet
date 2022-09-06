@@ -1,11 +1,14 @@
 #container {
   margin-left: 10%;
   margin-right: 10%;
+  background-color: white;
+  height: 100%;
 }
 
 #precontainer {
   overflow: auto;
   min-height: 80%;
+  background-color: rgba(128, 128, 128, 0.09);
 }
 
 app-navbar {

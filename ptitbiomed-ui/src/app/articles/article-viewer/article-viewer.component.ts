@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ArticleService} from "../article.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {Subject} from "rxjs";
 import {IArticle} from "../../shared/model/IArticle";
 import {HttpResponse} from "@angular/common/http";
@@ -26,6 +26,9 @@ export class ArticleViewerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((param: ParamMap) => {
+      this.loadArticle(param.get('uuid') || '')
+    })
   }
 
   loadArticle(uuid: string): void {

@@ -22,6 +22,7 @@ import {JwtInterceptor} from "./services/jwt.interceptor";
 import {MatTreeModule} from "@angular/material/tree";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {ArticlesModule} from "./articles/articles.module";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatMenuModule,
     MatTreeModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ArticlesModule
   ],
   providers: [
     {

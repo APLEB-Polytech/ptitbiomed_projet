@@ -30,6 +30,12 @@ public class ArticleController {
 		return ResponseEntity.ok(articleService.getArticleHeaders());
 	}
 
+	@GetMapping("/accueil")
+	private ResponseEntity<ArticleReadDto> getAccueil() {
+		logger.info("REST GET getAccueil");
+		return ResponseEntity.of(articleService.getAccueil());
+	}
+
 	@GetMapping("/{uuid}")
 	private ResponseEntity<ArticleReadDto> read_by_uuid(@PathVariable UUID uuid) {
 		logger.info("REST GET read_by_uuid : {}", uuid);

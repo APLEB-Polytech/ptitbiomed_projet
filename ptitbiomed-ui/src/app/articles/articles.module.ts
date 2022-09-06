@@ -27,6 +27,9 @@ import {
     ArticleViewerComponent,
     AddArticleToMediaDialogComponent
   ],
+  exports: [
+    ArticleRendererComponent
+  ],
   imports: [
     CommonModule,
     ArticlesRoutingModule,

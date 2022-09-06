@@ -42,6 +42,10 @@ public class ArticleService {
 		return articleRepository.findById(uuid).map(ArticleReadDto::new);
 	}
 
+	public Optional<ArticleReadDto> getAccueil() {
+		return articleRepository.findByTitle("accueil").map(ArticleReadDto::new);
+	}
+
 	@Transactional(isolation = Isolation.READ_UNCOMMITTED)
 	public void createNew(ArticleCreationDto articleCreation) {
 		final LocalDateTime now = LocalDateTime.now();
