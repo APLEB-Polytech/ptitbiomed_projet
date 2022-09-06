@@ -1,6 +1,5 @@
 package fr.apleb.ptitbiomedapi.config.security;
 
-import fr.apleb.ptitbiomedapi.config.FilterNotFound;
 import fr.apleb.ptitbiomedapi.config.security.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,6 +57,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //A enlever quand on aura le serveur en production
                 .anyRequest().permitAll();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(new FilterNotFound(), AuthTokenFilter.class);
     }
 }
