@@ -21,7 +21,7 @@ public class FilterNotFound extends OncePerRequestFilter {
 
 	private boolean isApiPath(HttpServletRequest request) {
 		String path = request.getServletPath();
-		return path.startsWith("/api");
+		return !path.startsWith("/api");
 	}
 
 }
