@@ -5,7 +5,7 @@ name: Deploy
 # Controls when the workflow will run
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "dev" ]
     
   workflow_dispatch:
 
@@ -24,4 +24,4 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: cd site/ptitbiomed_projet && sudo sh deploy.sh
+        script: cd site/ptitbiomed_projet/dev && sudo sh deploy.sh
