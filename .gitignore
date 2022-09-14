@@ -6,3 +6,4 @@
 /.gradle/
 /build.mv.db
 /build.trace.db
+/test
