@@ -1,9 +1,8 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {IMenu} from "../../shared/model/IMenu";
 import {MenuService} from "../../services/menu.service";
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +24,7 @@ export class NavbarComponent implements OnInit {
           id: 0,
           label: 'Utilisateurs',
           link: '/admin/user',
-          submenubs: []
+          submenubs: [],
         },
         {
           id: 1,

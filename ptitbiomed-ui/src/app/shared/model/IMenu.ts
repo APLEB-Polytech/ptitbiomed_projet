@@ -1,12 +1,13 @@
 import {ISubmenua} from "./ISubmenua";
+import {MenuGeneral} from "./menuGeneral.model";
 
-export interface IMenu {
-  id: number | undefined,
+export interface IMenu extends MenuGeneral {
+  id?: number,
   label: string,
-  link: string | undefined,
+  link?: string,
   rank: number,
   idArticle?: string,
-  submenuas: ISubmenua[] | undefined
+  submenuas?: ISubmenua[]
 }
 
 export class Menu implements IMenu {
@@ -16,4 +17,5 @@ export class Menu implements IMenu {
   link: string | undefined;
   submenuas: ISubmenua[] | undefined;
   idArticle?: string
+  submenuab: ISubmenua[] | undefined;
 }

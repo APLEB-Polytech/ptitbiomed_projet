@@ -1,20 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {PanelMenuComponent} from './panel-menu.component';
+import {AddChildMenuComponent} from './add-child-menu.component';
 
-describe('PanelMenuComponent', () => {
-  let component: PanelMenuComponent;
-  let fixture: ComponentFixture<PanelMenuComponent>;
+describe('AddChildMenuComponent', () => {
+  let component: AddChildMenuComponent;
+  let fixture: ComponentFixture<AddChildMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PanelMenuComponent]
+      declarations: [AddChildMenuComponent]
     })
       .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PanelMenuComponent);
+    fixture = TestBed.createComponent(AddChildMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
