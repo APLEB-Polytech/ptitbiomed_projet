@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MenuService {
@@ -70,4 +71,59 @@ public class MenuService {
 			}
 		}
 	}
+
+	public void sortMenu(MenuSortDto menuSort) {
+		if (menuSort.items().size() != this.menuRepository.count()) {
+			throw new IllegalArgumentException("Missing menu in rank list");
+		}
+
+		for (var item : menuSort.items()) {
+			if (!this.menuRepository.existsById(Objects.requireNonNull(item.id()).longValue())) {
+				throw new IllegalArgumentException("No menu with the id " + item.id());
+			}
+		}
+
+		for (MenuSortDto.MenuSortListDto item : menuSort.items()) {
+			final Menu menu = this.menuRepository.findById(item.id().longValue()).orElseThrow(); // CAN'T THROW
+			menu.setRank(item.rank());
+			this.menuRepository.save(menu);
+		}
+	}
+
+	public void sortSubmenua(MenuSortDto menuSort) {
+		if (menuSort.items().size() != this.submenuaRepository.countByIdParent(menuSort.idMenu())) {
+			throw new IllegalArgumentException("Missing submenua in rank list");
+		}
+
+		for (var item : menuSort.items()) {
+			if (!this.submenuaRepository.existsById(item.id())) {
+				throw new IllegalArgumentException("No submenua with the id " + item.id());
+			}
+		}
+
+		for (MenuSortDto.MenuSortListDto item : menuSort.items()) {
+			final Submenua submenua = this.submenuaRepository.findById(item.id()).orElseThrow(); // CAN'T THROW
+			submenua.setRank(item.rank());
+			this.submenuaRepository.save(submenua);
+		}
+	}
+
+	public void sortSubmenub(MenuSortDto menuSort) {
+		if (menuSort.items().size() != this.submenubRepository.countByIdParent(menuSort.idSousMenu())) {
+			throw new IllegalArgumentException("Missing submenub in rank list");
+		}
+
+		for (var item : menuSort.items()) {
+			if (!this.submenubRepository.existsById(item.id())) {
+				throw new IllegalArgumentException("No submenub with the id " + item.id());
+			}
+		}
+
+		for (MenuSortDto.MenuSortListDto item : menuSort.items()) {
+			final Submenub submenub = this.submenubRepository.findById(item.id()).orElseThrow(); // CAN'T THROW
+			submenub.setRank(item.rank());
+			this.submenubRepository.save(submenub);
+		}
+	}
+
 }

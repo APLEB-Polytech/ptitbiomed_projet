@@ -22,6 +22,17 @@ public class Submenub {
 	@Column
 	private String idArticle;
 
+	@Column(name = "rank")
+	private Integer rank;
+
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+
 	public Integer getId() {
 		return id;
 	}

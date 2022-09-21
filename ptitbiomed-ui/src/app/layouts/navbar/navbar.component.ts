@@ -1,9 +1,8 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {IMenu} from "../../shared/model/IMenu";
 import {MenuService} from "../../services/menu.service";
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -25,28 +24,33 @@ export class NavbarComponent implements OnInit {
           id: 0,
           label: 'Utilisateurs',
           link: '/admin/user',
-          submenubs: []
+          rank: 0,
+          submenubs: [],
         },
         {
           id: 1,
           label: 'Panel',
           link: '/admin/panel',
-          submenubs: []
+          submenubs: [],
+          rank: 1,
         },
         {
           id: 2,
           label: 'Medias',
           link: '',
+          rank: 2,
           submenubs: [
             {
               id: 1,
               label: 'Liste des medias',
-              link: '/medias'
+              link: '/medias',
+              rank: 1,
             },
             {
               id: 2,
               label: 'Upload d\'un media',
-              link: '/medias/upload'
+              link: '/medias/upload',
+              rank: 2,
             }
           ]
         },
@@ -54,16 +58,19 @@ export class NavbarComponent implements OnInit {
           id: 3,
           label: 'Articles',
           link: '',
+          rank: 3,
           submenubs: [
             {
               id: 1,
               label: 'Liste des articles',
-              link: '/article'
+              link: '/article',
+              rank: 1,
             },
             {
               id: 2,
               label: 'Upload d\'un article',
-              link: '/article/new'
+              link: '/article/new',
+              rank: 2,
             }
           ]
         }
@@ -86,8 +93,25 @@ export class NavbarComponent implements OnInit {
       (data) => {
         if (data.ok && data.body) {
           this.menuItems = data.body;
+          this.sortOnRank()
         }
       });
+  }
+
+  sortOnRank(): void {
+    this.menuItems = this.menuItems?.sort((a, b) => {
+      return (a.rank >= b.rank) ? 1 : -1
+    })
+    this.menuItems?.forEach((value) => {
+      value.submenuab?.forEach((value2) => {
+        value.submenuas = value.submenuas?.sort((a, b) => {
+          return (a.rank >= b?.rank) ? 1 : -1
+        })
+      })
+      value.submenuas = value.submenuas?.sort((a, b) => {
+        return (a.rank >= b?.rank) ? 1 : -1
+      })
+    })
   }
 
   logout(): void {

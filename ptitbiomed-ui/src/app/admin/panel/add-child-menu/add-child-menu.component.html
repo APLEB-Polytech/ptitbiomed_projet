@@ -1,0 +1,8 @@
+<h2>Ajout d'un enfant</h2>
+<form [formGroup]="formAddChild">
+  <mat-form-field appearance="fill">
+    <mat-label>Label</mat-label>
+    <input formControlName="label" matInput placeholder="Label">
+  </mat-form-field>
+  <button (click)="valid()" [disabled]="!formAddChild.valid" color="primary" mat-raised-button>Valider</button>
+</form>

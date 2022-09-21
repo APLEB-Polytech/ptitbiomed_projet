@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface SubmenubRepository extends JpaRepository<Submenub, Integer> {
     List<Submenub> findByIdParent(Integer idParent);
+
+    int countByIdParent(Integer idParent);
 }

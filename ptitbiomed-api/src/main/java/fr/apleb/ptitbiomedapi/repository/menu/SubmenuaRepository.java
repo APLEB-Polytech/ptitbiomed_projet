@@ -10,5 +10,5 @@ public interface SubmenuaRepository extends JpaRepository<Submenua, Integer> {
 
 	Submenua findByIdAndIdParent(Integer id, Integer idParent);
 
-
+	int countByIdParent(Integer idParent);
 }
