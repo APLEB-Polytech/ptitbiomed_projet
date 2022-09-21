@@ -4,7 +4,7 @@ export interface MenuGeneral {
   id?: number,
   label: string,
   link?: string,
-  rank?: number,
+  rank: number,
   idArticle?: string,
   submenuas?: ISubmenua[]
   submenuab?: ISubmenua[]
