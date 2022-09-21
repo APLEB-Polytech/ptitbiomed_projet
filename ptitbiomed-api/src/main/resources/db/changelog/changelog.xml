@@ -262,6 +262,14 @@
     <changeSet id="1662292160886-1" author="baudu">
         <dropNotNullConstraint columnDataType="varchar(30)" tableName="submenub" columnName="link"/>
     </changeSet>
+    <changeSet id="1663772631000-1" author="alexis">
+        <addColumn tableName="submenua">
+            <column name="rank" type="int"/>
+        </addColumn>
+        <addColumn tableName="submenub">
+            <column name="rank" type="int"/>
+        </addColumn>
+    </changeSet>
 
 
 </databaseChangeLog>
