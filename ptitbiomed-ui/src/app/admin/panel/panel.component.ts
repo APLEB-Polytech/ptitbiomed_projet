@@ -53,6 +53,9 @@ export class PanelComponent implements OnInit {
       this.idSousMenu = this.menus.filter(menu => menu.id === menuChoisi.id)[0].id
     }
     this.menus = this.menus.filter(menu => menu.id === menuChoisi.id)[0].submenuas || this.menus.filter(menu => menuChoisi === menu)[0].submenuab || []
+    this.menus = this.menus.sort((menu1, menu2) => {
+      return ((menu1.rank || 0) >= (menu2.rank || 0)) ? 1 : -1
+    })
   }
 
   loadMenu(): void {
