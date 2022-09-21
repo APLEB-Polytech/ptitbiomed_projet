@@ -2,6 +2,7 @@ package fr.apleb.ptitbiomedapi.controller;
 
 import fr.apleb.ptitbiomedapi.model.menu.MenuCreationDto;
 import fr.apleb.ptitbiomedapi.model.menu.MenuDto;
+import fr.apleb.ptitbiomedapi.model.menu.MenuSortDto;
 import fr.apleb.ptitbiomedapi.model.menu.SubmenuaCreationDto;
 import fr.apleb.ptitbiomedapi.service.MenuService;
 import org.slf4j.Logger;
@@ -51,4 +52,32 @@ public class MenuController {
         this.menuService.addArticleToMenu(idArticle, idMenuOrSubmenu, typeMenu);
         return ResponseEntity.noContent().build();
     }
+
+	@PostMapping("/rank")
+	public ResponseEntity<String> sortMenus(@RequestBody MenuSortDto menuSort) {
+		logger.info("REST POST sortMenus : {}", menuSort);
+		try {
+			final long[] ids = menuSort.items().stream()
+					.mapToLong(MenuSortDto.MenuSortListDto::id)
+					.distinct().toArray();
+
+			if (ids.length != menuSort.items().size()) {
+				throw new IllegalArgumentException("A menu has two ranks");
+			}
+
+			if (menuSort.items().stream()
+					.map(MenuSortDto.MenuSortListDto::rank)
+					.distinct()
+					.count() != ids.length) {
+				throw new IllegalArgumentException("Two menus have the same rank");
+			}
+			
+			if (menuSort.idMenu() == null) this.menuService.sortMenu(menuSort);
+			else if (menuSort.idSousMenu() == null) this.menuService.sortSubmenua(menuSort);
+			else this.menuService.sortSubmenub(menuSort);
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.noContent().build();
+	}
 }

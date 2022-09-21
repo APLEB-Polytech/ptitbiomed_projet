@@ -27,15 +27,26 @@ public class Submenua {
 	@OneToMany(orphanRemoval = true)
 	private List<Submenub> submenubs = new ArrayList<>();
 
+	@Column(name = "rank")
+	private Integer rank;
+
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+
 	public List<Submenub> getSubmenubs() {
 		return submenubs;
 	}
 
 	public void setSubmenubs(List<Submenub> submenubs) {
 		this.submenubs = submenubs;
-    }
+	}
 
-    public Integer getId() {
+	public Integer getId() {
         return id;
     }
 
