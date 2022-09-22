@@ -102,10 +102,11 @@ export class ArticleEditorComponent implements OnInit {
 
     dialog.afterClosed().subscribe((media: IMedia) => {
       let html: string = ''
+      const mediaName: string = `${media.hash}.${media.type.split('/')[1]}`
       if (media.type.startsWith('image/')) {
-        html = `<div class="media petit"> <img alt="" loading="lazy" src="/api/media/downloadFile/${media.hash}"><p>${media.nom}</p></div>`
+        html = `<div class="media petit"> <img alt="" loading="lazy" src="https://media.ptitbiomed.fr/${mediaName}"><p>${media.nom}</p></div>`
       } else {
-        html = `<div class="media petit"><video controls preload="metadata" width="250"> <source type="${media.type}" src="/api/media/stream/${media.hash}"> </video><p>${media.nom}</p></div>`
+        html = `<div class="media petit"><video controls preload="metadata" width="250"> <source type="${media.type}" src="https://media.ptitbiomed.fr/${mediaName}"> </video><p>${media.nom}</p></div>`
       }
       this.clipboard.copy(html)
       this.snackbar.open("Le tag a été copié dans le presse-papier")
