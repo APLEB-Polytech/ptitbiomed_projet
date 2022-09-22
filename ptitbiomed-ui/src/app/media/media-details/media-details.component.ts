@@ -45,4 +45,8 @@ export class MediaDetailsComponent implements OnInit {
       }
     })
   }
+
+  getExtension(media: IMedia): string {
+    return media.type.split('/')[1]
+  }
 }
