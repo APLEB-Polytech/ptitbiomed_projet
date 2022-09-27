@@ -1,6 +1,5 @@
 #container {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin: 0 20%;
   background-color: white;
   height: 100%;
 }
@@ -17,5 +16,13 @@ app-navbar {
 
 app-footer {
   height: 15%;
+}
+
+@media (max-width: 1000px) {
+  #container {
+    margin: 0 10%;
+    background-color: white;
+    height: 100%;
+  }
 }
 
