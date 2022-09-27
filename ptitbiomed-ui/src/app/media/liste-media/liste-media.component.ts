@@ -25,6 +25,13 @@ export class ListeMediaComponent implements OnInit {
     itemMax: 0,
     actualPage: 0
   }
+
+  pdfs: IPaginator<IMedia> = {
+    data: [],
+    pageSize: 10,
+    itemMax: 0,
+    actualPage: 0
+  }
   isLoaded: boolean = false
 
   constructor(private mediaService: MediaService, public dialog: MatDialog) {
@@ -62,4 +69,18 @@ export class ListeMediaComponent implements OnInit {
     })
   }
 
+  loadPDF() {
+    if (this.isLoaded) return
+    this.isLoaded = true
+    this.mediaService.getAllPDFPaginated(this.pdfs).subscribe({
+      next: (response: HttpResponse<IPaginator<IMedia>>) => {
+        if (response.ok && response.body) {
+          this.pdfs = response.body
+        }
+      },
+      error: (error) => {
+        throw error;
+      }
+    })
+  }
 }

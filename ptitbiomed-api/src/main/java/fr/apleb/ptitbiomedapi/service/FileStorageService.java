@@ -99,12 +99,12 @@ public class FileStorageService {
 	 * @return Liste des médias
 	 */
 	public Paginator<Media> getMedias(String type, Paginator<Media> paginator) {
-		if (!type.equals("image") && !type.equals("video"))
+		if (!type.equals("image") && !type.equals("video") && !type.equals("pdf"))
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
 
 		Media[] medias = mediaRepository.findAll()
 				.stream()
-				.filter(media -> media.getType().startsWith(type))
+				.filter(media -> media.getType().contains(type))
 				.skip((long) paginator.actualPage() * paginator.pageSize())
 				.limit(paginator.pageSize())
 				.toList()
@@ -117,11 +117,11 @@ public class FileStorageService {
 	}
 
 	public List<Media> getAllMedias(String type) {
-		if (!type.equals("image") && !type.equals("video"))
+		if (!type.equals("image") && !type.equals("video") && !type.equals("pdf"))
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
 		return mediaRepository.findAll()
 				.stream()
-				.filter(media -> media.getType().startsWith(type))
+				.filter(media -> media.getType().contains(type))
 				.toList();
 	}
 

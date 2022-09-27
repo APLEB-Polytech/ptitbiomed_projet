@@ -20,12 +20,20 @@ export class MediaService {
     return this.http.post<IPaginator<IMedia>>('/api/media/video', paginator, {observe: 'response'});
   }
 
+  getAllPDFPaginated(paginator: IPaginator<IMedia>): Observable<HttpResponse<IPaginator<IMedia>>> {
+    return this.http.post<IPaginator<IMedia>>('/api/media/pdf', paginator, {observe: 'response'});
+  }
+
   getAllImages(): Observable<HttpResponse<IMedia[]>> {
     return this.http.get<IMedia[]>(`/api/media/image`, {observe: "response"})
   }
 
   getAllVideos(): Observable<HttpResponse<IMedia[]>> {
     return this.http.get<IMedia[]>(`/api/media/video`, {observe: "response"})
+  }
+
+  getAllPDF(): Observable<HttpResponse<IMedia[]>> {
+    return this.http.get<IMedia[]>(`/api/media/pdf`, {observe: "response"})
   }
 
   deleteMedia(hash: number): Observable<HttpResponse<any>> {

@@ -105,8 +105,10 @@ export class ArticleEditorComponent implements OnInit {
       const mediaName: string = `${media.hash}.${media.type.split('/')[1]}`
       if (media.type.startsWith('image/')) {
         html = `<div class="media petit"> <img alt="" loading="lazy" src="https://media.ptitbiomed.fr/${mediaName}"><p>${media.nom}</p></div>`
-      } else {
+      } else if (media.type.startsWith('video/')) {
         html = `<div class="media petit"><video controls preload="metadata" width="250"> <source type="${media.type}" src="https://media.ptitbiomed.fr/${mediaName}"> </video><p>${media.nom}</p></div>`
+      } else if (media.type.startsWith('application/pdf')) {
+        html = `<a href="https://media.ptitbiomed.fr/${mediaName}" target="_blank">${mediaName}</a>`
       }
       this.clipboard.copy(html)
       this.snackbar.open("Le tag a été copié dans le presse-papier")
