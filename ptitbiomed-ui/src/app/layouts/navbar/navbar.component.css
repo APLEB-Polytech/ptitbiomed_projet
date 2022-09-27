@@ -6,6 +6,17 @@
   padding-right: 2%;
 }
 
+@media (max-width: 900px) {
+  #header {
+    flex-direction: column;
+  }
+
+  #logo_ptitbiomed {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 img {
   max-width: 350px;
 }
