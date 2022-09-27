@@ -29,6 +29,11 @@ export class MediaDetailsComponent implements OnInit {
     return this.media.type.startsWith('video');
   }
 
+  isPdf(): boolean {
+    if (this.media === undefined) return false;
+    return this.media.type.startsWith('application/pdf');
+  }
+
   supprimer() {
     if (!this.media) {
       return;
