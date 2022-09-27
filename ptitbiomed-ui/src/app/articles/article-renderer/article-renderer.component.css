@@ -73,6 +73,7 @@ img, video {
 .media {
 	margin: auto;
 	text-align: center;
+	max-width: 100%;
 }
 
 .medias > .media {
