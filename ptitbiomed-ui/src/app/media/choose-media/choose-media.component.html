@@ -15,4 +15,11 @@
       </ng-container>
     </div>
   </mat-tab>
+  <mat-tab label="PDF">
+    <div class="contenu">
+      <ng-container (click)="valider(pdf)" *ngFor="let pdf of pdfs|async">
+        <app-media-details (click)="valider(pdf)" [media]="pdf"></app-media-details>
+      </ng-container>
+    </div>
+  </mat-tab>
 </mat-tab-group>

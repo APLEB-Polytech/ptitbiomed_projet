@@ -15,6 +15,7 @@ export class ChooseMediaComponent implements OnInit {
 
   images: Subject<IMedia[]> = new Subject<IMedia[]>()
   videos: Subject<IMedia[]> = new Subject<IMedia[]>()
+  pdfs: Subject<IMedia[]> = new Subject<IMedia[]>()
 
   constructor(
     public dialogRef: MatDialogRef<ChooseMediaComponent>,
@@ -26,6 +27,7 @@ export class ChooseMediaComponent implements OnInit {
   ngOnInit(): void {
     this.loadImages()
     this.loadVideos()
+    this.loadPDF()
   }
 
   loadImages(): void {
@@ -48,6 +50,18 @@ export class ChooseMediaComponent implements OnInit {
           throw new Error('Erreur lors de la récupération des vidéos')
         }
         this.videos.next(response.body)
+      }
+    })
+  }
+
+  loadPDF(): void {
+    this.mediaService.getAllPDF().subscribe({
+      next: (response: HttpResponse<IMedia[]>) => {
+        if (!response.ok || !response.body) {
+          this.snackbar.open('Erreur lors de la récupération des pdf')
+          throw new Error('Erreur lors de la récupération des pdf')
+        }
+        this.pdfs.next(response.body)
       }
     })
   }

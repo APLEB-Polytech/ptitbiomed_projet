@@ -4,6 +4,9 @@
       {{media.nom}}
     </mat-card-header>
     <mat-card-content>
+      <ng-container *ngIf="isPdf()">
+        Hash : {{media.hash}}
+      </ng-container>
       <ng-container *ngIf="isImage()">
         <img alt="{{media.nom}}" src="https://media.ptitbiomed.fr/{{media.hash}}.{{getExtension(media)}}" width="250">
       </ng-container>

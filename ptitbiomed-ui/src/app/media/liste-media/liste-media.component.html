@@ -31,4 +31,20 @@
       </div>
     </ng-template>
   </mat-tab>
+  <mat-tab label="PDF">
+    <ng-template matTabContent>
+      {{loadPDF()}}
+      <div class="listeMedias">
+        <app-media-details *ngFor="let media of pdfs.data" [media]="media"></app-media-details>
+        <mat-paginator (change)="loadPDF()"
+                       (page)="loadPDF()"
+                       [length]="pdfs.itemMax"
+                       [pageIndex]="pdfs.actualPage"
+                       [pageSizeOptions]="[1, 2, 5, 100]"
+                       [pageSize]="pdfs.pageSize"
+                       aria-label="Select page">
+        </mat-paginator>
+      </div>
+    </ng-template>
+  </mat-tab>
 </mat-tab-group>
