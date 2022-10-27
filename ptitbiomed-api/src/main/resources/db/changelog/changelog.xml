@@ -270,6 +270,8 @@
             <column name="rank" type="int"/>
         </addColumn>
     </changeSet>
-
+    <changeSet id="1666890181884-1" author="baudu">
+        <modifyDataType tableName="menu" columnName="label" newDataType="char(100)"/>
+    </changeSet>
 
 </databaseChangeLog>
