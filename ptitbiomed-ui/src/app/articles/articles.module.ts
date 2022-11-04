@@ -27,6 +27,7 @@ import {AddImageDialogComponent} from './article-editor/add-image-dialog/add-ima
 import {MediaModule} from "../media/media.module";
 import {AddVideoDialogComponent} from './article-editor/add-video-dialog/add-video-dialog.component';
 import {AddLienDialogComponent} from './article-editor/add-lien-dialog/add-lien-dialog.component';
+import {AddPDFDialogComponent} from './article-editor/add-pdfdialog/add-pdfdialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {AddLienDialogComponent} from './article-editor/add-lien-dialog/add-lien-
     AddParagrapheDialogComponent,
     AddImageDialogComponent,
     AddVideoDialogComponent,
-    AddLienDialogComponent
+    AddLienDialogComponent,
+    AddPDFDialogComponent
   ],
   exports: [
     ArticleRendererComponent

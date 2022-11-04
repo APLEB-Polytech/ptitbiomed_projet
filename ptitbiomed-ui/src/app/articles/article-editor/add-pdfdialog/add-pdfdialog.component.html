@@ -1,0 +1,14 @@
+<h1>PDF</h1>
+<mat-form-field appearance="fill" class="example-full-width">
+  <mat-label>Légende</mat-label>
+  <input [formControl]="nom" matInput placeholder="Ex. Pizza">
+</mat-form-field>
+
+<app-upload-image (nomMedia)="addPdf($event)"></app-upload-image>
+<div *ngFor="let pdf of pdfs|async">
+  {{pdf.nom}}
+  <a href="https://media.ptitbiomed.fr/{{pdf.hash}}.pdf" target="_blank">
+    <button mat-raised-button>Afficher</button>
+  </a>
+  <button (click)="addPdf(pdf)" color="primary" mat-raised-button>Choisir</button>
+</div>

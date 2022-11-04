@@ -15,6 +15,7 @@ import {AddParagrapheDialogComponent} from "./add-paragraphe-dialog/add-paragrap
 import {AddImageDialogComponent} from "./add-image-dialog/add-image-dialog.component";
 import {AddVideoDialogComponent} from "./add-video-dialog/add-video-dialog.component";
 import {AddLienDialogComponent} from "./add-lien-dialog/add-lien-dialog.component";
+import {AddPDFDialogComponent} from "./add-pdfdialog/add-pdfdialog.component";
 
 @Component({
   selector: 'app-article-editor',
@@ -202,6 +203,24 @@ export class ArticleEditorComponent implements OnInit {
       if (ret) {
         this.editContent(`<a href="${ret.lien}" target="_blank">${ret.nom}</a>`)
       }
+    })
+  }
+
+  dialogPdf() {
+    this.dialog.open(AddPDFDialogComponent, {
+      width: '1500px',
+      maxHeight: '500px'
+    })
+      .afterClosed().subscribe((ret: { pdf: IMedia, nom: string }) => {
+      const mediaName: string = `${ret.pdf.hash}.${ret.pdf.type.split('/')[1]}`
+      let content = `<a href="https://media.ptitbiomed.fr/${mediaName}" target="_blank">`
+      if (ret.nom) {
+        content += ret.nom
+      } else {
+        content += ret.pdf.nom
+      }
+      content += '</a>'
+      this.editContent(content)
     })
   }
 }
