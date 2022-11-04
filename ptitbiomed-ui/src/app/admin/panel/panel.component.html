@@ -1,11 +1,25 @@
 <h1>Modification de la navbar</h1>
-<button (click)="retour()" *ngIf="idMenu" mat-raised-button>Retour</button>
-<button (click)="addChild()" *ngIf="!idSousMenu" color="primary" mat-raised-button>Ajouter un enfant</button>
-<div (cdkDropListDropped)="drop($event)" cdkDropList class="example-list">
-  <div *ngFor="let menu of menus" cdkDrag class="example-box">
+
+<div id="div-controls">
+  <button (click)="createMenu()" color="primary" mat-raised-button>Ajouter un enfant</button>
+  <button (click)="retour()" *ngIf="idMenu" mat-raised-button>Retour</button>
+  {{getPath()}}
+</div>
+
+<div (cdkDropListDropped)="drop($event)" cdkDropList class="example-list" id="list">
+  <div *ngFor="let menu of filteredMenus" cdkDrag class="example-box">
     <div *cdkDragPlaceholder class="example-custom-placeholder"></div>
     {{menu.label}}
-    <button (click)="loadSousMenu(menu)" *ngIf="!idSousMenu" color="primary" mat-raised-button>Enfants</button>
+    <div class="div-menu-controls">
+      <button (click)="loadMenu(menu.id)" *ngIf="!idMenu || !getMenuById(idMenu).idParent" color="primary" mat-raised-button>Enfants</button>
+      <button (click)="editMenu(menu)" mat-raised-button>Modifier</button>
+      <button (click)="deleteMenu(menu)" color="warn" mat-raised-button>Supprimer</button>
+    </div>
   </div>
 </div>
-<button (click)="save()" color="primary" mat-raised-button>Sauvegarder</button>
+
+<!--
+<div id="div-btn-save">
+  <button (click)="save()" color="primary" mat-raised-button id="btn-save">Sauvegarder</button>
+</div>
+-->

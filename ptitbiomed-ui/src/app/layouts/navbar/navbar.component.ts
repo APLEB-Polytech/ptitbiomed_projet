@@ -1,6 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
-import {Router} from "@angular/router";
 import {IMenu} from "../../shared/model/IMenu";
 import {MenuService} from "../../services/menu.service";
 
@@ -11,75 +10,70 @@ import {MenuService} from "../../services/menu.service";
 })
 export class NavbarComponent implements OnInit {
 
-  @Input()
   menuItems: IMenu[] | undefined;
   menuItemsAdmin: IMenu[] = [
     {
-      id: 0,
+      id: -1,
       label: 'Administration',
-      link: '',
       rank: 0,
-      submenuas: [
-        {
-          id: 0,
-          label: 'Utilisateurs',
-          link: '/admin/user',
-          rank: 0,
-          submenubs: [],
-        },
-        {
-          id: 1,
-          label: 'Panel',
-          link: '/admin/panel',
-          submenubs: [],
-          rank: 1,
-        },
-        {
-          id: 2,
-          label: 'Medias',
-          link: '',
-          rank: 2,
-          submenubs: [
-            {
-              id: 1,
-              label: 'Liste des medias',
-              link: '/medias',
-              rank: 1,
-            },
-            {
-              id: 2,
-              label: 'Upload d\'un media',
-              link: '/medias/upload',
-              rank: 2,
-            }
-          ]
-        },
-        {
-          id: 3,
-          label: 'Articles',
-          link: '',
-          rank: 3,
-          submenubs: [
-            {
-              id: 1,
-              label: 'Liste des articles',
-              link: '/article',
-              rank: 1,
-            },
-            {
-              id: 2,
-              label: 'Upload d\'un article',
-              link: '/article/new',
-              rank: 2,
-            }
-          ]
-        }
-      ]
     },
+    {
+      id: -10,
+      label: 'Utilisateurs',
+      link: '/admin/user',
+      rank: 0,
+      idParent: -1,
+    },
+    {
+      id: -11,
+      label: 'Panel',
+      link: '/admin/panel',
+      rank: 1,
+      idParent: -1,
+    },
+    {
+      id: -12,
+      label: 'Médias',
+      rank: 2,
+      idParent: -1,
+    },
+    {
+      id: -120,
+      label: 'Liste des médias',
+      link: '/medias',
+      rank: 1,
+      idParent: -12,
+    },
+    {
+      id: -121,
+      label: "Upload d'un média",
+      link: '/medias/upload',
+      rank: 2,
+      idParent: -12,
+    },
+    {
+      id: -13,
+      label: 'Articles',
+      rank: 3,
+      idParent: -1,
+    },
+    {
+      id: -130,
+      label: 'Liste des articles',
+      link: '/article',
+      rank: 0,
+      idParent: -13,
+    },
+    {
+      id: -131,
+      label: "Upload d'un article",
+      link: '/article/new',
+      rank: 1,
+      idParent: -13,
+    },
+  ];
 
-  ]
-
-  constructor(public userService: UserService, public menuService: MenuService, private router: Router) {
+  constructor(public userService: UserService, public menuService: MenuService) {
   }
 
   ngOnInit(): void {
@@ -93,30 +87,25 @@ export class NavbarComponent implements OnInit {
       (data) => {
         if (data.ok && data.body) {
           this.menuItems = data.body;
-          this.sortOnRank()
+          // this.sortOnRank()
         }
       });
   }
 
-  sortOnRank(): void {
-    this.menuItems = this.menuItems?.sort((a, b) => {
-      return (a.rank >= b.rank) ? 1 : -1
-    })
-    this.menuItems?.forEach((value) => {
-      value.submenuab?.forEach((value2) => {
-        value.submenuas = value.submenuas?.sort((a, b) => {
-          return (a.rank >= b?.rank) ? 1 : -1
-        })
-      })
-      value.submenuas = value.submenuas?.sort((a, b) => {
-        return (a.rank >= b?.rank) ? 1 : -1
-      })
-    })
-  }
-
-  logout(): void {
-    this.userService.logout()
-    this.router.navigate(['']);
-  }
+  // sortOnRank(): void {
+  //   this.menuItems = this.menuItems?.sort((a, b) => {
+  //     return (a.rank >= b.rank) ? 1 : -1
+  //   })
+  //   this.menuItems?.forEach((value) => {
+  //     value.submenuab?.forEach((value2) => {
+  //       value.submenuas = value.submenuas?.sort((a, b) => {
+  //         return (a.rank >= b?.rank) ? 1 : -1
+  //       })
+  //     })
+  //     value.submenuas = value.submenuas?.sort((a, b) => {
+  //       return (a.rank >= b?.rank) ? 1 : -1
+  //     })
+  //   })
+  // }
 
 }

@@ -8,7 +8,7 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
 
 	@Column(name = "label", nullable = false)
 	private String label;
@@ -22,11 +22,14 @@ public class Menu {
 	@Column
 	private String idArticle;
 
-	public Long getId() {
+	@Column(name = "id_parent")
+	private Integer idParent;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -61,4 +64,13 @@ public class Menu {
 	public void setIdArticle(String idArticle) {
 		this.idArticle = idArticle;
 	}
+
+	public Integer getIdParent() {
+		return idParent;
+	}
+
+	public void setIdParent(Integer idParent) {
+		this.idParent = idParent;
+	}
+
 }

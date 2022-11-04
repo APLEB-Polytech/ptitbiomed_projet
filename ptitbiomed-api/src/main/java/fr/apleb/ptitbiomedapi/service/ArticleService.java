@@ -7,8 +7,6 @@ import fr.apleb.ptitbiomedapi.model.menu.Submenua;
 import fr.apleb.ptitbiomedapi.model.menu.Submenub;
 import fr.apleb.ptitbiomedapi.repository.ArticleRepository;
 import fr.apleb.ptitbiomedapi.repository.menu.MenuRepository;
-import fr.apleb.ptitbiomedapi.repository.menu.SubmenuaRepository;
-import fr.apleb.ptitbiomedapi.repository.menu.SubmenubRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +19,10 @@ import java.util.UUID;
 @Service
 public class ArticleService {
 	private final ArticleRepository articleRepository;
-	private final SubmenuaRepository submenuaRepository;
-	private final SubmenubRepository submenubRepository;
 	private final MenuRepository menuRepository;
 
-	public ArticleService(ArticleRepository articleRepository, SubmenuaRepository submenuaRepository, SubmenubRepository submenubRepository, MenuRepository menuRepository) {
+	public ArticleService(ArticleRepository articleRepository, MenuRepository menuRepository) {
 		this.articleRepository = articleRepository;
-		this.submenuaRepository = submenuaRepository;
-		this.submenubRepository = submenubRepository;
 		this.menuRepository = menuRepository;
 	}
 
@@ -80,6 +74,8 @@ public class ArticleService {
 	 * Ajoute un article au menu si son objet menuArticleDto n'est pas null
 	 */
 	private void processMenuArticle(EditArticleDTO editArticleDTO) {
+		/*
+		TODO: Check
 		if (editArticleDTO.menuArticle() == null) {
 			return;
 		}
@@ -105,7 +101,7 @@ public class ArticleService {
 		menu.setLabel(editArticleDTO.title());
 		menu.setIdArticle(editArticleDTO.uuid().toString());
 		this.menuRepository.save(menu);
-
+		*/
 	}
 
 

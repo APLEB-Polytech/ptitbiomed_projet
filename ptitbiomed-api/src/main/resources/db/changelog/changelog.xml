@@ -274,4 +274,15 @@
         <modifyDataType tableName="menu" columnName="label" newDataType="char(100)"/>
     </changeSet>
 
+    <changeSet id="1667408087485-1" author="alexis">
+        <addColumn tableName="menu">
+            <column name="id_parent" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="menu" baseColumnNames="id_parent"
+                                 referencedTableName="menu" referencedColumnNames="id"
+                                 constraintName="FK_menu_menu"/>
+    </changeSet>
+
 </databaseChangeLog>

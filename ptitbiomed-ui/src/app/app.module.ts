@@ -23,6 +23,8 @@ import {MatTreeModule} from "@angular/material/tree";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {ArticlesModule} from "./articles/articles.module";
+import { NavbarContentComponent } from './layouts/navbar/navbar-content/navbar-content.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import {ArticlesModule} from "./articles/articles.module";
     NavbarComponent,
     FooterComponent,
     AccueilComponent,
+    NavbarContentComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

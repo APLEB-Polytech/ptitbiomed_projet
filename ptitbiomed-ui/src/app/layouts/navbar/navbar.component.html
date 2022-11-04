@@ -1,65 +1,15 @@
 <div id="header">
+
   <div id="logo_ptitbiomed">
     <img alt="ptitBioMed Logo" src="/assets/img/ptitbiomed_logo.png">
   </div>
-  <ul id="liens" *ngIf="menuItems">
-    <li *ngFor="let item of menuItems">
-      <a *ngIf="item.link || item.idArticle else dropdown" class="link"
-         routerLink="{{item.link || '/article/view/'+item.idArticle}}">{{item.label}}</a>
-      <ng-template #dropdown>
-        <div class="dropdown">
-          <div class="dropdown-button">{{item.label}}</div>
-          <div *ngIf="item.submenuas" class="dropdown-content">
-            <div *ngFor="let submenua of item.submenuas">
-              <a *ngIf="submenua.link || submenua.idArticle; else dropdown2"
-                 routerLink="{{submenua.link|| '/article/view/'+submenua.idArticle}}">{{submenua.label}}</a>
-              <ng-template #dropdown2>
-                <div class="dropdown2">
-                  <div *ngIf="submenua.submenubs" class="dropdown-content2">
-                    <div *ngFor="let submenub of submenua.submenubs">
-                      <a routerLink="{{submenub.link || '/article/view/'+submenub.idArticle}}">{{submenub.label}}</a>
-                    </div>
-                  </div>
-                  <div class="dropdown-button2">{{submenua.label}}</div>
-                </div>
-              </ng-template>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-    </li>
-    <ng-container *ngIf="userService.isConnected|async">
-      <li *ngFor="let item of menuItemsAdmin">
-        <a *ngIf="item.link; else dropdown" class="link" routerLink="{{item.link}}">{{item.label}}</a>
-        <ng-template #dropdown>
-          <div class="dropdown">
-            <div class="dropdown-button">{{item.label}}</div>
-            <div *ngIf="item.submenuas" class="dropdown-content">
-              <div *ngFor="let submenua of item.submenuas">
-                <a *ngIf="submenua.link; else dropdown2" routerLink="{{submenua.link}}">{{submenua.label}}</a>
-                <ng-template #dropdown2>
-                  <div class="dropdown2">
-                    <div *ngIf="submenua.submenubs" class="dropdown-content2">
-                      <div *ngFor="let submenub of submenua.submenubs">
-                        <a routerLink="{{submenub.link}}">{{submenub.label}}</a>
-                      </div>
-                    </div>
-                    <div class="dropdown-button2">{{submenua.label}}</div>
-                  </div>
-                </ng-template>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </li>
-    </ng-container>
-    <li *ngIf="!(userService.isConnected|async)">
-      <a routerLink="login" class="link">Connexion</a>
-    </li>
-    <li *ngIf="userService.isConnected|async">
-      <a (click)="logout()" href="" class="lien">Déconnexion</a>
-    </li>
-  </ul>
+
+  <div id="div-navbar" *ngIf="menuItems">
+    <app-navbar-content [menus]="(userService.isConnected|async)
+        ? menuItems.concat(menuItemsAdmin)
+                   .concat([{id:-999, label: 'Déconnexion', 'rank': 999, 'link': '/logout'}])
+        : menuItems.concat([{id: -999, label: 'Connexion', 'rank': 999, 'link': '/login'}])">
+    </app-navbar-content>
+  </div>
 
 </div>
-
