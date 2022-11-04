@@ -1,0 +1,16 @@
+<h1>Image</h1>
+<mat-radio-group [formControl]="taille" aria-label="Taille">
+  <mat-radio-button [value]="'petit'" checked>Petit</mat-radio-button>
+  <mat-radio-button [value]="'moyen'">Moyen</mat-radio-button>
+  <mat-radio-button [value]="'grand'">Grand</mat-radio-button>
+</mat-radio-group>
+<mat-form-field appearance="fill" class="example-full-width">
+  <mat-label>Légende</mat-label>
+  <input [formControl]="legende" matInput placeholder="Ex. Pizza">
+</mat-form-field>
+<app-upload-image (nomMedia)="addImage($event)"></app-upload-image>
+<br>
+<ng-container *ngFor="let image of images|async">
+  <img (click)="addImage(image)" alt="{{image.nom}}" loading="lazy"
+       src="https://media.ptitbiomed.fr/{{image.hash}}.{{image.type.split('/')[1]}}" width="250">
+</ng-container>

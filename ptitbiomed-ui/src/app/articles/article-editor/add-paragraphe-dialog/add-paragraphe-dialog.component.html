@@ -1,0 +1,10 @@
+<h1>Paragraphe</h1>
+<mat-checkbox [formControl]="return"
+              class="example-margin">Retour à la ligne
+</mat-checkbox>
+<mat-form-field appearance="fill" id="textAreaInput">
+  <mat-label>Contenu</mat-label>
+  <textarea [formControl]="content" matInput></textarea>
+</mat-form-field>
+
+<button (click)="valid()" color="primary" mat-raised-button>Valider</button>
