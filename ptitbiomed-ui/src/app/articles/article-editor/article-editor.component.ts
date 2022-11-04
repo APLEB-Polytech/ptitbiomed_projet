@@ -14,6 +14,7 @@ import {AddTitleDialogComponent} from "./add-title-dialog/add-title-dialog.compo
 import {AddParagrapheDialogComponent} from "./add-paragraphe-dialog/add-paragraphe-dialog.component";
 import {AddImageDialogComponent} from "./add-image-dialog/add-image-dialog.component";
 import {AddVideoDialogComponent} from "./add-video-dialog/add-video-dialog.component";
+import {AddLienDialogComponent} from "./add-lien-dialog/add-lien-dialog.component";
 
 @Component({
   selector: 'app-article-editor',
@@ -191,6 +192,16 @@ export class ArticleEditorComponent implements OnInit {
       }
       content += '</div>'
       this.editContent(content)
+    })
+  }
+
+  dialogLien() {
+    this.dialog.open(AddLienDialogComponent, {
+      width: '1500px'
+    }).afterClosed().subscribe((ret: { nom: string, lien: string }) => {
+      if (ret) {
+        this.editContent(`<a href="${ret.lien}" target="_blank">${ret.nom}</a>`)
+      }
     })
   }
 }
