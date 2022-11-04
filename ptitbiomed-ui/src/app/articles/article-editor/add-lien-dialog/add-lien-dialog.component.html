@@ -1,0 +1,14 @@
+<h1>Lien</h1>
+<form [formGroup]="formGroup">
+  <mat-form-field appearance="fill" class="example-full-width">
+    <mat-label>Nom</mat-label>
+    <input formControlName="nom" matInput placeholder="Ex. AFIB">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="example-full-width">
+    <mat-label>Lien</mat-label>
+    <input formControlName="lien" matInput placeholder="Ex. https://google.fr">
+  </mat-form-field>
+
+  <button (click)="valid()" [disabled]="!formGroup.valid" color="primary" mat-raised-button>Valider</button>
+</form>

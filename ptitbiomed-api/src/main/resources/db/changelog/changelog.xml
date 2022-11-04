@@ -274,4 +274,5 @@
         <modifyDataType tableName="menu" columnName="label" newDataType="char(100)"/>
     </changeSet>
 
+
 </databaseChangeLog>

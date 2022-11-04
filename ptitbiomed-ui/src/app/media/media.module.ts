@@ -20,6 +20,10 @@ import {MatButtonModule} from "@angular/material/button";
     MediaDetailsComponent,
     ChooseMediaComponent
   ],
+  exports: [
+    MediaDetailsComponent,
+    UploadMediaComponent
+  ],
   imports: [
     CommonModule,
     MediaRoutingModule,
