@@ -12,6 +12,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {AddArticleToMediaDialogComponent} from "./add-article-to-media-dialog/add-article-to-media-dialog.component";
 import {AddTitleDialogComponent} from "./add-title-dialog/add-title-dialog.component";
 import {AddParagrapheDialogComponent} from "./add-paragraphe-dialog/add-paragraphe-dialog.component";
+import {AddImageDialogComponent} from "./add-image-dialog/add-image-dialog.component";
 
 @Component({
   selector: 'app-article-editor',
@@ -157,6 +158,22 @@ export class ArticleEditorComponent implements OnInit {
         }
         this.editContent(content)
       }
+    })
+  }
+
+  dialogImage(): void {
+    this.dialog.open(AddImageDialogComponent, {
+      width: '1500px',
+      maxHeight: '500px'
+    })
+      .afterClosed().subscribe((ret: { image: IMedia, taille: string, legende: string }) => {
+      const mediaName: string = `${ret.image.hash}.${ret.image.type.split('/')[1]}`
+      let content = `<div class="media ${ret.taille}"> <img alt="" loading="lazy" src="https://media.ptitbiomed.fr/${mediaName}">`
+      if (ret.legende) {
+        content += `<p>${ret.legende}</p>`
+      }
+      content += '</div>'
+      this.editContent(content)
     })
   }
 }
