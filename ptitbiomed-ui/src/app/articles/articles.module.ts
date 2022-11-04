@@ -28,6 +28,7 @@ import {MediaModule} from "../media/media.module";
 import {AddVideoDialogComponent} from './article-editor/add-video-dialog/add-video-dialog.component';
 import {AddLienDialogComponent} from './article-editor/add-lien-dialog/add-lien-dialog.component';
 import {AddPDFDialogComponent} from './article-editor/add-pdfdialog/add-pdfdialog.component';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {AddPDFDialogComponent} from './article-editor/add-pdfdialog/add-pdfdialo
     MatSidenavModule,
     MatRadioModule,
     MatCheckboxModule,
-    MediaModule
+    MediaModule,
+    MatProgressBarModule
   ]
 })
 export class ArticlesModule {
