@@ -13,6 +13,7 @@ import {AddArticleToMediaDialogComponent} from "./add-article-to-media-dialog/ad
 import {AddTitleDialogComponent} from "./add-title-dialog/add-title-dialog.component";
 import {AddParagrapheDialogComponent} from "./add-paragraphe-dialog/add-paragraphe-dialog.component";
 import {AddImageDialogComponent} from "./add-image-dialog/add-image-dialog.component";
+import {AddVideoDialogComponent} from "./add-video-dialog/add-video-dialog.component";
 
 @Component({
   selector: 'app-article-editor',
@@ -169,6 +170,22 @@ export class ArticleEditorComponent implements OnInit {
       .afterClosed().subscribe((ret: { image: IMedia, taille: string, legende: string }) => {
       const mediaName: string = `${ret.image.hash}.${ret.image.type.split('/')[1]}`
       let content = `<div class="media ${ret.taille}"> <img alt="" loading="lazy" src="https://media.ptitbiomed.fr/${mediaName}">`
+      if (ret.legende) {
+        content += `<p>${ret.legende}</p>`
+      }
+      content += '</div>'
+      this.editContent(content)
+    })
+  }
+
+  dialogVideo(): void {
+    this.dialog.open(AddVideoDialogComponent, {
+      width: '1500px',
+      maxHeight: '500px'
+    })
+      .afterClosed().subscribe((ret: { video: IMedia, taille: string, legende: string }) => {
+      const mediaName: string = `${ret.video.hash}.${ret.video.type.split('/')[1]}`
+      let content = `<div class="media ${ret.taille}"> <video controls preload="metadata" width="250"> <source type="${ret.video.type}" src="https://media.ptitbiomed.fr/${mediaName}"> </video>`
       if (ret.legende) {
         content += `<p>${ret.legende}</p>`
       }

@@ -25,6 +25,7 @@ import {AddParagrapheDialogComponent} from './article-editor/add-paragraphe-dial
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {AddImageDialogComponent} from './article-editor/add-image-dialog/add-image-dialog.component';
 import {MediaModule} from "../media/media.module";
+import {AddVideoDialogComponent} from './article-editor/add-video-dialog/add-video-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {MediaModule} from "../media/media.module";
     AddArticleToMediaDialogComponent,
     AddTitleDialogComponent,
     AddParagrapheDialogComponent,
-    AddImageDialogComponent
+    AddImageDialogComponent,
+    AddVideoDialogComponent
   ],
   exports: [
     ArticleRendererComponent
