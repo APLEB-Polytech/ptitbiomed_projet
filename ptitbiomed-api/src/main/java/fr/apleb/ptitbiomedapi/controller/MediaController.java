@@ -44,8 +44,10 @@ public class MediaController {
 	}
 
 	@GetMapping("/downloadFile/{hashName}")
+	@Deprecated
 	public ResponseEntity<byte[]> downloadFile(@PathVariable int hashName) {
 		logger.info("REST GET downloadFile: {}", hashName);
+		logger.warn("Attetion : utiliser le reverse proxy svp");
 		Media media = fileStorageService.getMedia(hashName).orElseThrow(NotFoundException::new);
 		byte[] content = fileStorageService.getContent(hashName);
 
@@ -57,8 +59,10 @@ public class MediaController {
 	}
 
 	@GetMapping(value = "/stream/{hashName}")
+	@Deprecated
 	public ResponseEntity<Mono<Resource>> stream(@PathVariable int hashName, @RequestHeader("Range") String range) {
 		logger.info("REST GET stream: {}", hashName);
+		logger.warn("Attetion : utiliser le reverse proxy svp");
 		Media media = fileStorageService.getMedia(hashName).orElseThrow(NotFoundException::new);
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_TYPE, media.getType())
