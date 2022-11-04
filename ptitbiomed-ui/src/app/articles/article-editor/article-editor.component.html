@@ -48,8 +48,8 @@
         <mat-divider></mat-divider>
         <mat-form-field appearance="fill" id="textAreaInput">
           <mat-label>HTML de l'article</mat-label>
-          <textarea formControlName="content"
-                    matInput>
+          <textarea #contentArea (click)="updateCursorPosClick($event)"
+                    (keyup)="updateCursorPosKeybord()" formControlName="content" matInput>
 			</textarea>
         </mat-form-field>
       </form>

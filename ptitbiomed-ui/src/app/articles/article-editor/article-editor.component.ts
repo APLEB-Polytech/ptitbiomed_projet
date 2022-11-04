@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from '@angular/material/dialog';
 import {Article, IArticle, MenuArticle} from "../../shared/model/IArticle";
@@ -35,8 +35,10 @@ export class ArticleEditorComponent implements OnInit {
   uuidArticle?: string
   article?: IArticle
   titre: string = 'Ajouter un article'
+  position = 0
 
   @ViewChild('drawer') drawer!: MatSidenav;
+  @ViewChild('contentArea') contentArea!: ElementRef;
 
   constructor(private articleService: ArticleService, public dialog: MatDialog, private route: ActivatedRoute, private router: Router,
               private clipboard: Clipboard,
@@ -51,6 +53,14 @@ export class ArticleEditorComponent implements OnInit {
   ngOnInit(): void {
     this.formArticle.controls['content'].valueChanges
       .subscribe(value => this.htmlContent = value)
+  }
+
+  updateCursorPosClick(event: any) {
+    this.position = event.target.selectionStart
+  }
+
+  updateCursorPosKeybord() {
+    this.position = this.contentArea.nativeElement.selectionStart
   }
 
   loadArticle() {
@@ -103,10 +113,8 @@ export class ArticleEditorComponent implements OnInit {
   }
 
   editContent(content: string): void {
-    this.clipboard.copy(`${content}\n`)
-    this.snackbar.open("Le tag a été copié dans le presse-papier", "Fermer", {
-      duration: 2000,
-    })
+    this.formArticle.controls['content'].setValue(`${this.formArticle.controls['content'].value.slice(0, this.position)}${content}\n${this.formArticle.controls['content'].value.slice(this.position)}`)
+    this.contentArea.nativeElement.focus()
     this.drawer.close()
   }
 
