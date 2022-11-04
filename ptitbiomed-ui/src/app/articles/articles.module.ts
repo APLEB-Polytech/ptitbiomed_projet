@@ -18,6 +18,11 @@ import {ArticleViewerComponent} from './article-viewer/article-viewer.component'
 import {
   AddArticleToMediaDialogComponent
 } from './article-editor/add-article-to-media-dialog/add-article-to-media-dialog.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {AddTitleDialogComponent} from './article-editor/add-title-dialog/add-title-dialog.component';
+import {MatRadioModule} from "@angular/material/radio";
+import {AddParagrapheDialogComponent} from './article-editor/add-paragraphe-dialog/add-paragraphe-dialog.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -25,7 +30,9 @@ import {
     ArticleEditorComponent,
     ArticleRendererComponent,
     ArticleViewerComponent,
-    AddArticleToMediaDialogComponent
+    AddArticleToMediaDialogComponent,
+    AddTitleDialogComponent,
+    AddParagrapheDialogComponent
   ],
   exports: [
     ArticleRendererComponent
@@ -43,7 +50,10 @@ import {
     MatSortModule,
     MatPaginatorModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSidenavModule,
+    MatRadioModule,
+    MatCheckboxModule
   ]
 })
 export class ArticlesModule {

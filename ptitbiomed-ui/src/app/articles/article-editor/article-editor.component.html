@@ -1,37 +1,62 @@
 <h1>{{titre}}</h1>
 
-<div class="editor">
-  <form (ngSubmit)="createArticle()"
-        [formGroup]="formArticle"
-        id="editor-source">
-    <div id="enteteForm">
-      <mat-form-field appearance="fill">
-        <mat-label>Titre :</mat-label>
-        <input formControlName="title" matInput/>
-      </mat-form-field>
+<mat-drawer-container autosize class="example-container">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p>
+      <button (click)="dialogTitre()" color="primary" mat-raised-button>Titre</button>
+    </p>
+    <p>
+      <button (click)="dialogParagraphe()" color="primary" mat-raised-button>Paragraphe</button>
+    </p>
+    <p>
+      <button color="primary" mat-raised-button>Image</button>
+    </p>
+    <p>
+      <button color="primary" mat-raised-button>Vidéo</button>
+    </p>
+    <p>
+      <button color="primary" mat-raised-button>PDF</button>
+    </p>
+  </mat-drawer>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Auteur :</mat-label>
-        <input formControlName="author" matInput/>
-      </mat-form-field>
-      <div>
-        <button [disabled]="!formArticle.valid" color="primary" mat-raised-button>Sauvegarder</button>
-      </div>
-    </div>
+  <div class="example-sidenav-content">
+    <button (click)="drawer.toggle()" mat-button type="button">
+      Outils
+    </button>
+    <div class="editor">
+      <form (ngSubmit)="createArticle()"
+            [formGroup]="formArticle"
+            id="editor-source">
+        <div id="enteteForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Titre :</mat-label>
+            <input formControlName="title" matInput/>
+          </mat-form-field>
 
-    <mat-divider></mat-divider>
+          <mat-form-field appearance="fill">
+            <mat-label>Auteur :</mat-label>
+            <input formControlName="author" matInput/>
+          </mat-form-field>
+          <div>
+            <button [disabled]="!formArticle.valid" color="primary" mat-raised-button>Sauvegarder</button>
+          </div>
+        </div>
 
-    <button (click)="ajouterMedia()" color="primary" mat-raised-button type="button">Ajouter un media</button>
-    <button (click)="ajouterMenu()" color="primary" mat-raised-button type="button">Ajouter au menu</button>
-    <mat-form-field appearance="fill" id="textAreaInput">
-      <mat-label>HTML de l'article</mat-label>
-      <textarea formControlName="content"
-                matInput>
+        <mat-divider></mat-divider>
+        <mat-form-field appearance="fill" id="textAreaInput">
+          <mat-label>HTML de l'article</mat-label>
+          <textarea formControlName="content"
+                    matInput>
 			</textarea>
-    </mat-form-field>
-  </form>
+        </mat-form-field>
+      </form>
 
-  <app-article-renderer [content]="htmlContent"
-                        id="editor-render">
-  </app-article-renderer>
-</div>
+      <app-article-renderer [content]="htmlContent"
+                            id="editor-render">
+      </app-article-renderer>
+    </div>
+  </div>
+
+</mat-drawer-container>
+
+

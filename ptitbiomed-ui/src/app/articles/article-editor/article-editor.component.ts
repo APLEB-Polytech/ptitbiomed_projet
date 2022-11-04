@@ -10,6 +10,8 @@ import {HttpResponse} from "@angular/common/http";
 import {Clipboard} from "@angular/cdk/clipboard";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AddArticleToMediaDialogComponent} from "./add-article-to-media-dialog/add-article-to-media-dialog.component";
+import {AddTitleDialogComponent} from "./add-title-dialog/add-title-dialog.component";
+import {AddParagrapheDialogComponent} from "./add-paragraphe-dialog/add-paragraphe-dialog.component";
 
 @Component({
   selector: 'app-article-editor',
@@ -123,6 +125,38 @@ export class ArticleEditorComponent implements OnInit {
       }
     }).afterClosed().subscribe((ret: MenuArticle) => {
       this.menuArticle = ret
+    })
+  }
+
+  editContent(content: string): void {
+    this.clipboard.copy(`${content}\n`)
+    this.snackbar.open("Le tag a été copié dans le presse-papier", "Fermer", {
+      duration: 2000,
+    })
+  }
+
+  dialogTitre(): void {
+    this.dialog.open(AddTitleDialogComponent, {
+      width: '1500px'
+    }).afterClosed().subscribe((ret: { titre: string, taille: number }) => {
+      if (ret) {
+        this.editContent(`<h${ret.taille}>${ret.titre}</h${ret.taille}>`)
+      }
+    })
+  }
+
+  dialogParagraphe(): void {
+    this.dialog.open(AddParagrapheDialogComponent, {
+      width: '1500px'
+    }).afterClosed().subscribe((ret: { content: string, return: boolean }) => {
+      if (ret) {
+        let content = `<p>${ret.content}</p>`
+        content = content.replace('\n', '</p><p>')
+        if (ret.return) {
+          content += '<br />'
+        }
+        this.editContent(content)
+      }
     })
   }
 }
