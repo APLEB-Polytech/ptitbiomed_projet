@@ -3,13 +3,11 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from '@angular/material/dialog';
 import {Article, IArticle, MenuArticle} from "../../shared/model/IArticle";
 import {ArticleService} from "../article.service";
-import {ChooseMediaComponent} from "../../media/choose-media/choose-media.component";
 import {IMedia} from "../../shared/model/IMedia";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpResponse} from "@angular/common/http";
 import {Clipboard} from "@angular/cdk/clipboard";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AddArticleToMediaDialogComponent} from "./add-article-to-media-dialog/add-article-to-media-dialog.component";
 import {AddTitleDialogComponent} from "./add-title-dialog/add-title-dialog.component";
 import {AddParagrapheDialogComponent} from "./add-paragraphe-dialog/add-paragraphe-dialog.component";
 import {AddImageDialogComponent} from "./add-image-dialog/add-image-dialog.component";
@@ -102,37 +100,6 @@ export class ArticleEditorComponent implements OnInit {
       }
     });
 
-  }
-
-  ajouterMedia(): void {
-    const dialog = this.dialog.open(ChooseMediaComponent, {
-      width: '1500px'
-    })
-
-    dialog.afterClosed().subscribe((media: IMedia) => {
-      let html: string = ''
-      const mediaName: string = `${media.hash}.${media.type.split('/')[1]}`
-      if (media.type.startsWith('image/')) {
-        html = `<div class="media petit"> <img alt="" loading="lazy" src="https://media.ptitbiomed.fr/${mediaName}"><p>${media.nom}</p></div>`
-      } else if (media.type.startsWith('video/')) {
-        html = `<div class="media petit"><video controls preload="metadata" width="250"> <source type="${media.type}" src="https://media.ptitbiomed.fr/${mediaName}"> </video><p>${media.nom}</p></div>`
-      } else if (media.type.startsWith('application/pdf')) {
-        html = `<a href="https://media.ptitbiomed.fr/${mediaName}" target="_blank">${mediaName}</a>`
-      }
-      this.clipboard.copy(html)
-      this.snackbar.open("Le tag a été copié dans le presse-papier")
-    })
-  }
-
-  ajouterMenu(): void {
-    this.dialog.open(AddArticleToMediaDialogComponent, {
-      width: '1500px',
-      data: {
-        idArticle: this.article?.uuid
-      }
-    }).afterClosed().subscribe((ret: MenuArticle) => {
-      this.menuArticle = ret
-    })
   }
 
   editContent(content: string): void {
