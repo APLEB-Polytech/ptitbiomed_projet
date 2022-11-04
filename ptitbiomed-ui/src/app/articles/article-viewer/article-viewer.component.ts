@@ -16,6 +16,7 @@ export class ArticleViewerComponent implements OnInit {
 
   article: Subject<IArticle> = new Subject<IArticle>();
   content: string = ''
+  loading = false
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute, public userService: UserService, private router: Router,
               private titleService: Title
@@ -32,6 +33,7 @@ export class ArticleViewerComponent implements OnInit {
   }
 
   loadArticle(uuid: string): void {
+    this.loading = true
     this.articleService.getArticleByUUID(uuid).subscribe({
       next: (response: HttpResponse<IArticle>) => {
         if (!response.ok || !response.body) {
@@ -40,6 +42,9 @@ export class ArticleViewerComponent implements OnInit {
         this.article.next(response.body)
         this.titleService.setTitle(`Le Ptit Biomed - ${response.body.title}`)
         this.content = response.body.html || ''
+      },
+      complete: () => {
+        this.loading = false
       }
     })
   }
