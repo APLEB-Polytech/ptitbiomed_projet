@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from '@angular/material/dialog';
 import {Article, IArticle, MenuArticle} from "../../shared/model/IArticle";
@@ -16,6 +16,7 @@ import {AddImageDialogComponent} from "./add-image-dialog/add-image-dialog.compo
 import {AddVideoDialogComponent} from "./add-video-dialog/add-video-dialog.component";
 import {AddLienDialogComponent} from "./add-lien-dialog/add-lien-dialog.component";
 import {AddPDFDialogComponent} from "./add-pdfdialog/add-pdfdialog.component";
+import {MatSidenav} from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-article-editor',
@@ -36,6 +37,8 @@ export class ArticleEditorComponent implements OnInit {
   uuidArticle?: string
   article?: IArticle
   titre: string = 'Ajouter un article'
+
+  @ViewChild('drawer') drawer!: MatSidenav;
 
   constructor(private articleService: ArticleService, public dialog: MatDialog, private route: ActivatedRoute, private router: Router,
               private clipboard: Clipboard,
@@ -137,6 +140,7 @@ export class ArticleEditorComponent implements OnInit {
     this.snackbar.open("Le tag a été copié dans le presse-papier", "Fermer", {
       duration: 2000,
     })
+    this.drawer.close()
   }
 
   dialogTitre(): void {
