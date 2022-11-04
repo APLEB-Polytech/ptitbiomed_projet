@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,7 +29,6 @@ public class MediaController {
 	}
 
 	@PostMapping("/uploadFile")
-	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Media> uploadFile(@RequestParam("file") MultipartFile file) throws URISyntaxException {
 		logger.info("REST POST uploadFile: {}", file.getOriginalFilename());
 		Media media = fileStorageService.storeFile(file);
