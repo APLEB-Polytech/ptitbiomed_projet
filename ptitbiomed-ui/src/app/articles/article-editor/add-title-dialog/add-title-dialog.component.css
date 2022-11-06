@@ -1,0 +1,14 @@
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+#textAreaInput {
+  width: 100%;
+  margin-top: 2em;
+  height: 20px;
+}

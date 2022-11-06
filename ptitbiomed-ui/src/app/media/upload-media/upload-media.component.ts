@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MediaService} from "../../services/media.service";
 import {Clipboard} from '@angular/cdk/clipboard';
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
@@ -16,6 +16,9 @@ export class UploadMediaComponent implements OnInit {
   progress = 0;
   message = '';
   response: IMedia | undefined;
+
+  @Output()
+  nomMedia = new EventEmitter<IMedia>();
 
   constructor(
     private mediaService: MediaService,
@@ -52,6 +55,7 @@ export class UploadMediaComponent implements OnInit {
           this.clipboard.copy(location);
           this._snackBar.open('Adresse du fichier copiée dans le presse-papier', 'Fermer')
           this.response = event.body;
+          this.nomMedia.emit(this.response);
         }
       },
       error: () => {

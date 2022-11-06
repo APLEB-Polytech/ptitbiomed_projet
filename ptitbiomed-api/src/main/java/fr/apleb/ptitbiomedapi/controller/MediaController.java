@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,7 +29,6 @@ public class MediaController {
 	}
 
 	@PostMapping("/uploadFile")
-	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Media> uploadFile(@RequestParam("file") MultipartFile file) throws URISyntaxException {
 		logger.info("REST POST uploadFile: {}", file.getOriginalFilename());
 		Media media = fileStorageService.storeFile(file);
@@ -44,8 +42,10 @@ public class MediaController {
 	}
 
 	@GetMapping("/downloadFile/{hashName}")
+	@Deprecated
 	public ResponseEntity<byte[]> downloadFile(@PathVariable int hashName) {
 		logger.info("REST GET downloadFile: {}", hashName);
+		logger.warn("Attetion : utiliser le reverse proxy svp");
 		Media media = fileStorageService.getMedia(hashName).orElseThrow(NotFoundException::new);
 		byte[] content = fileStorageService.getContent(hashName);
 
@@ -57,8 +57,10 @@ public class MediaController {
 	}
 
 	@GetMapping(value = "/stream/{hashName}")
+	@Deprecated
 	public ResponseEntity<Mono<Resource>> stream(@PathVariable int hashName, @RequestHeader("Range") String range) {
 		logger.info("REST GET stream: {}", hashName);
+		logger.warn("Attetion : utiliser le reverse proxy svp");
 		Media media = fileStorageService.getMedia(hashName).orElseThrow(NotFoundException::new);
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_TYPE, media.getType())

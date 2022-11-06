@@ -9,7 +9,6 @@ import fr.apleb.ptitbiomedapi.config.security.service.UserDetailsImpl;
 import fr.apleb.ptitbiomedapi.model.user.User;
 import fr.apleb.ptitbiomedapi.repository.user.UserRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -54,7 +53,6 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
-	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.username())) {
 			return ResponseEntity
@@ -66,7 +64,6 @@ public class AuthController {
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
-		// Create new user's account
 		User user = new User(signUpRequest.username(),
 				signUpRequest.email(),
 				encoder.encode(signUpRequest.password()));
