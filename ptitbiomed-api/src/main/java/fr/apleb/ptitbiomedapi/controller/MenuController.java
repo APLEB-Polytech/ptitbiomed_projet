@@ -36,11 +36,10 @@ public class MenuController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@PostMapping("/{idMenu}")
-	public ResponseEntity<Void> editMenu(@PathVariable Integer idMenu,
-	                                     @RequestBody MenuDto menu) {
-		logger.info("REST POST editMenu: {} {}", idMenu, menu);
-		menuService.editMenu(idMenu, menu);
+	@PutMapping
+	public ResponseEntity<Void> editMenu(@RequestBody MenuDto menu) {
+		logger.info("REST POST editMenu: {}", menu);
+		menuService.editMenu(menu);
 		return ResponseEntity.noContent().build();
 	}
 

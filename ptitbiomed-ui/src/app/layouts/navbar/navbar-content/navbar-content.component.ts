@@ -31,8 +31,8 @@ export class NavbarContentComponent implements OnInit {
 
   getLink(item: IMenu): string | string[] {
     if (item.link) return item.link;
-    else if (item.idArticle) return '/article/view/' + item.idArticle;
-    else return [];
+    if (item.idArticle) return '/article/view/' + item.idArticle;
+    return [];
   }
 
 }

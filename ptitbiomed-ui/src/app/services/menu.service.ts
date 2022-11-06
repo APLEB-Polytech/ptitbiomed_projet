@@ -12,7 +12,7 @@ export interface MenuSortDto {
   providedIn: 'root'
 })
 export class MenuService {
-  
+
   public refreshNavbar: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private http: HttpClient) { }
@@ -26,7 +26,7 @@ export class MenuService {
   }
 
   editMenu(editedMenu: IMenu): Observable<HttpResponse<any>> {
-    return this.http.post<any>('/api/menu/' + editedMenu.id, editedMenu, {observe: 'response'});
+    return this.http.put<any>('/api/menu/', editedMenu, {observe: 'response'});
   }
 
   deleteMenu(menuId: number): Observable<HttpResponse<any>> {

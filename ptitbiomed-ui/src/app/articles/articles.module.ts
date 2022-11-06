@@ -15,9 +15,6 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {ArticleViewerComponent} from './article-viewer/article-viewer.component';
-import {
-  AddArticleToMediaDialogComponent
-} from './article-editor/add-article-to-media-dialog/add-article-to-media-dialog.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {AddTitleDialogComponent} from './article-editor/add-title-dialog/add-title-dialog.component';
 import {MatRadioModule} from "@angular/material/radio";
@@ -36,7 +33,6 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     ArticleEditorComponent,
     ArticleRendererComponent,
     ArticleViewerComponent,
-    AddArticleToMediaDialogComponent,
     AddTitleDialogComponent,
     AddParagrapheDialogComponent,
     AddImageDialogComponent,

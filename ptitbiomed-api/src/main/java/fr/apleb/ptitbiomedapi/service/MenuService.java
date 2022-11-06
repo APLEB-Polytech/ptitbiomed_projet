@@ -58,8 +58,8 @@ public class MenuService {
 		this.menuRepository.saveAll(children.values());
 	}
 
-	public void editMenu(Integer idMenu, MenuDto editedMenu) {
-		final Menu menu = this.menuRepository.findById(idMenu).orElseThrow(NotFoundException::new);
+	public void editMenu(MenuDto editedMenu) {
+		final Menu menu = this.menuRepository.findById(editedMenu.id()).orElseThrow(NotFoundException::new);
 
 		if (editedMenu.idArticle() != null && !this.articleRepository.existsById(editedMenu.idArticle())) {
 			throw new NotFoundException();
