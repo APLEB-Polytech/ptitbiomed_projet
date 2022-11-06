@@ -27,6 +27,9 @@ a {
   text-decoration: none;
 }
 
+.dropdown {
+  position: relative;
+}
 
 .dropdown-button {
   padding: 10px;
@@ -40,25 +43,19 @@ a {
   background-color: #F1F1F1;
   border-radius: 5px;
   box-shadow: 0 8px 16px 0 #00000050;
-}
 
-.dropdown:hover > .dropdown-content {
-  display: block;
-}
-
-.dropdown-content {
+  min-width: 100%;
   width: max-content;
   max-width: 12rem;
 }
 
-.dropdown-content > .dropdown {
-  position: relative;
-}
-
 .dropdown-content > .dropdown > .dropdown-content {
-  position: absolute;
   left: 100%;
   top: 0;
+}
+
+.dropdown:hover > .dropdown-content {
+  display: block;
 }
 
 .dropdown:hover > .dropdown-button {
