@@ -46,15 +46,16 @@ a {
   display: block;
 }
 
-.dropdown-content .dropdown-button {
-  width: 150px;
+.dropdown-content {
+  width: max-content;
+  max-width: 12rem;
 }
 
-.dropdown-content .dropdown {
+.dropdown-content > .dropdown {
   position: relative;
 }
 
-.dropdown-content .dropdown > .dropdown-content {
+.dropdown-content > .dropdown > .dropdown-content {
   position: absolute;
   left: 100%;
   top: 0;
@@ -64,10 +65,10 @@ a {
   background-color: #107A94;
 }
 
-.dropdown-content .dropdown:hover > .dropdown-button {
+.dropdown-content > .dropdown:hover > .dropdown-button {
   background-color: #8BBECF;
 }
 
-.dropdown-content .dropdown .dropdown-content .dropdown:hover > .dropdown-button {
+.dropdown-content > .dropdown > .dropdown-content > .dropdown:hover > .dropdown-button {
   background-color: #B6CED6;
 }

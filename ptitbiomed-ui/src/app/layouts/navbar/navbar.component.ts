@@ -10,7 +10,7 @@ import {MenuService} from "../../services/menu.service";
 })
 export class NavbarComponent implements OnInit {
 
-  menuItems: IMenu[] | undefined;
+  menuItems?: IMenu[];
   menuItemsAdmin: IMenu[] = [
     {
       id: -1,
@@ -77,9 +77,10 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.menuItems == undefined) {
       this.loadMenu();
-    }
+      this.menuService.refreshNavbar.subscribe(() => {
+        this.loadMenu();
+      });
   }
 
   loadMenu() {
@@ -87,7 +88,6 @@ export class NavbarComponent implements OnInit {
       (data) => {
         if (data.ok && data.body) {
           this.menuItems = data.body;
-          // this.sortOnRank()
         }
       });
   }

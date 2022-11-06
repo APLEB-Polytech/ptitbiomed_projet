@@ -38,6 +38,7 @@ export class PanelComponent implements OnInit {
   }
 
   loadMenu(idMenu?: number): void {
+    this.menuService.refreshNavbar.emit();
     this.menuService.getAllMenu().subscribe({
       next: (res: HttpResponse<IMenu[]>) => {
         if (!res.ok || !res.body) {
@@ -53,7 +54,7 @@ export class PanelComponent implements OnInit {
   }
 
   createMenu(): void {
-    const dialogRef = this.dialog.open(AddChildMenuComponent, {width: '250px'});
+    const dialogRef = this.dialog.open(AddChildMenuComponent, {width: '400px'});
     dialogRef.afterClosed().subscribe((newMenu: IMenu) => {
       if (!newMenu) return;
       if (this.idMenu) newMenu.idParent = this.idMenu;
@@ -69,7 +70,7 @@ export class PanelComponent implements OnInit {
   }
 
   editMenu(menu: IMenu) {
-    const dialogRef = this.dialog.open(AddChildMenuComponent, {data: menu, width: '250px'});
+    const dialogRef = this.dialog.open(AddChildMenuComponent, {data: menu, width: '400px'});
     dialogRef.afterClosed().subscribe((editedMenu: IMenu) => {
       if (!editedMenu) return;
 

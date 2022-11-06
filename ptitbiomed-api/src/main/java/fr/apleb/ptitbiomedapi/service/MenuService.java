@@ -5,11 +5,10 @@ import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.menu.Menu;
 import fr.apleb.ptitbiomedapi.model.menu.MenuCreationDto;
 import fr.apleb.ptitbiomedapi.model.menu.MenuDto;
+import fr.apleb.ptitbiomedapi.repository.ArticleRepository;
 import fr.apleb.ptitbiomedapi.repository.menu.MenuRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -18,9 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class MenuService {
 	private final MenuRepository menuRepository;
+	private final ArticleRepository articleRepository;
 
-	public MenuService(MenuRepository menuRepository) {
+	public MenuService(MenuRepository menuRepository,
+	                   ArticleRepository articleRepository) {
 		this.menuRepository = menuRepository;
+		this.articleRepository = articleRepository;
 	}
 
 	public List<MenuDto> getAllMenuDto() {
@@ -58,6 +60,10 @@ public class MenuService {
 
 	public void editMenu(Integer idMenu, MenuDto editedMenu) {
 		final Menu menu = this.menuRepository.findById(idMenu).orElseThrow(NotFoundException::new);
+
+		if (editedMenu.idArticle() != null && !this.articleRepository.existsById(editedMenu.idArticle())) {
+			throw new NotFoundException();
+		}
 
 		menu.setLabel(editedMenu.label());
 		menu.setLink(editedMenu.link());

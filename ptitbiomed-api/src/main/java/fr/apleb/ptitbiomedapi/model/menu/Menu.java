@@ -1,6 +1,9 @@
 package fr.apleb.ptitbiomedapi.model.menu;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "menu")
@@ -19,8 +22,9 @@ public class Menu {
 	@Column(name = "link")
 	private String link;
 
-	@Column
-	private String idArticle;
+	@Column(columnDefinition = "char(36)")
+	@Type(type = "uuid-char")
+	private UUID idArticle;
 
 	@Column(name = "id_parent")
 	private Integer idParent;
@@ -57,11 +61,11 @@ public class Menu {
 		this.link = link;
 	}
 
-	public String getIdArticle() {
+	public UUID getIdArticle() {
 		return idArticle;
 	}
 
-	public void setIdArticle(String idArticle) {
+	public void setIdArticle(UUID idArticle) {
 		this.idArticle = idArticle;
 	}
 

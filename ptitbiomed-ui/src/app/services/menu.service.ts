@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IMenu} from "../shared/model/IMenu";
@@ -12,6 +12,8 @@ export interface MenuSortDto {
   providedIn: 'root'
 })
 export class MenuService {
+  
+  public refreshNavbar: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private http: HttpClient) { }
 

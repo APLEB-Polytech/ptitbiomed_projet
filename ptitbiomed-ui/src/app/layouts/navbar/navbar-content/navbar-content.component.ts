@@ -14,7 +14,6 @@ export class NavbarContentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.menus);
   }
 
   getRootItems() {

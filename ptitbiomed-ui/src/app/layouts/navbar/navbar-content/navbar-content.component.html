@@ -6,23 +6,19 @@
         {{item.label}}
       </a>
 
-      <div *ngIf="hasChildren(item)" class="dropdown-content">
-        <div *ngFor="let sub1 of getChildren(item)">
-          <div class="dropdown">
-            <a class="dropdown-button"
-               [routerLink]="getLink(sub1)">
-              {{sub1.label}}
-            </a>
+      <div class="dropdown-content">
+        <div *ngFor="let sub1 of getChildren(item)" class="dropdown">
+          <a class="dropdown-button"
+             [routerLink]="getLink(sub1)">
+            {{sub1.label}}
+          </a>
 
-            <div *ngIf="hasChildren(sub1)" class="dropdown-content">
-              <div *ngFor="let sub2 of getChildren(sub1)">
-                <div class="dropdown">
-                  <a class="dropdown-button"
-                     [routerLink]="getLink(sub2)">
-                    {{sub2.label}}
-                  </a>
-                </div>
-              </div>
+          <div class="dropdown-content">
+            <div *ngFor="let sub2 of getChildren(sub1)" class="dropdown">
+              <a class="dropdown-button"
+                 [routerLink]="getLink(sub2)">
+                {{sub2.label}}
+              </a>
             </div>
           </div>
         </div>

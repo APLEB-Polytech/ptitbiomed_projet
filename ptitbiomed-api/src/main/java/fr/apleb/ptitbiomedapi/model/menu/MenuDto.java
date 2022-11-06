@@ -2,9 +2,10 @@ package fr.apleb.ptitbiomedapi.model.menu;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 public record MenuDto(Integer id, String label, String link,
-                      String idArticle, int rank, Integer idParent) implements Serializable {
+                      UUID idArticle, int rank, Integer idParent) implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
