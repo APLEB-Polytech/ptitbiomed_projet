@@ -1,8 +1,33 @@
-<h2>Ajout d'un enfant</h2>
+<h2>Ajout d'un onglet</h2>
 <form [formGroup]="formAddChild">
   <mat-form-field appearance="fill">
-    <mat-label>Label</mat-label>
-    <input formControlName="label" matInput placeholder="Label">
+    <mat-label>Nom de l'onglet</mat-label>
+    <input formControlName="label" matInput/>
   </mat-form-field>
+
+  <mat-radio-group formControlName="linkType">
+    <mat-label>Type de lien :</mat-label>
+    <mat-radio-button value="link">Lien</mat-radio-button>
+    <mat-radio-button value="articleId">Article</mat-radio-button>
+    <mat-radio-button>Aucun</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-form-field appearance="fill" *ngIf="formAddChild.controls['linkType']?.value === 'link'">
+    <mat-label>Lien</mat-label>
+    <input formControlName="link" matInput/>
+  </mat-form-field>
+
+  <ng-container *ngIf="formAddChild.controls['linkType']?.value === 'articleId'">
+    <mat-form-field appearance="fill">
+      <mat-label>ID de l'article</mat-label>
+      <input formControlName="articleId" matInput [matAutocomplete]="title_autocomplete" placeholder="UUID ou titre"/>
+      <mat-autocomplete #title_autocomplete="matAutocomplete">
+        <mat-option *ngFor="let article of filteredArticleList | async" [value]="article?.uuid">
+          {{article?.title}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </ng-container>
+
   <button (click)="valid()" [disabled]="!formAddChild.valid" color="primary" mat-raised-button>Valider</button>
 </form>

@@ -4,23 +4,8 @@ import {HttpResponse} from "@angular/common/http";
 import {IMenu, Menu} from "../../shared/model/IMenu";
 import {MatDialog} from "@angular/material/dialog";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
-import {MenuGeneral} from "../../shared/model/menuGeneral.model";
 import {AddChildMenuComponent} from "./add-child-menu/add-child-menu.component";
-import {Submenua} from "../../shared/model/ISubmenua";
 import {MatSnackBar} from "@angular/material/snack-bar";
-
-export interface NouveauMenu {
-  label: string
-}
-
-export interface rankMenu {
-  idMenu?: number;
-  idSousMenu?: number;
-  items: {
-    id: number;
-    rank: number;
-  }[]
-}
 
 @Component({
   selector: 'app-panel',
@@ -29,106 +14,112 @@ export interface rankMenu {
 })
 export class PanelComponent implements OnInit {
 
-  menus: MenuGeneral[] = [];
-  menusBase: MenuGeneral[] = [];
-  idMenu?: number
-  idSousMenu?: number
-
+  menus: IMenu[] = [];
+  filteredMenus: IMenu[] = [];
+  idMenu?: number;
 
   constructor(private menuService: MenuService, public dialog: MatDialog, private snackbar: MatSnackBar) {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.menus, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.filteredMenus, event.previousIndex, event.currentIndex);
+    this.menuService.sortMenusForParent({idParent: this.idMenu, sortedChildrenIds: this.filteredMenus.map(menu => menu.id!)}).subscribe({
+      next: (res: HttpResponse<any>) => {
+        if (!res.ok) {
+          this.snackbar.open("Erreur lors de la sauvegardes de l'ordre des onglets", 'OK', {duration: 2000});
+        }
+        this.loadMenu(this.idMenu);
+      }
+    });
   }
 
   ngOnInit(): void {
     this.loadMenu()
   }
 
-  loadSousMenu(menuChoisi: MenuGeneral): void {
-    if (!this.idMenu) {
-      this.idMenu = this.menus.filter(menu => menu.id === menuChoisi.id)[0].id
-    } else if (!this.idSousMenu) {
-      this.idSousMenu = this.menus.filter(menu => menu.id === menuChoisi.id)[0].id
-    }
-    this.menus = this.menus.filter(menu => menu.id === menuChoisi.id)[0].submenuas || this.menus.filter(menu => menuChoisi === menu)[0].submenuab || []
-    this.menus = this.menus.sort((menu1, menu2) => {
-      return ((menu1.rank || 0) >= (menu2.rank || 0)) ? 1 : -1
-    })
-  }
-
-  loadMenu(): void {
+  loadMenu(idMenu?: number): void {
+    this.menuService.refreshNavbar.emit();
     this.menuService.getAllMenu().subscribe({
-      next: (reponse: HttpResponse<IMenu[]>) => {
-        if (!reponse.ok || !reponse.body) {
+      next: (res: HttpResponse<IMenu[]>) => {
+        if (!res.ok || !res.body) {
           throw new Error('Erreur lors du chargement')
         }
-        this.menus = reponse.body
-        this.menusBase = reponse.body
+        this.idMenu = idMenu;
+        this.menus = res.body;
+        this.filteredMenus = this.idMenu
+          ? this.menus.filter(menu => menu.idParent === this.idMenu)
+          : this.menus.filter(menu => menu.idParent === null);
       }
     })
   }
 
-  addChild(): void {
-    const dialogRef = this.dialog.open(AddChildMenuComponent, {
-      width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe((result: NouveauMenu) => {
-      if (this.idMenu) {
-        const nouveauMenu = new Submenua(result.label, this.idMenu, 0)
-        this.menuService.addSubmenua(nouveauMenu).subscribe({
-          next: (res: HttpResponse<any>) => {
-            if (res.ok) {
-              this.menus.push(nouveauMenu)
-            }
-          }
-        })
-        return
-      }
-      const nouveauMenu = new Menu(result.label, 0)
-      this.menuService.addMenu(nouveauMenu).subscribe({
+  createMenu(): void {
+    const dialogRef = this.dialog.open(AddChildMenuComponent, {width: '400px'});
+    dialogRef.afterClosed().subscribe((newMenu: IMenu) => {
+      if (!newMenu) return;
+      if (this.idMenu) newMenu.idParent = this.idMenu;
+      this.menuService.createMenu(newMenu).subscribe({
         next: (res: HttpResponse<any>) => {
           if (res.ok) {
-            this.menus.push(nouveauMenu)
+            this.loadMenu(this.idMenu);
+            this.snackbar.open('Onglet créé', 'OK', {duration: 2000});
           }
         }
       })
-
     });
   }
 
-  save(): void {
-    const modifyMenu: rankMenu = {
-      idMenu: this.idMenu,
-      idSousMenu: this.idSousMenu,
-      items: []
-    }
-    for (let i = 0; i < this.menus.length; i++) {
-      modifyMenu.items.push({
-        id: this.menus[i].id || 0,
-        rank: i
-      })
-    }
-    this.menuService.updateRank(modifyMenu).subscribe({
-        next: (res) => {
+  editMenu(menu: IMenu) {
+    const dialogRef = this.dialog.open(AddChildMenuComponent, {data: menu, width: '400px'});
+    dialogRef.afterClosed().subscribe((editedMenu: IMenu) => {
+      if (!editedMenu) return;
+
+      this.menuService.editMenu(editedMenu).subscribe({
+        next: (res: HttpResponse<any>) => {
           if (res.ok) {
-            this.snackbar.open('Mise a jour complete', 'OK', {duration: 2000})
-            return
+            this.loadMenu(this.idMenu);
+            this.snackbar.open('Onglet modifié', 'OK', {duration: 2000});
+          } else {
+            this.snackbar.open("Erreur lors de la modification de l'onglet", 'OK', {duration: 2000});
           }
-          this.snackbar.open('Erreur', 'OK', {duration: 2000})
-        },
-        error: (error) => {
-          this.snackbar.open('Erreur', 'OK', {duration: 2000})
+        }
+      });
+    });
+  }
+
+  deleteMenu(menu: IMenu) {
+    if (!confirm("Confirmer la suppression de l'onglet '" + menu.label + "' ?")) return;
+    this.menuService.deleteMenu(menu.id!).subscribe({
+      next: (res: HttpResponse<any>) => {
+        if (res.ok) {
+          this.snackbar.open('Onglet supprimé', 'OK', {duration: 2000});
+          this.loadMenu(this.idMenu);
+        } else {
+          this.snackbar.open("Erreur lors de la suppression de l'onglet", 'OK', {duration: 2000});
         }
       }
-    )
+    });
   }
 
   retour() {
-    this.idMenu = undefined
-    this.idSousMenu = undefined
-    this.menus = this.menusBase
+    this.loadMenu(this.getMenuById(this.idMenu!).idParent);
   }
+
+  getMenuById(id: number): IMenu {
+    return this.menus.filter(menu => menu.id === id)[0];
+  }
+
+  getPath() {
+    let path = '';
+    let idMenu = this.idMenu;
+
+    while (idMenu) {
+      let menu = this.getMenuById(idMenu);
+      path = ' > ' + menu.label + path;
+      idMenu = menu.idParent!;
+    }
+
+    return path;
+  }
+
 }

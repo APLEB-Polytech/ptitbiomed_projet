@@ -49,3 +49,30 @@
   min-height: 60px;
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+
+h1 {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+#list {
+  margin: auto;
+}
+
+#div-controls {
+  display: flex;
+  padding: 1rem;
+  box-sizing: border-box;
+  gap: .5rem;
+  align-items: center;
+}
+
+.div-menu-controls {
+  display: flex;
+  gap: .5rem;
+}
+
+#btn-save {
+  margin-left: auto;
+}

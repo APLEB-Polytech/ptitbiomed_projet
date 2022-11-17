@@ -274,5 +274,27 @@
         <modifyDataType tableName="menu" columnName="label" newDataType="char(100)"/>
     </changeSet>
 
+    <changeSet id="1667408087485-1" author="alexis">
+        <addColumn tableName="menu">
+            <column name="id_parent" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="menu" baseColumnNames="id_parent"
+                                 referencedTableName="menu" referencedColumnNames="id"
+                                 constraintName="FK_menu_menu"/>
+    </changeSet>
+    <changeSet id="1668705925698-1" author="Bastien Audu">
+        <dropTable tableName="menu_article"/>
+        <dropTable tableName="submenua_submenubs"/>
+        <dropTable tableName="submenua_article"/>
+    </changeSet>
+    <changeSet id="1668706239359-1" author="Bastien Audu">
+        <dropTable tableName="submenub"/>
+    </changeSet>
+    <changeSet id="1668706247625-1" author="Bastien Audu">
+        <dropTable tableName="submenua"/>
+    </changeSet>
+
 
 </databaseChangeLog>

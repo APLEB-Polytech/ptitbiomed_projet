@@ -1,0 +1,11 @@
+form > * {
+  display: block;
+}
+
+mat-radio-group {
+  margin-bottom: 1rem;
+}
+
+mat-radio-group > * ~ * {
+  margin-left: .5rem;
+}
