@@ -101,35 +101,6 @@ export class PanelComponent implements OnInit {
     });
   }
 
-  /*
-  save(): void {
-    const modifyMenu: rankMenu = {
-      idMenu: this.idMenu,
-      idSousMenu: this.idSousMenu,
-      items: []
-    }
-    for (let i = 0; i < this.menus.length; i++) {
-      modifyMenu.items.push({
-        id: this.menus[i].id || 0,
-        rank: i
-      })
-    }
-    this.menuService.updateRank(modifyMenu).subscribe({
-        next: (res) => {
-          if (res.ok) {
-            this.snackbar.open('Mise a jour complete', 'OK', {duration: 2000})
-            return
-          }
-          this.snackbar.open('Erreur', 'OK', {duration: 2000})
-        },
-        error: (error) => {
-          this.snackbar.open('Erreur', 'OK', {duration: 2000})
-        }
-      }
-    )
-  }
-  */
-
   retour() {
     this.loadMenu(this.getMenuById(this.idMenu!).idParent);
   }

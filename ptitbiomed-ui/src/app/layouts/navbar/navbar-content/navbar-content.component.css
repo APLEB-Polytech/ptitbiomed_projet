@@ -47,6 +47,8 @@ a {
   min-width: 100%;
   width: max-content;
   max-width: 12rem;
+
+  z-index: 1;
 }
 
 .dropdown-content > .dropdown > .dropdown-content {
