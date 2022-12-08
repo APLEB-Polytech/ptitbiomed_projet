@@ -30,10 +30,18 @@ public class MenuService {
 	}
 
 	public void createMenu(MenuCreationDto menuDto) {
+		if (menuDto.idArticle() != null && !this.articleRepository.existsById(menuDto.idArticle())) {
+			throw new NotFoundException();
+		}
+
 		final Menu menu = new Menu();
+
 		menu.setLabel(menuDto.label());
 		menu.setRank(menuDto.rank());
 		menu.setIdParent(menuDto.idParent());
+		menu.setLink(menuDto.link());
+		menu.setIdArticle(menuDto.idArticle());
+
 		this.menuRepository.save(menu);
 	}
 
