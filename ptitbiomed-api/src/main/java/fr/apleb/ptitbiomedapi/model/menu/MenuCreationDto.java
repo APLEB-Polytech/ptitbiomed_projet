@@ -1,3 +1,11 @@
 package fr.apleb.ptitbiomedapi.model.menu;
 
-public record MenuCreationDto(String label, int rank, Integer idParent) {}
+import java.util.UUID;
+
+public record MenuCreationDto(
+		String label,
+		int rank,
+		Integer idParent,
+		String link,
+		UUID idArticle
+) {}

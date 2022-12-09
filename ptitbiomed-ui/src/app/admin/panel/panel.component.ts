@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../../services/menu.service";
 import {HttpResponse} from "@angular/common/http";
-import {IMenu, Menu} from "../../shared/model/IMenu";
+import {IMenu} from "../../shared/model/IMenu";
 import {MatDialog} from "@angular/material/dialog";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {AddChildMenuComponent} from "./add-child-menu/add-child-menu.component";
@@ -64,7 +64,10 @@ export class PanelComponent implements OnInit {
             this.loadMenu(this.idMenu);
             this.snackbar.open('Onglet créé', 'OK', {duration: 2000});
           }
-        }
+        },
+        error: err => {
+          this.snackbar.open("Erreur lors de la création de l'onglet", 'OK', {duration: 10000});
+        },
       })
     });
   }
