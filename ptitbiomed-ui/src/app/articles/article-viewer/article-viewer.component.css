@@ -1,6 +1,7 @@
 
 #article-viewer {
-	padding: 2rem;
+  max-width: max-content;
+  margin: auto;
 }
 
 h1 {
@@ -8,4 +9,12 @@ h1 {
 	text-align: center;
 	font-size: 3rem;
   line-height: 1em;
+}
+
+button {
+  margin: 1rem;
+}
+
+#metadata {
+  margin-top: 1rem;
 }

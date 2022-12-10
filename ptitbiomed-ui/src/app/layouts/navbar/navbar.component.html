@@ -1,15 +1,10 @@
-<div id="header">
 
-  <div id="logo_ptitbiomed">
-    <img alt="ptitBioMed Logo" src="/assets/img/ptitbiomed_logo.png">
-  </div>
+<img alt="ptitBioMed Logo" src="/assets/img/ptitbiomed_logo.png">
 
-  <div id="div-navbar" *ngIf="menuItems">
-    <app-navbar-content [menus]="(userService.isConnected|async)
-        ? menuItems.concat(menuItemsAdmin)
-                   .concat([{id:-999, label: 'Déconnexion', 'rank': 999, 'link': '/logout'}])
-        : menuItems.concat([{id: -999, label: 'Connexion', 'rank': 999, 'link': '/login'}])">
-    </app-navbar-content>
-  </div>
-
+<div id="div-navbar" *ngIf="menuItems">
+  <app-navbar-content [menus]="(userService.isConnected|async)
+      ? menuItems.concat(menuItemsAdmin)
+                 .concat([{id:-999, label: 'Déconnexion', 'rank': 999, 'link': '/logout'}])
+      : menuItems.concat([{id: -999, label: 'Connexion', 'rank': 999, 'link': '/login'}])">
+  </app-navbar-content>
 </div>

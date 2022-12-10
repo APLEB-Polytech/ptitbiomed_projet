@@ -1,6 +1,10 @@
 
 article {
-  padding: 2em;
+  min-width: 300px;
+  max-width: 1200px;
+
+  margin: auto;
+
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
 }
 

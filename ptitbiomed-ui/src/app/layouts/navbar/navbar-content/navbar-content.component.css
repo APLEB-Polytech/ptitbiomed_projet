@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
   z-index: 10;
 }
 
 li {
-  margin-right: 30px;
+  margin: 0 15px;
   list-style: none;
 }
 

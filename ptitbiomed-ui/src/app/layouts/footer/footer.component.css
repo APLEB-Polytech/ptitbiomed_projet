@@ -1,9 +1,10 @@
-#footer {
+:host {
+  color: white;
   background-color: #073743;
-  width: 100%;
-  height: 7%;
+
+  min-height: 5rem;
+
   display: flex;
   align-items: center;
-  color: white;
   justify-content: center;
 }
