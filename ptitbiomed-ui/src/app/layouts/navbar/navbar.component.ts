@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {IMenu} from "../../shared/model/IMenu";
 import {MenuService} from "../../services/menu.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +11,7 @@ import {MenuService} from "../../services/menu.service";
 })
 export class NavbarComponent implements OnInit {
 
+  image = environment.logo
   menuItems?: IMenu[];
   menuItemsAdmin: IMenu[] = [
     {
