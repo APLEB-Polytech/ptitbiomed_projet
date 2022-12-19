@@ -6,6 +6,7 @@ import {IArticle} from "../../shared/model/IArticle";
 import {HttpResponse} from "@angular/common/http";
 import {UserService} from "../../services/user.service";
 import {Title} from "@angular/platform-browser";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-article-viewer',
@@ -40,7 +41,7 @@ export class ArticleViewerComponent implements OnInit {
           throw new Error('Erreur lors du chargement de l\'article')
         }
         this.article.next(response.body)
-        this.titleService.setTitle(`Le Ptit Biomed - ${response.body.title}`)
+        this.titleService.setTitle(`${environment.titre} - ${response.body.title}`)
         this.content = response.body.html || ''
       },
       complete: () => {
