@@ -1,5 +1,5 @@
 
-<img alt="ptitBioMed Logo" src="/assets/img/{{image}}">
+<img alt="{{env}} Logo" src="/assets/img/{{image}}">
 
 <div id="div-navbar" *ngIf="menuItems">
   <app-navbar-content [menus]="(userService.isConnected|async)

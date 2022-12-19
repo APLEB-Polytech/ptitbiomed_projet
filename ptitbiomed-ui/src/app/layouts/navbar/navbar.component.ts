@@ -12,6 +12,7 @@ import {environment} from "../../../environments/environment";
 export class NavbarComponent implements OnInit {
 
   image = environment.logo
+  env = environment.titre
   menuItems?: IMenu[];
   menuItemsAdmin: IMenu[] = [
     {
