@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  titre: "Le Ptit Biomed",
+  logo: "ptitbiomed_logo.png"
 };

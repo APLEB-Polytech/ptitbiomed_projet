@@ -1,23 +1,20 @@
-#header {
+:host {
   display: flex;
   flex-direction: row;
-  padding-top: 2%;
-  padding-left: 2%;
-  padding-right: 2%;
+
+  max-width: max-content;
+  padding: 1rem 1rem 0;
 }
 
 img {
   max-width: 350px;
+  margin: auto;
+  display: block;
 }
 
 #div-navbar {
-  padding-left: 3rem;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  z-index: 10;
 }
 
 .link {
@@ -33,16 +30,9 @@ img {
 }
 
 @media (max-width: 900px) {
-  #header {
+  :host {
     flex-direction: column;
-  }
 
-  #logo_ptitbiomed {
-    display: flex;
-    justify-content: center;
-  }
-
-  #div-navbar {
-    padding: 0;
+    padding: 1rem 0 0;
   }
 }
