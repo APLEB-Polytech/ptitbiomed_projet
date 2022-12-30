@@ -6,7 +6,6 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  z-index: 10;
 }
 
 li {
@@ -48,7 +47,7 @@ a {
   width: max-content;
   max-width: 12rem;
 
-  z-index: 1;
+  z-index: 2;
 }
 
 .dropdown-content > .dropdown > .dropdown-content {
