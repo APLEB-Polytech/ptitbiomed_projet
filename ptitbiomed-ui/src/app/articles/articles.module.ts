@@ -26,6 +26,7 @@ import {AddVideoDialogComponent} from './article-editor/add-video-dialog/add-vid
 import {AddLienDialogComponent} from './article-editor/add-lien-dialog/add-lien-dialog.component';
 import {AddPDFDialogComponent} from './article-editor/add-pdfdialog/add-pdfdialog.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {AddListeDialogComponent} from './article-editor/add-liste-dialog/add-liste-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     AddImageDialogComponent,
     AddVideoDialogComponent,
     AddLienDialogComponent,
-    AddPDFDialogComponent
+    AddPDFDialogComponent,
+    AddListeDialogComponent
   ],
   exports: [
     ArticleRendererComponent

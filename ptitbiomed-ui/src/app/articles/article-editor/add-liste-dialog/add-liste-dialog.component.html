@@ -1,0 +1,8 @@
+<h1>Ajouter une liste</h1>
+<form>
+  <mat-form-field *ngFor="let control of liste.controls" appearance="fill" class="example-full-width">
+    <mat-label>Element</mat-label>
+    <input [formControl]="control" matInput placeholder="Ex. AFIB">
+  </mat-form-field>
+  <button (click)="valid()" color="primary" mat-raised-button>Valider</button>
+</form>

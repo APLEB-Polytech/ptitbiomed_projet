@@ -15,6 +15,7 @@ import {AddVideoDialogComponent} from "./add-video-dialog/add-video-dialog.compo
 import {AddLienDialogComponent} from "./add-lien-dialog/add-lien-dialog.component";
 import {AddPDFDialogComponent} from "./add-pdfdialog/add-pdfdialog.component";
 import {MatSidenav} from "@angular/material/sidenav";
+import {AddListeDialogComponent} from "./add-liste-dialog/add-liste-dialog.component";
 
 @Component({
   selector: 'app-article-editor',
@@ -200,6 +201,22 @@ export class ArticleEditorComponent implements OnInit {
       }
       content += '</a>'
       this.editContent(content)
+    })
+  }
+
+  dialogList() {
+    this.dialog.open(AddListeDialogComponent, {
+      width: '1500px',
+      maxHeight: '500px'
+    }).afterClosed().subscribe((ret: { liste: string[] }) => {
+      if (ret) {
+        let content = `<ul>` + '\n'
+        ret.liste.forEach((element) => {
+          content += `<li>${element}</li>` + '\n'
+        })
+        content += '</ul>' + '\n'
+        this.editContent(content)
+      }
     })
   }
 }
