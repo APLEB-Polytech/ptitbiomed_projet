@@ -7,11 +7,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {HttpResponse} from "@angular/common/http";
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  selector: 'app-category-panel',
+  templateUrl: './category-panel.component.html',
+  styleUrls: ['./category-panel.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryPanelComponent implements OnInit {
 
   categories: ICategory[] = []
   displayedColumns = [

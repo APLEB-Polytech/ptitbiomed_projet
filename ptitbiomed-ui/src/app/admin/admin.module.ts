@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from "@angular/router";
 import {AdminRoute} from "./admin.route";
-import {CategoryComponent} from './category/category.component';
+import {CategoryPanelComponent} from './category/category-panel.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
@@ -18,7 +18,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
-    CategoryComponent,
+    CategoryPanelComponent,
     CategoryCreationComponent,
     CategoryEditionComponent,
     ArticleChooserComponent
