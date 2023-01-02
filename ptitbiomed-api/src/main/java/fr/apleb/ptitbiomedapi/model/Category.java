@@ -52,4 +52,13 @@ public class Category {
 		this.articles.addAll(articles);
 	}
 
+	@Override
+	public String toString() {
+		return "Category{" +
+				"uuid=" + uuid +
+				", name='" + name + '\'' +
+				", articles=" + articles +
+				'}';
+	}
+
 }

@@ -1,0 +1,10 @@
+<h1>Catégorie : {{category?.name}}</h1>
+
+<button mat-button color="primary" mat-raised-button (click)="addArticle()">Ajouter un article</button>
+
+<div id="list" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div class="box" *ngFor="let uuid of category?.articles" cdkDrag>
+    <div class="placeholder" *cdkDragPlaceholder></div>
+    {{articles.get(uuid)?.title}}
+  </div>
+</div>

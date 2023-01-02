@@ -4,6 +4,7 @@ import fr.apleb.ptitbiomedapi.dto.CategoryDto;
 import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.Category;
 import fr.apleb.ptitbiomedapi.model.CategoryArticle;
+import fr.apleb.ptitbiomedapi.repository.ArticleRepository;
 import fr.apleb.ptitbiomedapi.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import java.util.*;
 public class CategoryService {
 
 	private final CategoryRepository categoryRepository;
+	private final ArticleRepository articleRepository;
 
-	public CategoryService(CategoryRepository categoryRepository) {
+	public CategoryService(CategoryRepository categoryRepository, ArticleRepository articleRepository) {
 		this.categoryRepository = categoryRepository;
+		this.articleRepository = articleRepository;
 	}
 
 	public List<CategoryDto> getAllCategories() {
@@ -42,15 +45,15 @@ public class CategoryService {
 		final LinkedList<CategoryArticle> articles = new LinkedList<>();
 		for (UUID articleUuid : update.articles()) {
 			articles.addLast(new CategoryArticle(
-					new CategoryArticle.ID(category.getUuid(), articleUuid),
+					category,
+					this.articleRepository.findById(articleUuid)
+							.orElseThrow(NotFoundException::new),
 					articles.size()
 			));
 		}
 
 		category.setName(update.name());
-
-		category.getArticles().clear();
-		category.getArticles().addAll(articles);
+		category.setArticles(articles);
 		
 		this.categoryRepository.save(category);
 	}

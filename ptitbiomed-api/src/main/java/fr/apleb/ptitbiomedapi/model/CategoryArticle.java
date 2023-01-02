@@ -1,5 +1,6 @@
 package fr.apleb.ptitbiomedapi.model;
 
+import fr.apleb.ptitbiomedapi.model.article.Article;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -32,16 +33,8 @@ public class CategoryArticle {
 			return categoryUuid;
 		}
 
-		public void setCategoryUuid(UUID categoryUuid) {
-			this.categoryUuid = categoryUuid;
-		}
-
 		public UUID getArticleUuid() {
 			return articleUuid;
-		}
-
-		public void setArticleUuid(UUID articleUuid) {
-			this.articleUuid = articleUuid;
 		}
 
 		@Override
@@ -57,18 +50,25 @@ public class CategoryArticle {
 	@EmbeddedId
 	private ID id;
 
-	@Column(nullable = false)
-	private int rank;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("categoryUuid")
 	@JoinColumn(name = "category_uuid", columnDefinition = "char(36)")
 	private Category category;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId("articleUuid")
+	@JoinColumn(name = "article_uuid", columnDefinition = "char(36)")
+	private Article article;
+
+	@Column(nullable = false)
+	private int rank;
+
 	protected CategoryArticle() {}
 
-	public CategoryArticle(ID id, int rank) {
-		this.id = id;
+	public CategoryArticle(Category category, Article article, int rank) {
+		this.id = new ID(category.getUuid(), article.getUuid());
+		this.category = category;
+		this.article = article;
 		this.rank = rank;
 	}
 
@@ -78,6 +78,10 @@ public class CategoryArticle {
 
 	public Category getCategory() {
 		return category;
+	}
+
+	public Article getArticle() {
+		return article;
 	}
 
 	public int getRank() {

@@ -1,0 +1,19 @@
+<h1 mat-dialog-title></h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="formChooseArticle">
+    <mat-form-field appearance="fill">
+      <mat-label>ID de l'article</mat-label>
+      <input matInput formControlName="articleId" [matAutocomplete]="title_autocomplete" placeholder="UUID ou titre"/>
+      <mat-autocomplete #title_autocomplete="matAutocomplete">
+        <mat-option *ngFor="let article of filteredArticleList | async" [value]="article?.uuid">
+          {{article?.title}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button (click)="validate()" mat-raised-button color="primary" [disabled]="!formChooseArticle.valid">Valider</button>
+</div>
