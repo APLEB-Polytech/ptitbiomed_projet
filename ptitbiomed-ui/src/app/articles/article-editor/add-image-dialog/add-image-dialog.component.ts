@@ -15,7 +15,7 @@ import {FormControl} from "@angular/forms";
 export class AddImageDialogComponent implements OnInit {
 
   images: Subject<IMedia[]> = new Subject<IMedia[]>()
-  taille = new FormControl<string>('petit');
+  taille = new FormControl<string>('grand');
   legende = new FormControl<string>('');
   lien = new FormControl<string>('');
 
