@@ -74,6 +74,13 @@ export class NavbarComponent implements OnInit {
       rank: 1,
       idParent: -13,
     },
+    {
+      id: -14,
+      label: 'Catégories',
+      link: '/admin/category-panel',
+      rank: 4,
+      idParent: -1,
+    },
   ];
 
   constructor(public userService: UserService, public menuService: MenuService) {
@@ -94,21 +101,5 @@ export class NavbarComponent implements OnInit {
         }
       });
   }
-
-  // sortOnRank(): void {
-  //   this.menuItems = this.menuItems?.sort((a, b) => {
-  //     return (a.rank >= b.rank) ? 1 : -1
-  //   })
-  //   this.menuItems?.forEach((value) => {
-  //     value.submenuab?.forEach((value2) => {
-  //       value.submenuas = value.submenuas?.sort((a, b) => {
-  //         return (a.rank >= b?.rank) ? 1 : -1
-  //       })
-  //     })
-  //     value.submenuas = value.submenuas?.sort((a, b) => {
-  //       return (a.rank >= b?.rank) ? 1 : -1
-  //     })
-  //   })
-  // }
 
 }

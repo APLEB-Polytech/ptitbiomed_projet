@@ -1,0 +1,39 @@
+
+:host {
+  display: block;
+  max-width: var(--max-content-width);
+  margin: auto;
+}
+
+#cat-title,
+.art-title,
+.art-div-btn-read {
+  text-align: center;
+}
+
+.article {
+  max-width: 720px;
+  margin: 1rem auto 1rem;
+  text-align: justify;
+}
+
+.art-btn-read {
+  background: white;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 1rem;
+}
+
+.article::after {
+  content: "";
+  display: inline-block;
+  width: calc(100% - 4rem);
+  border-top: 1px solid black;
+  margin: 0 2rem;
+  box-sizing: border-box;
+}
+
+.article:last-child::after {
+  display: none;
+}
