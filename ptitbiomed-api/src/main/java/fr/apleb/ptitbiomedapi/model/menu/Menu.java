@@ -33,6 +33,9 @@ public class Menu {
 	@Column(name = "id_parent")
 	private Integer idParent;
 
+	@Column(name = "hidden")
+	private boolean hidden;
+
 	public Integer getId() {
 		return id;
 	}
@@ -87,6 +90,14 @@ public class Menu {
 
 	public void setIdParent(Integer idParent) {
 		this.idParent = idParent;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 
 }

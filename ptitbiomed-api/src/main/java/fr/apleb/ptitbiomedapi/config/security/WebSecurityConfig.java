@@ -61,6 +61,7 @@ public class WebSecurityConfig {
                 .antMatchers("/api/category").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/category/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/menu").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/menu/with-hidden").authenticated()
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

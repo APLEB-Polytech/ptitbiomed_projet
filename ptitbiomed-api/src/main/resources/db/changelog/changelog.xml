@@ -348,4 +348,12 @@
                                  referencedColumnNames="uuid"/>
     </changeSet>
 
+    <changeSet id="1672861608418" author="Alexis Giust">
+        <addColumn tableName="menu">
+            <column name="hidden" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
