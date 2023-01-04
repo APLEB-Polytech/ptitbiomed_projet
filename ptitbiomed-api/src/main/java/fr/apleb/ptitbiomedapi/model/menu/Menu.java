@@ -26,6 +26,10 @@ public class Menu {
 	@Type(type = "uuid-char")
 	private UUID idArticle;
 
+	@Column(columnDefinition = "char(36)")
+	@Type(type = "uuid-char")
+	private UUID idCategory;
+
 	@Column(name = "id_parent")
 	private Integer idParent;
 
@@ -67,6 +71,14 @@ public class Menu {
 
 	public void setIdArticle(UUID idArticle) {
 		this.idArticle = idArticle;
+	}
+
+	public UUID getIdCategory() {
+		return idCategory;
+	}
+
+	public void setIdCategory(UUID idCategory) {
+		this.idCategory = idCategory;
 	}
 
 	public Integer getIdParent() {

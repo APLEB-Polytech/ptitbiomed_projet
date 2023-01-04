@@ -32,6 +32,7 @@ export class NavbarContentComponent implements OnInit {
   getLink(item: IMenu): string | string[] {
     if (item.link) return item.link;
     if (item.idArticle) return '/article/view/' + item.idArticle;
+    if (item.idCategory) return '/category/view/' + item.idCategory;
     return [];
   }
 
