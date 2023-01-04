@@ -1,7 +1,9 @@
-form > * {
-  display: block;
+form {
+  display: flex;
+  flex-direction: column;
 }
 
+mat-checkbox,
 mat-radio-group {
   margin-bottom: 1rem;
 }

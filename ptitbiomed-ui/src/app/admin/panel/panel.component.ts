@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../../services/menu.service";
-import {HttpResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {IMenu} from "../../shared/model/IMenu";
 import {MatDialog} from "@angular/material/dialog";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
@@ -39,18 +39,18 @@ export class PanelComponent implements OnInit {
 
   loadMenu(idMenu?: number): void {
     this.menuService.refreshNavbar.emit();
-    this.menuService.getAllMenu().subscribe({
-      next: (res: HttpResponse<IMenu[]>) => {
-        if (!res.ok || !res.body) {
-          throw new Error('Erreur lors du chargement')
-        }
+    this.menuService.getAllMenuWithHidden().subscribe({
+      next: (menus: IMenu[]) => {
         this.idMenu = idMenu;
-        this.menus = res.body;
+        this.menus = menus;
         this.filteredMenus = this.idMenu
           ? this.menus.filter(menu => menu.idParent === this.idMenu)
           : this.menus.filter(menu => menu.idParent === null);
-      }
-    })
+      },
+      error: (e: HttpErrorResponse) => {
+        this.snackbar.open("Erreur lors du chargement : " + e.message);
+      },
+    });
   }
 
   createMenu(): void {

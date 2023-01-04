@@ -21,6 +21,10 @@ export class MenuService {
     return this.http.get<IMenu[]>('/api/menu', {observe: 'response'});
   }
 
+  getAllMenuWithHidden(): Observable<IMenu[]> {
+    return this.http.get<IMenu[]>('/api/menu/with-hidden');
+  }
+
   createMenu(menu: IMenu): Observable<HttpResponse<any>> {
     return this.http.post<any>('/api/menu', menu, {observe: 'response'});
   }

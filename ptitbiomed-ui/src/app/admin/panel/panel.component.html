@@ -7,7 +7,7 @@
 </div>
 
 <div (cdkDropListDropped)="drop($event)" cdkDropList class="example-list" id="list">
-  <div *ngFor="let menu of filteredMenus" cdkDrag class="example-box">
+  <div *ngFor="let menu of filteredMenus" cdkDrag class="example-box" [ngClass]="{'hidden': menu.hidden}">
     <div *cdkDragPlaceholder class="example-custom-placeholder"></div>
     {{menu.label}}
     <div class="div-menu-controls">

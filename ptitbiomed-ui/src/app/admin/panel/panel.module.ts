@@ -18,6 +18,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {AddChildMenuComponent} from './add-child-menu/add-child-menu.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
         MatDialogModule,
         DragDropModule,
         MatRadioModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatCheckboxModule
     ]
 })
 export class PanelModule {
