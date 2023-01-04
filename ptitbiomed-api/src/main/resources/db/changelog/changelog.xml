@@ -296,5 +296,9 @@
         <dropTable tableName="submenua"/>
     </changeSet>
 
+    <changeSet id="1672840229852-1" author="Alexis Giust">
+        <modifyDataType tableName="media" columnName="taille" newDataType="bigint"/>
+        <modifyDataType tableName="menu" columnName="label" newDataType="varchar(100)"/>
+    </changeSet>
 
 </databaseChangeLog>
