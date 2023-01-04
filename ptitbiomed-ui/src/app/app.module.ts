@@ -24,7 +24,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {ArticlesModule} from "./articles/articles.module";
 import { NavbarContentComponent } from './layouts/navbar/navbar-content/navbar-content.component';
-import { LogoutComponent } from './auth/logout/logout.component';
+import {LogoutComponent} from './auth/logout/logout.component';
+import {CategoryViewerComponent} from "./category-viewer/category-viewer.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LogoutComponent } from './auth/logout/logout.component';
     AccueilComponent,
     NavbarContentComponent,
     LogoutComponent,
+    CategoryViewerComponent,
   ],
   imports: [
     BrowserModule,

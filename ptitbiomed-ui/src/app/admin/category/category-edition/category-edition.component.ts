@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ICategory} from "../../../shared/model/ICategory";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CategoryService} from "../../../services/category.service";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {MatDialog} from "@angular/material/dialog";
 import {ArticleChooserComponent} from "./article-chooser/article-chooser.component";
@@ -17,7 +17,6 @@ import {ArticleService} from "../../../articles/article.service";
 })
 export class CategoryEditionComponent implements OnInit {
 
-  @Input()
   categoryUuid: string = '';
   category: ICategory | undefined;
 
@@ -38,7 +37,7 @@ export class CategoryEditionComponent implements OnInit {
 
   private loadCategory(): void {
     if (!this.categoryUuid) throw "Invalid category UUID";
-    this.categoryService.getCategory(this.categoryUuid!).subscribe({
+    this.categoryService.getCategory(this.categoryUuid).subscribe({
       next: (category: ICategory) => {
         this.category = category;
         this.loadArticleHeaders();
