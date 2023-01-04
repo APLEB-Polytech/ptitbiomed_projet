@@ -296,6 +296,41 @@
         <dropTable tableName="submenua"/>
     </changeSet>
 
+    <changeSet id="1671971238292-1" author="Alexis Giust">
+        <createTable tableName="category">
+            <column name="uuid" type="CHAR(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_category"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="category_articles">
+            <column name="category_uuid" type="CHAR(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_category_articles"/>
+            </column>
+            <column name="article_uuid" type="CHAR(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_category_articles"/>
+            </column>
+            <column name="rank" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="category_articles"
+                                 baseColumnNames="category_uuid"
+                                 constraintName="fk_category_articles_category_uuid"
+                                 referencedTableName="category"
+                                 referencedColumnNames="uuid"/>
+
+        <addForeignKeyConstraint baseTableName="category_articles"
+                                 baseColumnNames="article_uuid"
+                                 constraintName="fk_category_articles_article_uuid"
+                                 referencedTableName="article"
+                                 referencedColumnNames="uuid"/>
+    </changeSet>
+
     <changeSet id="1672840229852-1" author="Alexis Giust">
         <modifyDataType tableName="media" columnName="taille" newDataType="bigint"/>
         <modifyDataType tableName="menu" columnName="label" newDataType="varchar(100)"/>

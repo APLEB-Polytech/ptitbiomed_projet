@@ -1,0 +1,13 @@
+<h1 id="cat-title">Catégorie : {{category?.name}}</h1>
+
+<button mat-button color="primary" mat-raised-button (click)="addArticle()">Ajouter un article</button>
+
+<div id="list" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div class="box" *ngFor="let uuid of category?.articles" cdkDrag>
+    <div class="placeholder" *cdkDragPlaceholder></div>
+    {{articles.get(uuid)?.title}}
+    <button mat-button color="primary" mat-mini-fab [routerLink]="['/article/view', uuid]">
+      <mat-icon>visibility</mat-icon>
+    </button>
+  </div>
+</div>

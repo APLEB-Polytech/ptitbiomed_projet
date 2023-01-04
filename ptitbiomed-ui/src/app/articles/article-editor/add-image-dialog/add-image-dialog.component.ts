@@ -15,8 +15,9 @@ import {FormControl} from "@angular/forms";
 export class AddImageDialogComponent implements OnInit {
 
   images: Subject<IMedia[]> = new Subject<IMedia[]>()
-  taille = new FormControl<string>('petit');
+  taille = new FormControl<string>('grand');
   legende = new FormControl<string>('');
+  lien = new FormControl<string>('');
 
   constructor(public mediaService: MediaService, private snackbar: MatSnackBar, public dialogRef: MatDialogRef<AddImageDialogComponent>) {
   }
@@ -38,6 +39,6 @@ export class AddImageDialogComponent implements OnInit {
   }
 
   addImage(event: IMedia) {
-    this.dialogRef.close({image: event, taille: this.taille.value, legende: this.legende.value})
+    this.dialogRef.close({image: event, taille: this.taille.value, legende: this.legende.value, lien: this.lien.value})
   }
 }
