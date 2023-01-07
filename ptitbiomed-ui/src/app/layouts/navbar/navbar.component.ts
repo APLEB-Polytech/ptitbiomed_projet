@@ -104,12 +104,15 @@ export class NavbarComponent implements OnInit {
   }
 
   loadMenu() {
-    this.menuService.getAllMenu().subscribe(
-      (data) => {
-        if (data.ok && data.body) {
-          this.menuItems = data.body;
-        }
+    this.userService.isConnected.subscribe((connected: boolean) => {
+      let menuRequest = connected
+        ? this.menuService.getAllMenuWithHidden()
+        : this.menuService.getAllMenu();
+
+      menuRequest.subscribe((menus: IMenu[]) => {
+        this.menuItems = menus;
       });
+    });
   }
 
 }

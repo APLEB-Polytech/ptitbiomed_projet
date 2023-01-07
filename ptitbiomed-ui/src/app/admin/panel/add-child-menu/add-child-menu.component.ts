@@ -18,7 +18,7 @@ export class AddChildMenuComponent {
 
   formAddChild: FormGroup = new FormGroup<any>({
     label: new FormControl(this.menu?.label, [Validators.required, Validators.minLength(4)]),
-    hidden: new FormControl(this.menu.hidden),
+    hidden: new FormControl(this.menu?.hidden),
     linkType: new FormControl(
       this.menu?.link ? 'link' :
         this.menu?.idArticle ? 'articleId' :

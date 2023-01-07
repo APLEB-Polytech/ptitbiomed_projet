@@ -23,7 +23,11 @@
   font-size: 14px;
 }
 
-.hidden {
+.example-box:last-child {
+  border: none;
+}
+
+.example-box.hidden {
   background: #eee;
   border: 2px dotted black;
 }
@@ -42,10 +46,6 @@
 
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.example-box:last-child {
-  border: none;
 }
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {

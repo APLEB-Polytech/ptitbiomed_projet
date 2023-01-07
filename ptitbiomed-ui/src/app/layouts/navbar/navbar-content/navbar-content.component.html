@@ -24,9 +24,11 @@
 
 
 <ng-template #externalLink let-menu="menu">
-  <a class="dropdown-button" [href]="getLink(menu)">{{menu.label}}</a>
+  <a class="dropdown-button" [class.hidden]="menu.hidden"
+     [href]="getLink(menu)">{{menu.label}}</a>
 </ng-template>
 
 <ng-template #routerLink let-menu="menu">
-  <a class="dropdown-button" [routerLink]="getLink(menu) ?? []">{{menu.label}}</a>
+  <a class="dropdown-button" [class.hidden]="menu.hidden"
+     [routerLink]="getLink(menu) ?? []">{{menu.label}}</a>
 </ng-template>
