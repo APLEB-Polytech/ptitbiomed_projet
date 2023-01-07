@@ -29,11 +29,15 @@ export class NavbarContentComponent implements OnInit {
       .sort((a, b) => a.rank - b.rank);
   }
 
-  getLink(item: IMenu): string | string[] {
+  getLink(item: IMenu): string | undefined {
     if (item.link) return item.link;
     if (item.idArticle) return '/article/view/' + item.idArticle;
     if (item.idCategory) return '/category/view/' + item.idCategory;
-    return [];
+    return undefined;
+  }
+
+  isExternal(item: IMenu): boolean {
+    return !!item.link && /^https?:\/\//.test(item.link);
   }
 
 }
