@@ -18,6 +18,7 @@ export class AddChildMenuComponent {
 
   formAddChild: FormGroup = new FormGroup<any>({
     label: new FormControl(this.menu?.label, [Validators.required, Validators.minLength(4)]),
+    hidden: new FormControl(this.menu?.hidden),
     linkType: new FormControl(
       this.menu?.link ? 'link' :
         this.menu?.idArticle ? 'articleId' :
@@ -80,9 +81,12 @@ export class AddChildMenuComponent {
     } else {
       this.menu = {
         label: this.formAddChild.controls['label']?.value,
-        rank: -1
+        rank: -1,
+        hidden: false,
       }
     }
+
+    this.menu.hidden = this.formAddChild.controls['hidden']?.value;
 
     this.menu.idArticle = undefined;
     this.menu.idCategory = undefined;

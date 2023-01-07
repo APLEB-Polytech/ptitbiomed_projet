@@ -17,8 +17,12 @@ export class MenuService {
 
   constructor(private http: HttpClient) { }
 
-  getAllMenu(): Observable<HttpResponse<IMenu[]>> {
-    return this.http.get<IMenu[]>('/api/menu', {observe: 'response'});
+  getAllMenu(): Observable<IMenu[]> {
+    return this.http.get<IMenu[]>('/api/menu');
+  }
+
+  getAllMenuWithHidden(): Observable<IMenu[]> {
+    return this.http.get<IMenu[]>('/api/menu/with-hidden');
   }
 
   createMenu(menu: IMenu): Observable<HttpResponse<any>> {

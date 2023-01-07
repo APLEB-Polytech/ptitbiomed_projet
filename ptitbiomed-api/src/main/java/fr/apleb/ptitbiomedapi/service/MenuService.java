@@ -50,6 +50,7 @@ public class MenuService {
 		menu.setLink(menuDto.link());
 		menu.setIdArticle(menuDto.idArticle());
 		menu.setIdCategory(menuDto.idCategory());
+		menu.setHidden(menuDto.hidden());
 
 		this.menuRepository.save(menu);
 	}
@@ -92,6 +93,7 @@ public class MenuService {
 		menu.setIdCategory(editedMenu.idCategory());
 		menu.setRank(editedMenu.rank());
 		menu.setIdParent(editedMenu.idParent());
+		menu.setHidden(editedMenu.hidden());
 
 		this.menuRepository.save(menu);
 	}

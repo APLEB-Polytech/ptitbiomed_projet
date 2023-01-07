@@ -5,6 +5,7 @@ import {AuthRequest} from "./AuthRequest";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
+import {MenuService} from "../../services/menu.service";
 
 @Component({
   selector: 'app-login',
@@ -22,9 +23,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private userService: UserService,
-    private router: Router
-  ) {
-  }
+    private menuService: MenuService,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           if (res.ok && res.body) {
             this.userService.authenticate(res.body)
+            this.menuService.refreshNavbar.emit();
             this.router.navigate([''])
           }
         },
