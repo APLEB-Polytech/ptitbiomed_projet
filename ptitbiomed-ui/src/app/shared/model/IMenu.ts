@@ -5,6 +5,7 @@ export interface IMenu {
   link?: string,
   rank: number,
   idArticle?: string,
+  idCategory?: string,
   idParent?: number,
 }
 

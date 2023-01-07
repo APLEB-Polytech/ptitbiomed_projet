@@ -336,4 +336,16 @@
         <modifyDataType tableName="menu" columnName="label" newDataType="varchar(100)"/>
     </changeSet>
 
+    <changeSet id="1672848176009" author="Alexis Giust">
+        <addColumn tableName="menu">
+            <column type="CHAR(36)" name="id_category"/>
+        </addColumn>
+
+        <addForeignKeyConstraint baseTableName="menu"
+                                 baseColumnNames="id_category"
+                                 constraintName="FK_menu_category"
+                                 referencedTableName="category"
+                                 referencedColumnNames="uuid"/>
+    </changeSet>
+
 </databaseChangeLog>

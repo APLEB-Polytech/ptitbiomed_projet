@@ -54,7 +54,7 @@ export class PanelComponent implements OnInit {
   }
 
   createMenu(): void {
-    const dialogRef = this.dialog.open(AddChildMenuComponent, {width: '400px'});
+    const dialogRef = this.dialog.open(AddChildMenuComponent);
     dialogRef.afterClosed().subscribe((newMenu: IMenu) => {
       if (!newMenu) return;
       if (this.idMenu) newMenu.idParent = this.idMenu;
@@ -73,7 +73,7 @@ export class PanelComponent implements OnInit {
   }
 
   editMenu(menu: IMenu) {
-    const dialogRef = this.dialog.open(AddChildMenuComponent, {data: menu, width: '400px'});
+    const dialogRef = this.dialog.open(AddChildMenuComponent, {data: menu});
     dialogRef.afterClosed().subscribe((editedMenu: IMenu) => {
       if (!editedMenu) return;
 

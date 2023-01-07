@@ -48,7 +48,7 @@ export class CategoryPanelComponent implements OnInit {
           this.snackbar.open('Catégorie crée', 'OK', {duration: 2000});
         },
         error: () => {
-          this.snackbar.open('Erreur lord de la création de la catégorie', 'OK', {duration: 10000});
+          this.snackbar.open('Erreur lors de la création de la catégorie', 'OK', {duration: 10000});
         }
       });
     });

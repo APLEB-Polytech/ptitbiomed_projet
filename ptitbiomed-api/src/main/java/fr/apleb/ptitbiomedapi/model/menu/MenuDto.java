@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public record MenuDto(Integer id, String label, String link,
-                      UUID idArticle, int rank, Integer idParent) implements Serializable {
+                      UUID idArticle, UUID idCategory, int rank, Integer idParent) implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {

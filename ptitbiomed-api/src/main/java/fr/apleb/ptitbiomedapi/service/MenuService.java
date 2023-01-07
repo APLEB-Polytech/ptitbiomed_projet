@@ -6,6 +6,7 @@ import fr.apleb.ptitbiomedapi.model.menu.Menu;
 import fr.apleb.ptitbiomedapi.model.menu.MenuCreationDto;
 import fr.apleb.ptitbiomedapi.model.menu.MenuDto;
 import fr.apleb.ptitbiomedapi.repository.ArticleRepository;
+import fr.apleb.ptitbiomedapi.repository.CategoryRepository;
 import fr.apleb.ptitbiomedapi.repository.menu.MenuRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,14 @@ import java.util.stream.Collectors;
 public class MenuService {
 	private final MenuRepository menuRepository;
 	private final ArticleRepository articleRepository;
+	private final CategoryRepository categoryRepository;
 
 	public MenuService(MenuRepository menuRepository,
-	                   ArticleRepository articleRepository) {
+	                   ArticleRepository articleRepository,
+	                   CategoryRepository categoryRepository) {
 		this.menuRepository = menuRepository;
 		this.articleRepository = articleRepository;
+		this.categoryRepository = categoryRepository;
 	}
 
 	public List<MenuDto> getAllMenuDto() {
@@ -34,6 +38,10 @@ public class MenuService {
 			throw new NotFoundException();
 		}
 
+		if (menuDto.idCategory() != null && !this.categoryRepository.existsById(menuDto.idCategory())) {
+			throw new NotFoundException();
+		}
+
 		final Menu menu = new Menu();
 
 		menu.setLabel(menuDto.label());
@@ -41,6 +49,7 @@ public class MenuService {
 		menu.setIdParent(menuDto.idParent());
 		menu.setLink(menuDto.link());
 		menu.setIdArticle(menuDto.idArticle());
+		menu.setIdCategory(menuDto.idCategory());
 
 		this.menuRepository.save(menu);
 	}
@@ -73,9 +82,14 @@ public class MenuService {
 			throw new NotFoundException();
 		}
 
+		if (editedMenu.idCategory() != null && !this.categoryRepository.existsById(editedMenu.idCategory())) {
+			throw new NotFoundException();
+		}
+
 		menu.setLabel(editedMenu.label());
 		menu.setLink(editedMenu.link());
 		menu.setIdArticle(editedMenu.idArticle());
+		menu.setIdCategory(editedMenu.idCategory());
 		menu.setRank(editedMenu.rank());
 		menu.setIdParent(editedMenu.idParent());
 
