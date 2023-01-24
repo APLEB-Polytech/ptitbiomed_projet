@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 @RestController
 @RequestMapping("/api/menu")
@@ -25,8 +26,16 @@ public class MenuController {
 	@GetMapping
 	public ResponseEntity<List<MenuDto>> getAllMenuDto() {
 		logger.info("REST GET getAllMenuDto");
-		List<MenuDto> menus = this.menuService.getAllMenuDto();
+		List<MenuDto> menus = this.menuService.getAllMenuDto().stream()
+				.filter(Predicate.not(MenuDto::hidden))
+				.toList();
 		return ResponseEntity.ok(menus);
+	}
+
+	@GetMapping("/with-hidden")
+	public ResponseEntity<List<MenuDto>> getAllMenuWithHidden() {
+		logger.info("REST GET getAllMenuWithHidden");
+		return ResponseEntity.ok(this.menuService.getAllMenuDto());
 	}
 
 	@PostMapping

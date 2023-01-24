@@ -5,10 +5,13 @@
     <input formControlName="label" matInput/>
   </mat-form-field>
 
+  <mat-checkbox formControlName="hidden">Caché</mat-checkbox>
+
   <mat-radio-group formControlName="linkType">
     <mat-label>Type de lien :</mat-label>
     <mat-radio-button value="link">Lien</mat-radio-button>
     <mat-radio-button value="articleId">Article</mat-radio-button>
+    <mat-radio-button value="categoryId">Catégorie</mat-radio-button>
     <mat-radio-button>Aucun</mat-radio-button>
   </mat-radio-group>
 
@@ -24,6 +27,18 @@
       <mat-autocomplete #title_autocomplete="matAutocomplete">
         <mat-option *ngFor="let article of filteredArticleList | async" [value]="article?.uuid">
           {{article?.title}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngIf="formAddChild.controls['linkType']?.value === 'categoryId'">
+    <mat-form-field appearance="fill">
+      <mat-label>ID de la catégorie</mat-label>
+      <input formControlName="categoryId" matInput [matAutocomplete]="name_autocomplete" placeholder="UUID ou nom"/>
+      <mat-autocomplete #name_autocomplete="matAutocomplete">
+        <mat-option *ngFor="let cat of filteredCategoryList | async" [value]="cat?.uuid">
+          {{cat?.name}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

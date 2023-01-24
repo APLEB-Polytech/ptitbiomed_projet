@@ -1,0 +1,18 @@
+#category-list {
+  width: 100%;
+}
+
+#btn-add-category {
+  margin-bottom: .5rem;
+}
+
+.mat-column-actions {
+  width: 0;
+}
+
+.mat-column-actions > div {
+  display: flex;
+  gap: .25rem;
+}
+
+

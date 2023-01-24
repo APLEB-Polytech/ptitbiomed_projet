@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../../services/menu.service";
-import {HttpResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {IMenu} from "../../shared/model/IMenu";
 import {MatDialog} from "@angular/material/dialog";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
@@ -39,22 +39,22 @@ export class PanelComponent implements OnInit {
 
   loadMenu(idMenu?: number): void {
     this.menuService.refreshNavbar.emit();
-    this.menuService.getAllMenu().subscribe({
-      next: (res: HttpResponse<IMenu[]>) => {
-        if (!res.ok || !res.body) {
-          throw new Error('Erreur lors du chargement')
-        }
+    this.menuService.getAllMenuWithHidden().subscribe({
+      next: (menus: IMenu[]) => {
         this.idMenu = idMenu;
-        this.menus = res.body;
+        this.menus = menus;
         this.filteredMenus = this.idMenu
           ? this.menus.filter(menu => menu.idParent === this.idMenu)
           : this.menus.filter(menu => menu.idParent === null);
-      }
-    })
+      },
+      error: (e: HttpErrorResponse) => {
+        this.snackbar.open("Erreur lors du chargement : " + e.message);
+      },
+    });
   }
 
   createMenu(): void {
-    const dialogRef = this.dialog.open(AddChildMenuComponent, {width: '400px'});
+    const dialogRef = this.dialog.open(AddChildMenuComponent);
     dialogRef.afterClosed().subscribe((newMenu: IMenu) => {
       if (!newMenu) return;
       if (this.idMenu) newMenu.idParent = this.idMenu;
@@ -73,7 +73,7 @@ export class PanelComponent implements OnInit {
   }
 
   editMenu(menu: IMenu) {
-    const dialogRef = this.dialog.open(AddChildMenuComponent, {data: menu, width: '400px'});
+    const dialogRef = this.dialog.open(AddChildMenuComponent, {data: menu});
     dialogRef.afterClosed().subscribe((editedMenu: IMenu) => {
       if (!editedMenu) return;
 

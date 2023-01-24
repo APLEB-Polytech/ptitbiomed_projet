@@ -27,6 +27,7 @@ public class Article {
 	private String title;
 
 	@Column(nullable = false)
+	@Type(type = "text")
 	private String html;
 
 	public UUID getUuid() {

@@ -1,4 +1,15 @@
-.example-list {
+:host {
+  display: block;
+  max-width: var(--max-content-width);
+  margin: auto;
+}
+
+#cat-title {
+  text-align: center;
+}
+
+#list {
+  margin: auto;
   width: 500px;
   max-width: 100%;
   border: solid 1px #ccc;
@@ -9,10 +20,10 @@
   overflow: hidden;
 }
 
-.example-box {
+.box {
   padding: 20px 10px;
   border-bottom: solid 1px #ccc;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(0, 0, 0, .87);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,17 +34,16 @@
   font-size: 14px;
 }
 
-.example-box:last-child {
+.box:last-child {
   border: none;
 }
 
-.example-box.hidden {
-  background: #eee;
-  border: 2px dotted black;
-}
-
-.hidden + .hidden {
-  border-top: none;
+.placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, .2, 1);
+  box-sizing: border-box;
 }
 
 .cdk-drag-preview {
@@ -48,40 +58,6 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+#list.cdk-drop-list-dragging .box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.example-custom-placeholder {
-  background: #ccc;
-  border: dotted 3px #999;
-  min-height: 60px;
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-
-h1 {
-  text-align: center;
-  padding-top: 1rem;
-}
-
-#list {
-  margin: auto;
-}
-
-#div-controls {
-  display: flex;
-  padding: 1rem;
-  box-sizing: border-box;
-  gap: .5rem;
-  align-items: center;
-}
-
-.div-menu-controls {
-  display: flex;
-  gap: .5rem;
-}
-
-#btn-save {
-  margin-left: auto;
 }

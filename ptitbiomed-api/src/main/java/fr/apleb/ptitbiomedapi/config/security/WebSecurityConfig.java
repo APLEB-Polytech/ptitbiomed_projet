@@ -54,12 +54,13 @@ public class WebSecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/article/**", "/login", "/", "/**.js", "/**.css", "/favicon.ico", "/assets/**").permitAll()
                 .antMatchers("/api/auth/signin").permitAll()
-                .antMatchers("/api/article").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/article/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/category/**").permitAll()
+                .antMatchers("/api/menu/with-hidden").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/menu").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/api/**").authenticated()
+                .anyRequest().permitAll();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

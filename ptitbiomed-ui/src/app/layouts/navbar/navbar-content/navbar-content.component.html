@@ -1,24 +1,18 @@
 <ul id="liens">
   <li *ngFor="let item of getRootItems()">
     <div class="dropdown">
-      <a class="dropdown-button"
-         [routerLink]="getLink(item)">
-        {{item.label}}
-      </a>
+      <ng-container [ngTemplateOutlet]="isExternal(item) ? externalLink : routerLink"
+                    [ngTemplateOutletContext]="{menu:item}"></ng-container>
 
       <div class="dropdown-content">
         <div *ngFor="let sub1 of getChildren(item)" class="dropdown">
-          <a class="dropdown-button"
-             [routerLink]="getLink(sub1)">
-            {{sub1.label}}
-          </a>
+          <ng-container [ngTemplateOutlet]="isExternal(sub1) ? externalLink : routerLink"
+                        [ngTemplateOutletContext]="{ menu: sub1 }"></ng-container>
 
           <div class="dropdown-content">
             <div *ngFor="let sub2 of getChildren(sub1)" class="dropdown">
-              <a class="dropdown-button"
-                 [routerLink]="getLink(sub2)">
-                {{sub2.label}}
-              </a>
+              <ng-container [ngTemplateOutlet]="isExternal(sub2) ? externalLink : routerLink"
+                            [ngTemplateOutletContext]="{ menu: sub2 }"></ng-container>
             </div>
           </div>
         </div>
@@ -27,3 +21,14 @@
 
   </li>
 </ul>
+
+
+<ng-template #externalLink let-menu="menu">
+  <a class="dropdown-button" [class.hidden]="menu.hidden"
+     [href]="getLink(menu)">{{menu.label}}</a>
+</ng-template>
+
+<ng-template #routerLink let-menu="menu">
+  <a class="dropdown-button" [class.hidden]="menu.hidden"
+     [routerLink]="getLink(menu) ?? []">{{menu.label}}</a>
+</ng-template>

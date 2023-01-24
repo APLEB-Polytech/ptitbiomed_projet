@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
       id: -1,
       label: 'Administration',
       rank: 0,
+      hidden: false,
     },
     {
       id: -10,
@@ -26,6 +27,7 @@ export class NavbarComponent implements OnInit {
       link: '/admin/user',
       rank: 0,
       idParent: -1,
+      hidden: false,
     },
     {
       id: -11,
@@ -33,12 +35,14 @@ export class NavbarComponent implements OnInit {
       link: '/admin/panel',
       rank: 1,
       idParent: -1,
+      hidden: false,
     },
     {
       id: -12,
       label: 'Médias',
       rank: 2,
       idParent: -1,
+      hidden: false,
     },
     {
       id: -120,
@@ -46,6 +50,7 @@ export class NavbarComponent implements OnInit {
       link: '/medias',
       rank: 1,
       idParent: -12,
+      hidden: false,
     },
     {
       id: -121,
@@ -53,12 +58,14 @@ export class NavbarComponent implements OnInit {
       link: '/medias/upload',
       rank: 2,
       idParent: -12,
+      hidden: false,
     },
     {
       id: -13,
       label: 'Articles',
       rank: 3,
       idParent: -1,
+      hidden: false,
     },
     {
       id: -130,
@@ -66,6 +73,7 @@ export class NavbarComponent implements OnInit {
       link: '/article',
       rank: 0,
       idParent: -13,
+      hidden: false,
     },
     {
       id: -131,
@@ -73,6 +81,15 @@ export class NavbarComponent implements OnInit {
       link: '/article/new',
       rank: 1,
       idParent: -13,
+      hidden: false,
+    },
+    {
+      id: -14,
+      label: 'Catégories',
+      link: '/admin/category-panel',
+      rank: 4,
+      idParent: -1,
+      hidden: false,
     },
   ];
 
@@ -87,28 +104,15 @@ export class NavbarComponent implements OnInit {
   }
 
   loadMenu() {
-    this.menuService.getAllMenu().subscribe(
-      (data) => {
-        if (data.ok && data.body) {
-          this.menuItems = data.body;
-        }
-      });
-  }
+    this.userService.isConnected.subscribe((connected: boolean) => {
+      let menuRequest = connected
+        ? this.menuService.getAllMenuWithHidden()
+        : this.menuService.getAllMenu();
 
-  // sortOnRank(): void {
-  //   this.menuItems = this.menuItems?.sort((a, b) => {
-  //     return (a.rank >= b.rank) ? 1 : -1
-  //   })
-  //   this.menuItems?.forEach((value) => {
-  //     value.submenuab?.forEach((value2) => {
-  //       value.submenuas = value.submenuas?.sort((a, b) => {
-  //         return (a.rank >= b?.rank) ? 1 : -1
-  //       })
-  //     })
-  //     value.submenuas = value.submenuas?.sort((a, b) => {
-  //       return (a.rank >= b?.rank) ? 1 : -1
-  //     })
-  //   })
-  // }
+      menuRequest.subscribe((menus: IMenu[]) => {
+        this.menuItems = menus;
+      });
+    });
+  }
 
 }

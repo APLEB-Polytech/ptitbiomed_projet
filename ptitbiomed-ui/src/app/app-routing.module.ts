@@ -4,6 +4,7 @@ import {LoginComponent} from "./auth/login/login.component";
 import {LogoutComponent} from "./auth/logout/logout.component";
 import {AccueilComponent} from "./accueil/accueil.component";
 import {ConnectedGuard} from "./shared/guard/connected.guard";
+import {CategoryViewerComponent} from "./category-viewer/category-viewer.component";
 
 const routes: Routes = [
   {path: '', component: AccueilComponent},
@@ -17,7 +18,9 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [ConnectedGuard]
   },
-  {path: 'accueil', redirectTo: ''}
+  {path: 'accueil', redirectTo: ''},
+  {path: 'category/view', redirectTo: ''},
+  {path: 'category/view/:uuid', component: CategoryViewerComponent},
 ];
 
 @NgModule({

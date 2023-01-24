@@ -7,5 +7,7 @@ public record MenuCreationDto(
 		int rank,
 		Integer idParent,
 		String link,
-		UUID idArticle
+		UUID idArticle,
+		UUID idCategory,
+		boolean hidden
 ) {}
