@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, ParamMap} from "@angular/router";
 import {CategoryService} from "../services/category.service";
 import {ICategory} from "../shared/model/ICategory";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
@@ -31,8 +31,10 @@ export class CategoryViewerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.categoryUuid = this.route.snapshot.paramMap.get('uuid')!;
-    this.loadCategory();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.categoryUuid = params.get('uuid') || '';
+      this.loadCategory();
+    });
   }
 
   private loadCategory(): void {
