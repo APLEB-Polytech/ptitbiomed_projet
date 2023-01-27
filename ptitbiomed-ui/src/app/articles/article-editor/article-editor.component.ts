@@ -133,8 +133,8 @@ export class ArticleEditorComponent implements OnInit {
       width: '1500px'
     }).afterClosed().subscribe((ret: { content: string, return: boolean }) => {
       if (ret) {
-        let content = `<p>${ret.content}</p>`
-        content = content.replace('\n', '</p><p>')
+        let content = ret.content.replace(/\n/g, '<br/>\n');
+        content = '<p>\n' + content + '\n</p>';
         if (ret.return) {
           content += '<br />'
         }
