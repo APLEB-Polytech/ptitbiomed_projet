@@ -20,7 +20,7 @@ public class Category {
 	@Column(nullable = false)
 	private String name;
 
-	@Type(type = "text")
+	@Column
 	private String summaryHtml;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category", orphanRemoval = true)
