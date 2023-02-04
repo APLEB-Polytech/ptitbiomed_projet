@@ -1,12 +1,13 @@
 package fr.apleb.ptitbiomedapi.config.security;
 
+import fr.apleb.ptitbiomedapi.config.AngularFilter;
 import fr.apleb.ptitbiomedapi.config.security.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,8 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        prePostEnabled = true)
+@EnableMethodSecurity
 public class WebSecurityConfig {
     final UserDetailsServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
@@ -31,6 +31,11 @@ public class WebSecurityConfig {
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
+    }
+
+    @Bean
+    public AngularFilter angularFilter() {
+        return new AngularFilter();
     }
 
     @Bean
@@ -50,17 +55,18 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http.csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                .antMatchers("/api/auth/signin").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/article/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/category/**").permitAll()
-                .antMatchers("/api/menu/with-hidden").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/menu").permitAll()
-                .antMatchers("/api/**").authenticated()
+                .authorizeHttpRequests()
+                .requestMatchers("/api/auth/signin").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/article/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/category/**").permitAll()
+                .requestMatchers("/api/menu/with-hidden").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/menu").permitAll()
+                .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
+        http.addFilterBefore(angularFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

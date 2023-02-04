@@ -1,8 +1,8 @@
 package fr.apleb.ptitbiomedapi.config.security.payload;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record SignupRequest(@NotBlank @Size(min = 3, max = 20) String username,
                             @NotBlank @Size(max = 50) @Email String email,

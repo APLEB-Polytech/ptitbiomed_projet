@@ -1,8 +1,9 @@
 package fr.apleb.ptitbiomedapi.model.menu;
 
-import org.hibernate.annotations.Type;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -23,11 +24,11 @@ public class Menu {
 	private String link;
 
 	@Column(columnDefinition = "char(36)")
-	@Type(type = "uuid-char")
+	@JdbcTypeCode(SqlTypes.CHAR)
 	private UUID idArticle;
 
 	@Column(columnDefinition = "char(36)")
-	@Type(type = "uuid-char")
+	@JdbcTypeCode(SqlTypes.CHAR)
 	private UUID idCategory;
 
 	@Column(name = "id_parent")
