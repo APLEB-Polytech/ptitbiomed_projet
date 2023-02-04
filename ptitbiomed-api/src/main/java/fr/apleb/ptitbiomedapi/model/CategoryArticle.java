@@ -1,9 +1,10 @@
 package fr.apleb.ptitbiomedapi.model;
 
 import fr.apleb.ptitbiomedapi.model.article.Article;
-import org.hibernate.annotations.Type;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -15,11 +16,11 @@ public class CategoryArticle {
 	public static final class ID implements Serializable {
 
 		@Column(nullable = false, columnDefinition = "char(36)")
-		@Type(type = "uuid-char")
+		@JdbcTypeCode(SqlTypes.CHAR)
 		private UUID categoryUuid;
 
 		@Column(nullable = false, columnDefinition = "char(36)")
-		@Type(type = "uuid-char")
+		@JdbcTypeCode(SqlTypes.CHAR)
 		private UUID articleUuid;
 
 		public ID() {}
