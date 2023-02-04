@@ -9,6 +9,8 @@
 
 <div *ngFor="let uuid of category?.articles"
      class="article">
+  <img *ngIf="images.get(uuid)" [src]="images.get(uuid)" alt=""/>
+
   <h2 class="art-title">{{articles.get(uuid)?.title}}</h2>
 
   <p [innerHTML]="articles.get(uuid)?.html"></p>
