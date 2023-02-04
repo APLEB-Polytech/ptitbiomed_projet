@@ -30,7 +30,7 @@ export class MenuService {
   }
 
   editMenu(editedMenu: IMenu): Observable<HttpResponse<any>> {
-    return this.http.put<any>('/api/menu/', editedMenu, {observe: 'response'});
+    return this.http.put<any>('/api/menu', editedMenu, {observe: 'response'});
   }
 
   deleteMenu(menuId: number): Observable<HttpResponse<any>> {
