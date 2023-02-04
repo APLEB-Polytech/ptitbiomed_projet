@@ -9,6 +9,7 @@ import java.util.UUID;
 public record CategoryDto(
 		UUID uuid,
 		String name,
+		String summaryHtml,
 		List<UUID> articles
 ) {
 
@@ -16,6 +17,7 @@ public record CategoryDto(
 		return new CategoryDto(
 				category.getUuid(),
 				category.getName(),
+				category.getSummaryHtml(),
 				category.getArticles().stream()
 						.map(CategoryArticle::getId)
 						.map(CategoryArticle.ID::getArticleUuid)
