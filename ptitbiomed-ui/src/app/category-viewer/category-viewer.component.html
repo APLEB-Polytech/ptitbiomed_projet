@@ -1,10 +1,11 @@
 <h1 id="cat-title">{{category?.name}}</h1>
 
-<button *ngIf="userService.isConnected | async"
-        id="btn-edit" [routerLink]="['/admin/category-panel', categoryUuid]"
-        mat-button mat-raised-button color="primary">
-  Modifier la catégorie
-</button>
+<a *ngIf="userService.isConnected | async"
+   [routerLink]="['/admin/category-panel', categoryUuid]">
+  <button mat-raised-button color="primary">Modifier la catégorie</button>
+</a>
+
+<div id="summary" [innerHTML]="category?.summaryHtml"></div>
 
 <div *ngFor="let uuid of category?.articles"
      class="article">
@@ -13,9 +14,8 @@
   <p [innerHTML]="articles.get(uuid)?.html"></p>
 
   <div class="art-div-btn-read">
-    <button mat-raised-button
-            [routerLink]="['/article/view', uuid]">
-      Lire l'article
-    </button>
+    <a [routerLink]="['/article/view', uuid]">
+      <button mat-raised-button>Lire l'article</button>
+    </a>
   </div>
 </div>
