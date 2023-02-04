@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ArticleChooserComponent} from "./article-chooser/article-chooser.component";
 import {IArticle} from "../../../shared/model/IArticle";
 import {ArticleService} from "../../../articles/article.service";
+import {SummaryEditorComponent} from "./summary-editor/summary-editor.component";
 
 @Component({
   selector: 'app-category-edition',
@@ -90,6 +91,45 @@ export class CategoryEditionComponent implements OnInit {
         error: (error: HttpErrorResponse) => {
           this.loadCategory();
           this.snackbar.open('Une erreur est survenue lors de l\'ajout de l\'article à la catégorie', 'OK', {duration: 10000});
+        },
+      });
+    });
+  }
+
+  removeArticle(articleId: string): void {
+    if (!this.category || !articleId) return;
+    if (!confirm("Enlever l’article ?")) return;
+
+    let articleIndex = this.category.articles.indexOf(articleId);
+    this.category.articles.splice(articleIndex, 1);
+
+    this.categoryService.updateCategory(this.category).subscribe({
+      next: () => {
+        this.loadCategory();
+        this.snackbar.open('Article retiré de la catégorie', 'OK', {duration: 2000});
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loadCategory();
+        this.snackbar.open('Une erreur est survenue lors de la suppression de l’article de la catégorie', 'OK', {duration: 10000});
+      },
+    });
+  }
+
+  editSummary(): void {
+    if (!this.category) return;
+    const dialogRef = this.dialog.open(SummaryEditorComponent, {data: this.category.summaryHtml || ''});
+    dialogRef.afterClosed().subscribe((html: string | null) => {
+      if (!this.category) return;
+      this.category.summaryHtml = html;
+
+      this.categoryService.updateCategory(this.category).subscribe({
+        next: () => {
+          this.loadCategory();
+          this.snackbar.open('Résumé de la catégorie modifié', 'OK', {duration: 2000});
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loadCategory();
+          this.snackbar.open('Une erreur est survenue lors de la modification du résumé de la catégorie', 'OK', {duration: 10000});
         },
       });
     });

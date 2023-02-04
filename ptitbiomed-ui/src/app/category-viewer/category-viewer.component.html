@@ -5,7 +5,7 @@
   <button mat-raised-button color="primary">Modifier la catégorie</button>
 </a>
 
-<div id="summary" [innerHTML]="category?.summaryHtml"></div>
+<div id="summary" *ngIf="category?.summaryHtml" [innerHTML]="category?.summaryHtml"></div>
 
 <div *ngFor="let uuid of category?.articles"
      class="article">
