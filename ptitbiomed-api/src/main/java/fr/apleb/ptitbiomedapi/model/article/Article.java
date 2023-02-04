@@ -1,8 +1,9 @@
 package fr.apleb.ptitbiomedapi.model.article;
 
-import org.hibernate.annotations.Type;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 public class Article {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, columnDefinition = "char(36)")
-	@Type(type = "uuid-char")
+	@JdbcTypeCode(SqlTypes.CHAR)
 	private UUID uuid;
 
 	@Column(nullable = false)
@@ -27,7 +28,6 @@ public class Article {
 	private String title;
 
 	@Column(nullable = false)
-	@Type(type = "text")
 	private String html;
 
 	public UUID getUuid() {
