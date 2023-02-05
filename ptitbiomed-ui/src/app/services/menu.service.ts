@@ -25,16 +25,16 @@ export class MenuService {
     return this.http.get<IMenu[]>('/api/menu/with-hidden');
   }
 
-  createMenu(menu: IMenu): Observable<HttpResponse<any>> {
-    return this.http.post<any>('/api/menu', menu, {observe: 'response'});
+  createMenu(menu: IMenu): Observable<HttpResponse<void>> {
+    return this.http.post<void>('/api/menu', menu, {observe: 'response'});
   }
 
-  editMenu(editedMenu: IMenu): Observable<HttpResponse<any>> {
-    return this.http.put<any>('/api/menu', editedMenu, {observe: 'response'});
+  editMenu(editedMenu: IMenu): Observable<HttpResponse<void>> {
+    return this.http.put<void>('/api/menu', editedMenu, {observe: 'response'});
   }
 
-  deleteMenu(menuId: number): Observable<HttpResponse<any>> {
-    return this.http.delete<any>('/api/menu/' + menuId, {observe: 'response'});
+  deleteMenu(menuId: number): Observable<HttpResponse<void>> {
+    return this.http.delete<void>('/api/menu/' + menuId, {observe: 'response'});
   }
 
   sortMenusForParent(sort: MenuSortDto): Observable<HttpResponse<void>> {

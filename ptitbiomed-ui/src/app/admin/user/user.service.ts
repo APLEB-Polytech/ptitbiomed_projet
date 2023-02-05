@@ -16,11 +16,11 @@ export class UserService {
     return this.http.get<IUser[]>(`api/user`, {observe: "response"})
   }
 
-  public deleteUser(idUser: number): Observable<HttpResponse<any>> {
-    return this.http.delete(`api/user/${idUser}`, {observe: "response"})
+  public deleteUser(idUser: number): Observable<HttpResponse<void>> {
+    return this.http.delete<void>(`api/user/${idUser}`, {observe: "response"})
   }
 
-  public addUser(authReauest: UserSignupRequest): Observable<HttpResponse<any>> {
-    return this.http.post(`api/auth/signup`, authReauest, {observe: "response"})
+  public addUser(authRequest: UserSignupRequest): Observable<HttpResponse<any>> {
+    return this.http.post(`api/auth/signup`, authRequest, {observe: "response"})
   }
 }

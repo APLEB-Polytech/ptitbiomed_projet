@@ -24,7 +24,7 @@ export class PanelComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.filteredMenus, event.previousIndex, event.currentIndex);
     this.menuService.sortMenusForParent({idParent: this.idMenu, sortedChildrenIds: this.filteredMenus.map(menu => menu.id!)}).subscribe({
-      next: (res: HttpResponse<any>) => {
+      next: (res: HttpResponse<void>) => {
         if (!res.ok) {
           this.snackbar.open("Erreur lors de la sauvegardes de l'ordre des onglets", 'OK', {duration: 2000});
         }
@@ -59,7 +59,7 @@ export class PanelComponent implements OnInit {
       if (!newMenu) return;
       if (this.idMenu) newMenu.idParent = this.idMenu;
       this.menuService.createMenu(newMenu).subscribe({
-        next: (res: HttpResponse<any>) => {
+        next: (res: HttpResponse<void>) => {
           if (res.ok) {
             this.loadMenu(this.idMenu);
             this.snackbar.open('Onglet créé', 'OK', {duration: 2000});
@@ -78,7 +78,7 @@ export class PanelComponent implements OnInit {
       if (!editedMenu) return;
 
       this.menuService.editMenu(editedMenu).subscribe({
-        next: (res: HttpResponse<any>) => {
+        next: (res: HttpResponse<void>) => {
           if (res.ok) {
             this.loadMenu(this.idMenu);
             this.snackbar.open('Onglet modifié', 'OK', {duration: 2000});
@@ -93,7 +93,7 @@ export class PanelComponent implements OnInit {
   deleteMenu(menu: IMenu) {
     if (!confirm("Confirmer la suppression de l'onglet '" + menu.label + "' ?")) return;
     this.menuService.deleteMenu(menu.id!).subscribe({
-      next: (res: HttpResponse<any>) => {
+      next: (res: HttpResponse<void>) => {
         if (res.ok) {
           this.snackbar.open('Onglet supprimé', 'OK', {duration: 2000});
           this.loadMenu(this.idMenu);
