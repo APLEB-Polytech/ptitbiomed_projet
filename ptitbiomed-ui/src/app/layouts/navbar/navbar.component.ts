@@ -63,24 +63,9 @@ export class NavbarComponent implements OnInit {
     {
       id: -13,
       label: 'Articles',
+      link: '/article',
       rank: 3,
       idParent: -1,
-      hidden: false,
-    },
-    {
-      id: -130,
-      label: 'Liste des articles',
-      link: '/article',
-      rank: 0,
-      idParent: -13,
-      hidden: false,
-    },
-    {
-      id: -131,
-      label: "Upload d'un article",
-      link: '/article/new',
-      rank: 1,
-      idParent: -13,
       hidden: false,
     },
     {

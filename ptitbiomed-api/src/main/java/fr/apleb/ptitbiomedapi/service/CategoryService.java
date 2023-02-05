@@ -53,6 +53,7 @@ public class CategoryService {
 		}
 
 		category.setName(update.name());
+		category.setSummaryHtml(update.summaryHtml());
 		category.setArticles(articles);
 		
 		this.categoryRepository.save(category);

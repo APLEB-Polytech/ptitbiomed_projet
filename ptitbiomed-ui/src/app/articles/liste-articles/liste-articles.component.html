@@ -1,4 +1,9 @@
 <h1>Liste des articles</h1>
+
+<a routerLink="/article/new">
+  <button mat-raised-button color="primary">Nouvel article</button>
+</a>
+
 <mat-form-field appearance="standard">
   <mat-label>Filter</mat-label>
   <input #input (keyup)="applyFilter($event)" matInput placeholder="Ex. Mia">

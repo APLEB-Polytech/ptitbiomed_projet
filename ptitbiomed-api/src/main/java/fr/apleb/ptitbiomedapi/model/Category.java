@@ -20,6 +20,9 @@ public class Category {
 	@Column(nullable = false)
 	private String name;
 
+	@Column
+	private String summaryHtml;
+	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category", orphanRemoval = true)
 	@OrderBy("rank")
 	private List<CategoryArticle> articles;
@@ -29,6 +32,7 @@ public class Category {
 	public Category(String name) {
 		this.uuid = null;
 		this.name = name;
+		this.summaryHtml = null;
 		this.articles = Collections.emptyList();
 	}
 
@@ -42,6 +46,14 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getSummaryHtml() {
+		return summaryHtml;
+	}
+
+	public void setSummaryHtml(String summaryHtml) {
+		this.summaryHtml = summaryHtml;
 	}
 
 	public List<CategoryArticle> getArticles() {

@@ -1,13 +1,32 @@
 <h1 id="cat-title">Catégorie : {{category?.name}}</h1>
 
-<button mat-button color="primary" mat-raised-button (click)="addArticle()">Ajouter un article</button>
+<div id="cat-controls">
+  <a [routerLink]="['/category/view', category?.uuid]">
+    <button mat-raised-button color="primary">Voir la catégorie</button>
+  </a>
+  <button mat-raised-button color="primary" (click)="addArticle()">Ajouter un article</button>
+  <button mat-raised-button color="primary" (click)="editSummary()">Modifier le résumé</button>
+</div>
+
+<div id="summary" [innerHTML]="category?.summaryHtml"></div>
 
 <div id="list" cdkDropList (cdkDropListDropped)="drop($event)">
   <div class="box" *ngFor="let uuid of category?.articles" cdkDrag>
     <div class="placeholder" *cdkDragPlaceholder></div>
+
     {{articles.get(uuid)?.title}}
-    <button mat-button color="primary" mat-mini-fab [routerLink]="['/article/view', uuid]">
-      <mat-icon>visibility</mat-icon>
-    </button>
+
+    <div class="item-controls">
+      <a [routerLink]="['/article/view', uuid]">
+        <button mat-mini-fab color="primary">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </a>
+
+      <button mat-mini-fab color="warn"
+              (click)="removeArticle(uuid)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

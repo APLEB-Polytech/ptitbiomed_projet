@@ -356,4 +356,10 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="1675501412497" author="Alexis Giust">
+        <addColumn tableName="category">
+            <column name="summary_html" type="text" defaultValue="null"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

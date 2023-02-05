@@ -1,0 +1,13 @@
+<div mat-dialog-content>
+  <form [formGroup]="formSummary">
+    <mat-form-field appearance="fill">
+      <mat-label>HTML du résumé de la catégorie</mat-label>
+      <textarea matInput formControlName="summaryHtml" cdkTextareaAutosize></textarea>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions id="controls">
+  <button mat-raised-button color="primary" (click)="validate()">Valider</button>
+  <button mat-raised-button color="primary" (click)="cancel()">Annuler</button>
+</div>

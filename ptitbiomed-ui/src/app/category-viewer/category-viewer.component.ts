@@ -21,6 +21,7 @@ export class CategoryViewerComponent implements OnInit {
   category: ICategory | undefined;
 
   articles: Map<string, IArticle> = new Map<string, IArticle>();
+  images: Map<string, string> = new Map<string, string>();
 
   constructor(
     private categoryService: CategoryService,
@@ -59,6 +60,9 @@ export class CategoryViewerComponent implements OnInit {
   private loadArticles(): void {
     if (!this.category) return;
 
+    this.articles.clear();
+    this.images.clear();
+
     for (let articleUuid of this.category.articles) {
       this.articleService.getArticleByUUID(articleUuid).subscribe({
         next: (response: HttpResponse<IArticle>) => {
@@ -66,8 +70,11 @@ export class CategoryViewerComponent implements OnInit {
             let article = response.body;
 
             if (article.html) {
+              const imgMatch = article.html.match(/<img[^>]*src="([^"]*)"/);
+              if (imgMatch) this.images.set(articleUuid, imgMatch[1]);
+
               article.html = article.html
-                .replace(/<\/?[\w-"\\=: .\/]+\/?>/g, '')
+                .replace(/<[^>]*>/g, '')
                 .substring(0, CategoryViewerComponent.SUMMARY_MAX_LENGTH);
 
               if (article.html.length === CategoryViewerComponent.SUMMARY_MAX_LENGTH) {
@@ -77,8 +84,6 @@ export class CategoryViewerComponent implements OnInit {
 
             this.articles.set(articleUuid, article);
           }
-
-          console.log(this.articles);
         }
       });
     }
