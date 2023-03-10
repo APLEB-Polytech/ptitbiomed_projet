@@ -10,6 +10,7 @@ import {ArticleChooserComponent} from "./article-chooser/article-chooser.compone
 import {IArticle} from "../../../shared/model/IArticle";
 import {ArticleService} from "../../../articles/article.service";
 import {SummaryEditorComponent} from "./summary-editor/summary-editor.component";
+import {TitleEditorComponent} from "./title-editor/title-editor.component";
 
 @Component({
   selector: 'app-category-edition',
@@ -112,6 +113,30 @@ export class CategoryEditionComponent implements OnInit {
         this.loadCategory();
         this.snackbar.open('Une erreur est survenue lors de la suppression de l’article de la catégorie', 'OK', {duration: 10000});
       },
+    });
+  }
+
+  editCatTitle(): void {
+    if (!this.category) return;
+
+    const dialogRef = this.dialog.open(TitleEditorComponent, {data: this.category.name});
+
+    dialogRef.afterClosed().subscribe((name: string) => {
+      if (!this.category) return;
+      if (this.category.name === name) return;
+
+      this.category.name = name;
+
+      this.categoryService.updateCategory(this.category).subscribe({
+        next: () => {
+          this.loadCategory();
+          this.snackbar.open('Nom de la catégorie modifié', 'OK', {duration: 2000});
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loadCategory();
+          this.snackbar.open('Une erreur est survenue lors de la modification du nom de la catégorie', 'OK', {duration: 10000});
+        },
+      })
     });
   }
 

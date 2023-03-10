@@ -15,6 +15,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import { ArticleChooserComponent } from './category/category-edition/article-chooser/article-chooser.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {SummaryEditorComponent} from './category/category-edition/summary-editor/summary-editor.component';
+import { TitleEditorComponent } from './category/category-edition/title-editor/title-editor.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {SummaryEditorComponent} from './category/category-edition/summary-editor
     CategoryEditionComponent,
     ArticleChooserComponent,
     SummaryEditorComponent,
+    TitleEditorComponent,
   ],
   imports: [
     CommonModule,

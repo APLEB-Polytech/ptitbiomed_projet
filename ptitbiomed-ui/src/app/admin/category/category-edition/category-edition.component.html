@@ -1,4 +1,9 @@
-<h1 id="cat-title">Catégorie : {{category?.name}}</h1>
+<h1 id="cat-title">
+  Catégorie : {{category?.name}}
+  <button mat-mini-fab color="primary" (click)="editCatTitle()">
+    <mat-icon>edit</mat-icon>
+  </button>
+</h1>
 
 <div id="cat-controls">
   <a [routerLink]="['/category/view', category?.uuid]">
