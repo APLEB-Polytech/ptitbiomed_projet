@@ -366,4 +366,8 @@
         <modifyDataType tableName="article" columnName="html" newDataType="mediumtext"/>
     </changeSet>
 
+    <changeSet id="1679421386174" author="Alexis Giust">
+        <addNotNullConstraint tableName="article" columnName="html" columnDataType="mediumtext"/>
+    </changeSet>
+
 </databaseChangeLog>
