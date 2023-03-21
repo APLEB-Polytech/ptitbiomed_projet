@@ -362,4 +362,8 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="1679420360920" author="Alexis Giust">
+        <modifyDataType tableName="article" columnName="html" newDataType="mediumtext"/>
+    </changeSet>
+
 </databaseChangeLog>
