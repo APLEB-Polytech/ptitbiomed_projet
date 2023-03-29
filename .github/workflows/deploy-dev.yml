@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy
+name: [DEV] Deploy
 
 # Controls when the workflow will run
 on:
@@ -24,4 +24,4 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: cd site/ptitbiomed_projet/dev && sudo sh deploy.sh
+        script: cd site/ptitbiomed_projet/dev && ./deploy.sh
