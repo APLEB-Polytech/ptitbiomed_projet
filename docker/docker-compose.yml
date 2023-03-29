@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ptitbio:
+    image: ptitbiomed:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'ptitbiomed'
+      MYSQL_USER: 'docker'
+      MYSQL_PASSWORD: 'docker'
+      MYSQL_ROOT_PASSWORD: 'docker'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
