@@ -1,0 +1,13 @@
+server:
+    port: 1655
+
+spring:
+    datasource:
+        username: usersio
+        password: sio
+        url: jdbc:mariadb://localhost:3306/ptitbiomed
+
+apleb:
+    jwtSecret: B5zhQ4Nv727TKrr
+    jwtExpiration: 86400000
+    uploadDirectory: "${java.io.tmpdir:.}/ptitbiomed/medias"
