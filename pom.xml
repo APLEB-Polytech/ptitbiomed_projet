@@ -6,11 +6,16 @@
     <groupId>fr.apleb</groupId>
     <artifactId>ptitbiomed-projet</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    
+
     <packaging>pom</packaging>
-    
+
     <modules>
         <module>ptitbiomed-api</module>
+        <module>ptitbiomed-ui</module>
     </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 </project>
