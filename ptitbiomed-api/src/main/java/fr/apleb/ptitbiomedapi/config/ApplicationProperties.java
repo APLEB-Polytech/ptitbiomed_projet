@@ -1,37 +1,24 @@
 package fr.apleb.ptitbiomedapi.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-@Configuration
-@ConfigurationProperties(prefix = "apleb")
+import static lombok.AccessLevel.PACKAGE;
+
+@Component
+@Getter
+@RequiredArgsConstructor(access = PACKAGE)
 public class ApplicationProperties {
-	private String jwtSecret;
-	private int jwtExpiration;
 
-	private String uploadDirectory;
+	@Value("${apleb.jwtSecret}")
+	private final String jwtSecret;
 
-	public String getJwtSecret() {
-		return jwtSecret;
-	}
+	@Value("${apleb.jwtExpiration}")
+	private final int jwtExpiration;
 
-	public void setJwtSecret(String jwtSecret) {
-		this.jwtSecret = jwtSecret;
-	}
+	@Value("${apleb.uploadDirectory}")
+	private final String uploadDirectory;
 
-	public int getJwtExpiration() {
-		return jwtExpiration;
-	}
-
-	public void setJwtExpiration(int jwtExpiration) {
-		this.jwtExpiration = jwtExpiration;
-	}
-
-	public String getUploadDirectory() {
-		return uploadDirectory;
-	}
-
-	public void setUploadDirectory(String uploadDirectory) {
-		this.uploadDirectory = uploadDirectory;
-	}
 }
