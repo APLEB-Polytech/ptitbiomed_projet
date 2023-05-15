@@ -2,9 +2,9 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {IArticle} from "../../shared/model/IArticle";
 import {ArticleService} from "../article.service";
 import {HttpResponse} from "@angular/common/http";
-import {MatPaginator} from "@angular/material/paginator";
+import {MatLegacyPaginator as MatPaginator} from "@angular/material/legacy-paginator";
 import {MatSort} from "@angular/material/sort";
-import {MatTableDataSource} from "@angular/material/table";
+import {MatLegacyTableDataSource as MatTableDataSource} from "@angular/material/legacy-table";
 
 @Component({
   selector: 'app-liste-articles',

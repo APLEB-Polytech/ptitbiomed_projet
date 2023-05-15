@@ -1,18 +1,18 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ListeUsersComponent} from './liste-users/liste-users.component';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatTableModule} from "@angular/material/table";
+import {MatLegacyFormFieldModule as MatFormFieldModule} from "@angular/material/legacy-form-field";
+import {MatLegacyInputModule as MatInputModule} from "@angular/material/legacy-input";
+import {MatLegacyTableModule as MatTableModule} from "@angular/material/legacy-table";
 import {MatSortModule} from "@angular/material/sort";
-import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatLegacyPaginatorModule as MatPaginatorModule} from "@angular/material/legacy-paginator";
 import {RouterModule} from "@angular/router";
 import {userRoute} from "./user.route";
-import {MatButtonModule} from "@angular/material/button";
+import {MatLegacyButtonModule as MatButtonModule} from "@angular/material/legacy-button";
 import {MatIconModule} from "@angular/material/icon";
 import {AddUserComponent} from './add-user/add-user.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {MatMenuModule} from "@angular/material/menu";
+import {MatLegacyMenuModule as MatMenuModule} from "@angular/material/legacy-menu";
 
 
 @NgModule({

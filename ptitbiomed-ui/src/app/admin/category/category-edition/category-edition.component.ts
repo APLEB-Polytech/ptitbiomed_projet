@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ICategory} from "../../../shared/model/ICategory";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 import {CategoryService} from "../../../services/category.service";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {MatDialog} from "@angular/material/dialog";
+import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {ArticleChooserComponent} from "./article-chooser/article-chooser.component";
 import {IArticle} from "../../../shared/model/IArticle";
 import {ArticleService} from "../../../articles/article.service";

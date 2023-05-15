@@ -3,8 +3,8 @@ import {Subject} from "rxjs";
 import {IMedia} from "../../../shared/model/IMedia";
 import {FormControl} from "@angular/forms";
 import {MediaService} from "../../../media/media.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
+import {MatLegacyDialogRef as MatDialogRef} from "@angular/material/legacy-dialog";
 import {HttpResponse} from "@angular/common/http";
 
 @Component({

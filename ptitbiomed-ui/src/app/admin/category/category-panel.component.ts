@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
 import {ICategory} from "../../shared/model/ICategory";
-import {MatDialog} from "@angular/material/dialog";
+import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {CategoryCreationComponent} from "./category-creation/category-creation.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {HttpResponse} from "@angular/common/http";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 
 @Component({
   selector: 'app-category-panel',

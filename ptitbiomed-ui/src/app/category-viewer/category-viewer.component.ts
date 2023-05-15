@@ -3,7 +3,7 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 import {CategoryService} from "../services/category.service";
 import {ICategory} from "../shared/model/ICategory";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 import {IArticle} from "../shared/model/IArticle";
 import {ArticleService} from "../articles/article.service";
 import {UserService} from "../services/user.service";

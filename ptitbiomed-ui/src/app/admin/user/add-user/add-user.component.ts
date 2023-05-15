@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {UserSignupRequest} from "./UserSignupRequest";
 import {UserService} from "../user.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 import {HttpResponse} from "@angular/common/http";
 
 @Component({

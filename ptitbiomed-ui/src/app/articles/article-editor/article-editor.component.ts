@@ -1,13 +1,13 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatDialog} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {Article, IArticle, MenuArticle} from "../../shared/model/IArticle";
 import {ArticleService} from "../article.service";
 import {IMedia} from "../../shared/model/IMedia";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpResponse} from "@angular/common/http";
 import {Clipboard} from "@angular/cdk/clipboard";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 import {AddTitleDialogComponent} from "./add-title-dialog/add-title-dialog.component";
 import {AddParagrapheDialogComponent} from "./add-paragraphe-dialog/add-paragraphe-dialog.component";
 import {AddImageDialogComponent} from "./add-image-dialog/add-image-dialog.component";

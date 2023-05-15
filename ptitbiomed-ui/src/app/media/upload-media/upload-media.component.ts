@@ -3,7 +3,7 @@ import {MediaService} from "../../services/media.service";
 import {Clipboard} from '@angular/cdk/clipboard';
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
 import {IMedia} from "../../shared/model/IMedia";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 
 @Component({
   selector: 'app-upload-image',

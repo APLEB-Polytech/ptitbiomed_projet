@@ -1,24 +1,24 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatRadioModule} from "@angular/material/radio";
+import {MatLegacyRadioModule as MatRadioModule} from "@angular/material/legacy-radio";
 import {PanelComponent} from "./panel.component";
 import {RouterModule} from "@angular/router";
 import {panelRoute} from "./panel.route";
 import {MatExpansionModule} from "@angular/material/expansion";
-import {MatButtonModule} from "@angular/material/button";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
+import {MatLegacyButtonModule as MatButtonModule} from "@angular/material/legacy-button";
+import {MatLegacyFormFieldModule as MatFormFieldModule} from "@angular/material/legacy-form-field";
+import {MatLegacyInputModule as MatInputModule} from "@angular/material/legacy-input";
 import {ReactiveFormsModule} from "@angular/forms";
-import {MatTableModule} from "@angular/material/table";
+import {MatLegacyTableModule as MatTableModule} from "@angular/material/legacy-table";
 import {MatSortModule} from "@angular/material/sort";
-import {MatMenuModule} from "@angular/material/menu";
+import {MatLegacyMenuModule as MatMenuModule} from "@angular/material/legacy-menu";
 import {MatIconModule} from "@angular/material/icon";
-import {MatPaginatorModule} from "@angular/material/paginator";
-import {MatDialogModule} from "@angular/material/dialog";
+import {MatLegacyPaginatorModule as MatPaginatorModule} from "@angular/material/legacy-paginator";
+import {MatLegacyDialogModule as MatDialogModule} from "@angular/material/legacy-dialog";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {AddChildMenuComponent} from './add-child-menu/add-child-menu.component';
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatLegacyAutocompleteModule as MatAutocompleteModule} from "@angular/material/legacy-autocomplete";
+import {MatLegacyCheckboxModule as MatCheckboxModule} from "@angular/material/legacy-checkbox";
 
 
 @NgModule({
@@ -26,9 +26,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     PanelComponent,
     AddChildMenuComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(panelRoute),
+  imports: [
+    CommonModule,
+    RouterModule.forChild(panelRoute),
         MatExpansionModule,
         MatButtonModule,
         MatFormFieldModule,

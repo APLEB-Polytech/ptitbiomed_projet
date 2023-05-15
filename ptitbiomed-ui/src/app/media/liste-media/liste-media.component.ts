@@ -3,7 +3,7 @@ import {IMedia} from "../../shared/model/IMedia";
 import {MediaService} from "../media.service";
 import {HttpResponse} from "@angular/common/http";
 import {IPaginator} from "../../shared/model/Paginator";
-import {MatDialog} from "@angular/material/dialog";
+import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 
 @Component({
   selector: 'app-liste-media',

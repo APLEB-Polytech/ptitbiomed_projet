@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MatLegacyDialogRef as MatDialogRef} from "@angular/material/legacy-dialog";
 import {ArticleService} from "../../../../articles/article.service";
 import {IArticle} from "../../../../shared/model/IArticle";
 import {BehaviorSubject} from "rxjs";

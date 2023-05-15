@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../../services/menu.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {IMenu} from "../../shared/model/IMenu";
-import {MatDialog} from "@angular/material/dialog";
+import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {AddChildMenuComponent} from "./add-child-menu/add-child-menu.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 
 @Component({
   selector: 'app-panel',

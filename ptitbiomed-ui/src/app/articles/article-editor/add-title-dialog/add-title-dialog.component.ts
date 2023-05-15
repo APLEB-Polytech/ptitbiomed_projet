@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MatLegacyDialogRef as MatDialogRef} from "@angular/material/legacy-dialog";
 
 @Component({
   selector: 'app-add-title-dialog',
