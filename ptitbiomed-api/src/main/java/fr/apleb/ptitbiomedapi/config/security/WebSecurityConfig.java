@@ -64,6 +64,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/category/**").permitAll()
                 .requestMatchers("/api/menu/with-hidden").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/menu").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/config").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
         http.addFilterBefore(angularFilter(), UsernamePasswordAuthenticationFilter.class);
