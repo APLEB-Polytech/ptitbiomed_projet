@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {IMedia} from "../../shared/model/IMedia";
 import {MediaService} from "../media.service";
 import {HttpResponse} from "@angular/common/http";
@@ -8,16 +8,11 @@ import {HttpResponse} from "@angular/common/http";
   templateUrl: './media-details.component.html',
   styleUrls: ['./media-details.component.css']
 })
-export class MediaDetailsComponent implements OnInit {
+export class MediaDetailsComponent {
 
   @Input()
   media: IMedia | undefined;
-
-  constructor(private mediaService: MediaService) {
-  }
-
-  ngOnInit(): void {
-  }
+  mediaService = inject(MediaService)
 
   isImage(): boolean {
     if (this.media === undefined) return false;
@@ -42,7 +37,7 @@ export class MediaDetailsComponent implements OnInit {
       return;
     }
     this.mediaService.deleteMedia(this.media.hash).subscribe({
-      next: (response: HttpResponse<any>) => {
+      next: (response: HttpResponse<void>) => {
         if (!response.ok) {
           throw new Error('Erreur lors de la suppression')
         }

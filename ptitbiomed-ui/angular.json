@@ -75,21 +75,33 @@
               "browserTarget": "ptitbiomed-ui:build:production"
             },
             "development": {
-              "browserTarget": "ptitbiomed-ui:build:development"
+                "browserTarget": "ptitbiomed-ui:build:development"
             }
           },
-          "defaultConfiguration": "development"
+            "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "ptitbiomed-ui:build"
+          "extract-i18n": {
+              "builder": "@angular-devkit/build-angular:extract-i18n",
+              "options": {
+                  "browserTarget": "ptitbiomed-ui:build"
+              }
+          },
+          "lint": {
+              "builder": "@angular-eslint/builder:lint",
+              "options": {
+                  "lintFilePatterns": [
+                      "src/**/*.ts",
+                      "src/**/*.html"
+                  ]
+              }
           }
-        }
       }
     }
   },
   "cli": {
-    "analytics": false
+      "analytics": false,
+      "schematicCollections": [
+          "@angular-eslint/schematics"
+      ]
   }
 }

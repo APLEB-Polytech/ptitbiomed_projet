@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatLegacyDialogRef as MatDialogRef} from "@angular/material/legacy-dialog";
 import {ArticleService} from "../../../../articles/article.service";
 import {IArticle} from "../../../../shared/model/IArticle";
 import {BehaviorSubject} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-article-chooser',
@@ -13,8 +13,8 @@ import {HttpResponse} from "@angular/common/http";
 })
 export class ArticleChooserComponent implements OnInit {
 
-  formChooseArticle: FormGroup = new FormGroup<any>({
-    articleId: new FormControl('', [Validators.required])
+  formChooseArticle: FormGroup = new FormGroup<{ articleId: FormControl<string> }>({
+    articleId: new FormControl<string>('', {nonNullable: true, validators: [Validators.required]})
   });
   private articleList: IArticle[] = []
   filteredArticleList: BehaviorSubject<IArticle[]> = new BehaviorSubject<IArticle[]>([]);
@@ -22,7 +22,8 @@ export class ArticleChooserComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ArticleChooserComponent>,
     private articleService: ArticleService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.articleService.getAllArticles().subscribe((res: HttpResponse<IArticle[]>) => {

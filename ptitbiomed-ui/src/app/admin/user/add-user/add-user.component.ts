@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {UserSignupRequest} from "./UserSignupRequest";
 import {UserService} from "../user.service";
-import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 import {HttpResponse} from "@angular/common/http";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent implements OnInit {
+export class AddUserComponent {
 
   formGroup: FormGroup = new FormGroup<any>({
       username: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
@@ -20,11 +20,8 @@ export class AddUserComponent implements OnInit {
     }
   )
 
-  constructor(private userService: UserService, private snackbar: MatSnackBar) {
-  }
-
-  ngOnInit(): void {
-  }
+  private userService: UserService = inject(UserService)
+  private snackbar: MatSnackBar = inject(MatSnackBar)
 
   passwordValidator(): ValidatorFn {
     return (): ValidationErrors | null => {

@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {HelloComponent} from './hello/hello.component';
 import {LoginComponent} from './auth/login/login.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -30,7 +29,6 @@ import {CategoryViewerComponent} from "./category-viewer/category-viewer.compone
 @NgModule({
   declarations: [
     AppComponent,
-    HelloComponent,
     LoginComponent,
     NavbarComponent,
     FooterComponent,

@@ -1,16 +1,16 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {MediaService} from "../../services/media.service";
 import {Clipboard} from '@angular/cdk/clipboard';
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
 import {IMedia} from "../../shared/model/IMedia";
-import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-upload-image',
   templateUrl: './upload-media.component.html',
   styleUrls: ['./upload-media.component.css']
 })
-export class UploadMediaComponent implements OnInit {
+export class UploadMediaComponent {
   selectedFiles: FileList | undefined;
   currentFile: File | undefined | null;
   progress = 0;
@@ -27,14 +27,12 @@ export class UploadMediaComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-  }
-
   selectFile(event: Event) {
     if (event === null) throw new Error('No event');
     if (event.target === null) throw new Error('No event');
-    // @ts-ignore
-    this.selectedFiles = event.target.files;
+    const eventTarget = event.target as HTMLInputElement;
+    if (eventTarget.files === null) throw new Error('No files');
+    this.selectedFiles = eventTarget.files;
   }
 
   upload(): void {

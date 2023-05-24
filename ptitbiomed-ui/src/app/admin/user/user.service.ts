@@ -20,7 +20,7 @@ export class UserService {
     return this.http.delete<void>(`api/user/${idUser}`, {observe: "response"})
   }
 
-  public addUser(authRequest: UserSignupRequest): Observable<HttpResponse<any>> {
-    return this.http.post(`api/auth/signup`, authRequest, {observe: "response"})
+  public addUser(authRequest: UserSignupRequest): Observable<HttpResponse<void>> {
+    return this.http.post<void>(`api/auth/signup`, authRequest, {observe: "response"})
   }
 }

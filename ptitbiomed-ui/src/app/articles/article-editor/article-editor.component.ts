@@ -7,7 +7,7 @@ import {IMedia} from "../../shared/model/IMedia";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpResponse} from "@angular/common/http";
 import {Clipboard} from "@angular/cdk/clipboard";
-import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
+import {MatSnackBar} from "@angular/material/snack-bar";
 import {AddTitleDialogComponent} from "./add-title-dialog/add-title-dialog.component";
 import {AddParagrapheDialogComponent} from "./add-paragraphe-dialog/add-paragraphe-dialog.component";
 import {AddImageDialogComponent} from "./add-image-dialog/add-image-dialog.component";
@@ -23,18 +23,22 @@ import {MatSidenav} from "@angular/material/sidenav";
 })
 export class ArticleEditorComponent implements OnInit {
 
-  htmlContent: string = '';
+  htmlContent = '';
   menuArticle?: MenuArticle
 
-  formArticle: FormGroup = new FormGroup<any>({
-    title: new FormControl<string>("", [Validators.required]),
-    author: new FormControl<string>("", [Validators.required]),
-    content: new FormControl<string>("", [Validators.required]),
+  formArticle: FormGroup = new FormGroup<{
+    title: FormControl<string>,
+    author: FormControl<string>,
+    content: FormControl<string>,
+  }>({
+    title: new FormControl<string>("", {nonNullable: true, validators: [Validators.required]}),
+    author: new FormControl<string>("", {nonNullable: true, validators: [Validators.required]}),
+    content: new FormControl<string>("", {nonNullable: true, validators: [Validators.required]}),
   })
 
   uuidArticle?: string
   article?: IArticle
-  titre: string = 'Ajouter un article'
+  titre = 'Ajouter un article'
   position = 0
 
   @ViewChild('drawer') drawer!: MatSidenav;
@@ -149,7 +153,7 @@ export class ArticleEditorComponent implements OnInit {
       maxHeight: '500px'
     })
       .afterClosed().subscribe((ret: { image: IMedia, taille: string, legende: string, lien: string }) => {
-      const mediaName: string = `${ret.image.hash}.${ret.image.type.split('/')[1]}`
+      const mediaName = `${ret.image.hash}.${ret.image.type.split('/')[1]}`
       let content = `<div class="media ${ret.taille}"> <img alt="" loading="lazy" src="https://media.ptitbiomed.fr/${mediaName}">`
       if (ret.legende) {
         content += `<p>${ret.legende}</p>`
@@ -168,7 +172,7 @@ export class ArticleEditorComponent implements OnInit {
       maxHeight: '500px'
     })
       .afterClosed().subscribe((ret: { video: IMedia, taille: string, legende: string }) => {
-      const mediaName: string = `${ret.video.hash}.${ret.video.type.split('/')[1]}`
+      const mediaName = `${ret.video.hash}.${ret.video.type.split('/')[1]}`
       let content = `<div class="media ${ret.taille}"> <video controls preload="metadata" width="250"> <source type="${ret.video.type}" src="https://media.ptitbiomed.fr/${mediaName}"> </video>`
       if (ret.legende) {
         content += `<p>${ret.legende}</p>`
@@ -194,7 +198,7 @@ export class ArticleEditorComponent implements OnInit {
       maxHeight: '500px'
     })
       .afterClosed().subscribe((ret: { pdf: IMedia, nom: string }) => {
-      const mediaName: string = `${ret.pdf.hash}.${ret.pdf.type.split('/')[1]}`
+      const mediaName = `${ret.pdf.hash}.${ret.pdf.type.split('/')[1]}`
       let content = `<a href="https://media.ptitbiomed.fr/${mediaName}" target="_blank">`
       if (ret.nom) {
         content += ret.nom

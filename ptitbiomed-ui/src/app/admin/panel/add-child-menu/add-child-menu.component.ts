@@ -1,8 +1,4 @@
-import {Component, Inject} from '@angular/core';
-import {
-  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
-  MatLegacyDialogRef as MatDialogRef
-} from "@angular/material/legacy-dialog";
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IMenu} from "../../../shared/model/IMenu";
 import {BehaviorSubject} from "rxjs";
@@ -11,13 +7,14 @@ import {HttpResponse} from "@angular/common/http";
 import {IArticle} from "../../../shared/model/IArticle";
 import {CategoryService} from "../../../services/category.service";
 import {ICategory} from "../../../shared/model/ICategory";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-add-child-menu',
   templateUrl: './add-child-menu.component.html',
   styleUrls: ['./add-child-menu.component.css']
 })
-export class AddChildMenuComponent {
+export class AddChildMenuComponent implements OnInit {
 
   formAddChild: FormGroup = new FormGroup<any>({
     label: new FormControl(this.menu?.label, [Validators.required, Validators.minLength(4)]),
@@ -95,7 +92,7 @@ export class AddChildMenuComponent {
     this.menu.idCategory = undefined;
     this.menu.link = undefined;
 
-    let linkType = this.formAddChild.controls['linkType']?.value;
+    const linkType = this.formAddChild.controls['linkType']?.value;
     if (linkType === 'link') {
       this.menu.link = this.formAddChild.controls['link']?.value;
     } else if (linkType === 'articleId') {

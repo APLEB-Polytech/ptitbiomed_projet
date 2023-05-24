@@ -36,8 +36,8 @@ export class MediaService {
     return this.http.get<IMedia[]>(`/api/media/pdf`, {observe: "response"})
   }
 
-  deleteMedia(hash: number): Observable<HttpResponse<any>> {
-    return this.http.delete(`/api/media/${hash}`, {observe: "response"})
+  deleteMedia(hash: number): Observable<HttpResponse<void>> {
+    return this.http.delete<void>(`/api/media/${hash}`, {observe: "response"})
   }
 
 

@@ -2,9 +2,9 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {IArticle} from "../../shared/model/IArticle";
 import {ArticleService} from "../article.service";
 import {HttpResponse} from "@angular/common/http";
-import {MatLegacyPaginator as MatPaginator} from "@angular/material/legacy-paginator";
 import {MatSort} from "@angular/material/sort";
-import {MatLegacyTableDataSource as MatTableDataSource} from "@angular/material/legacy-table";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-liste-articles',
@@ -16,10 +16,8 @@ export class ListeArticlesComponent implements AfterViewInit {
   displayedColumns: string[] = ['title', 'author', 'creationTime', 'updateTime', 'outils'];
 
 
-  // @ts-ignore
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ts-ignore
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private articleService: ArticleService) {
   }

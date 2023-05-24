@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {MatLegacyDialogRef as MatDialogRef} from "@angular/material/legacy-dialog";
+import {MatDialogRef} from "@angular/material/dialog";
 import {MediaService} from "../../../media/media.service";
-import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
+import {MatSnackBar} from "@angular/material/snack-bar";
 import {Subject} from "rxjs";
 import {IMedia} from "../../../shared/model/IMedia";
 import {HttpResponse} from "@angular/common/http";

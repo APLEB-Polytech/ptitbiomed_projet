@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ICategory} from "../../../shared/model/ICategory";
-import {MatLegacySnackBar as MatSnackBar} from "@angular/material/legacy-snack-bar";
 import {CategoryService} from "../../../services/category.service";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
 import {ArticleChooserComponent} from "./article-chooser/article-chooser.component";
 import {IArticle} from "../../../shared/model/IArticle";
 import {ArticleService} from "../../../articles/article.service";
 import {SummaryEditorComponent} from "./summary-editor/summary-editor.component";
 import {TitleEditorComponent} from "./title-editor/title-editor.component";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-category-edition',
@@ -19,7 +19,7 @@ import {TitleEditorComponent} from "./title-editor/title-editor.component";
 })
 export class CategoryEditionComponent implements OnInit {
 
-  categoryUuid: string = '';
+  categoryUuid = '';
   category: ICategory | undefined;
 
   articles: Map<string, IArticle> = new Map<string, IArticle>();
@@ -33,7 +33,10 @@ export class CategoryEditionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.categoryUuid = this.route.snapshot.paramMap.get('uuid')!;
+    if (!this.route.snapshot.params['uuid']) {
+      throw new Error("Invalid category UUID");
+    }
+    this.categoryUuid = this.route.snapshot.params['uuid'];
     this.loadCategory();
   }
 
@@ -54,16 +57,7 @@ export class CategoryEditionComponent implements OnInit {
     });
   }
 
-  private loadArticleHeaders(): void {
-    this.articleService.getAllArticles().subscribe((res: HttpResponse<IArticle[]>) => {
-      this.articles.clear();
-      res.body!.forEach(article => {
-        this.articles.set(article.uuid!, article);
-      });
-    });
-  }
-
-  drop(event: CdkDragDrop<any>) {
+  drop(event: CdkDragDrop<void>) {
     if (!this.category) return;
 
     moveItemInArray(this.category.articles, event.previousIndex, event.currentIndex);
@@ -72,7 +66,7 @@ export class CategoryEditionComponent implements OnInit {
       next: () => {
         this.loadCategory();
       },
-      error: (error: HttpErrorResponse) => {
+      error: () => {
         this.snackbar.open('Une erreur est survenue lors de la mise à jour de la catégorie', 'OK', {duration: 10000});
       },
     });
@@ -89,7 +83,7 @@ export class CategoryEditionComponent implements OnInit {
           this.loadCategory();
           this.snackbar.open('Article ajouté à la catégorie', 'OK', {duration: 2000});
         },
-        error: (error: HttpErrorResponse) => {
+        error: () => {
           this.loadCategory();
           this.snackbar.open('Une erreur est survenue lors de l\'ajout de l\'article à la catégorie', 'OK', {duration: 10000});
         },
@@ -101,7 +95,7 @@ export class CategoryEditionComponent implements OnInit {
     if (!this.category || !articleId) return;
     if (!confirm("Enlever l’article ?")) return;
 
-    let articleIndex = this.category.articles.indexOf(articleId);
+    const articleIndex = this.category.articles.indexOf(articleId);
     this.category.articles.splice(articleIndex, 1);
 
     this.categoryService.updateCategory(this.category).subscribe({
@@ -109,7 +103,7 @@ export class CategoryEditionComponent implements OnInit {
         this.loadCategory();
         this.snackbar.open('Article retiré de la catégorie', 'OK', {duration: 2000});
       },
-      error: (error: HttpErrorResponse) => {
+      error: () => {
         this.loadCategory();
         this.snackbar.open('Une erreur est survenue lors de la suppression de l’article de la catégorie', 'OK', {duration: 10000});
       },
@@ -132,7 +126,7 @@ export class CategoryEditionComponent implements OnInit {
           this.loadCategory();
           this.snackbar.open('Nom de la catégorie modifié', 'OK', {duration: 2000});
         },
-        error: (error: HttpErrorResponse) => {
+        error: () => {
           this.loadCategory();
           this.snackbar.open('Une erreur est survenue lors de la modification du nom de la catégorie', 'OK', {duration: 10000});
         },
@@ -152,10 +146,21 @@ export class CategoryEditionComponent implements OnInit {
           this.loadCategory();
           this.snackbar.open('Résumé de la catégorie modifié', 'OK', {duration: 2000});
         },
-        error: (error: HttpErrorResponse) => {
+        error: () => {
           this.loadCategory();
           this.snackbar.open('Une erreur est survenue lors de la modification du résumé de la catégorie', 'OK', {duration: 10000});
         },
+      });
+    });
+  }
+
+  private loadArticleHeaders(): void {
+    this.articleService.getAllArticles().subscribe((res: HttpResponse<IArticle[]>) => {
+      if (!res.body) throw new Error("Invalid response body");
+      this.articles.clear();
+      res.body.forEach(article => {
+        if (!article.uuid) throw new Error("Invalid article UUID");
+        this.articles.set(article.uuid, article);
       });
     });
   }
