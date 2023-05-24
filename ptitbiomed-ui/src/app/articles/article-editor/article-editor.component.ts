@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {Article, IArticle, MenuArticle} from "../../shared/model/IArticle";
 import {ArticleService} from "../article.service";
 import {IMedia} from "../../shared/model/IMedia";
@@ -15,6 +14,7 @@ import {AddVideoDialogComponent} from "./add-video-dialog/add-video-dialog.compo
 import {AddLienDialogComponent} from "./add-lien-dialog/add-lien-dialog.component";
 import {AddPDFDialogComponent} from "./add-pdfdialog/add-pdfdialog.component";
 import {MatSidenav} from "@angular/material/sidenav";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-article-editor',
