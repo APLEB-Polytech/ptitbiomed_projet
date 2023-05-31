@@ -12,3 +12,4 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+/ptitbiomed-api/src/main/resources/application-bastien.properties

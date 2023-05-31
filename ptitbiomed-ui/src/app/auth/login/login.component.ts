@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
 import {AuthRequest} from "./AuthRequest";
@@ -12,7 +12,7 @@ import {MenuService} from "../../services/menu.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   hide = true;
   invalid = false
   loginForm = new UntypedFormGroup({
@@ -20,15 +20,11 @@ export class LoginComponent implements OnInit {
     password: new UntypedFormControl('', [Validators.required]),
   });
 
-  constructor(
-    private loginService: LoginService,
-    private userService: UserService,
-    private menuService: MenuService,
-    private router: Router,
-  ) { }
+  private loginService: LoginService = inject(LoginService)
+  private userService: UserService = inject(UserService)
+  private menuService: MenuService = inject(MenuService)
+  private router: Router = inject(Router)
 
-  ngOnInit(): void {
-  }
 
   public submit(): void {
     const authRequest = new AuthRequest(this.loginForm.controls['id'].value, this.loginForm.controls['password'].value)
@@ -38,7 +34,7 @@ export class LoginComponent implements OnInit {
           if (res.ok && res.body) {
             this.userService.authenticate(res.body)
             this.menuService.refreshNavbar.emit();
-            this.router.navigate([''])
+            this.router.navigate(['']).then()
           }
         },
         error: (error: HttpErrorResponse) => {

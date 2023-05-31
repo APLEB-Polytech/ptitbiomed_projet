@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {MatDialogRef} from "@angular/material/dialog";
 
@@ -7,16 +7,11 @@ import {MatDialogRef} from "@angular/material/dialog";
   templateUrl: './add-title-dialog.component.html',
   styleUrls: ['./add-title-dialog.component.css']
 })
-export class AddTitleDialogComponent implements OnInit {
+export class AddTitleDialogComponent {
 
   taille = new FormControl<number>(1);
   titre = new FormControl<string>('');
-
-  constructor(public dialogRef: MatDialogRef<AddTitleDialogComponent>) {
-  }
-
-  ngOnInit(): void {
-  }
+  private dialogRef: MatDialogRef<AddTitleDialogComponent> = inject(MatDialogRef)
 
 
   valid(): void {

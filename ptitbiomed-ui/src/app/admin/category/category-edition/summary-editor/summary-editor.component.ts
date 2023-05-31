@@ -1,17 +1,15 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {FormControl} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-summary-editor',
   templateUrl: './summary-editor.component.html',
   styleUrls: ['./summary-editor.component.css']
 })
-export class SummaryEditorComponent implements OnInit {
+export class SummaryEditorComponent {
 
-  formSummary: FormGroup = new FormGroup<any>({
-    summaryHtml: new FormControl<string>(this.html)
-  });
+  summaryHtml: FormControl<string> = new FormControl<string>(this.html, {nonNullable: true})
 
   constructor(
     private dialogRef: MatDialogRef<SummaryEditorComponent>,
@@ -20,11 +18,8 @@ export class SummaryEditorComponent implements OnInit {
     dialogRef.disableClose = true;
   }
 
-  ngOnInit(): void {
-  }
-
   validate(): void {
-    let html = this.formSummary.controls['summaryHtml'].value.trim();
+    const html = this.summaryHtml.value.trim();
     this.dialogRef.close(html === '' ? null : html);
   }
 
