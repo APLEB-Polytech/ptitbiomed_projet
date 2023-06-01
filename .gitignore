@@ -12,6 +12,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+/ptitbiomed-api/src/main/resources/application-bastien.properties
 
 # Used to test liquibase changesets locally
 /ptitbiomed-api/src/main/resources/liquibase.properties

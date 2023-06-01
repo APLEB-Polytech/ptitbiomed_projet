@@ -5,16 +5,14 @@ import {Injectable} from '@angular/core';
 })
 export class CookieService {
 
-  constructor() {
-  }
 
   public getCookie(name: string): string {
-    let ca: Array<string> = document.cookie.split(';');
-    let caLen: number = ca.length;
-    let cookieName = `${name}=`;
+    const ca: Array<string> = document.cookie.split(';');
+    const caLen: number = ca.length;
+    const cookieName = `${name}=`;
     let c: string;
 
-    for (let i: number = 0; i < caLen; i += 1) {
+    for (let i = 0; i < caLen; i += 1) {
       c = ca[i].replace(/^\s+/g, '');
       if (c.indexOf(cookieName) == 0) {
         return c.substring(cookieName.length, c.length);
@@ -38,7 +36,7 @@ export class CookieService {
    * {service instance}.setCookie({name:'niceCar', value:'red', expireDays:10 }); <- For all this examples if path is not provided default will be root
    */
   public setCookie(params: cookieParam) {
-    let d: Date = new Date();
+    const d: Date = new Date();
     d.setTime(
       d.getTime() +
       (params.expireDays ? params.expireDays : 1) * 24 * 60 * 60 * 1000

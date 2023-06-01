@@ -17,7 +17,7 @@ export class CategoryViewerComponent implements OnInit {
 
   private static readonly SUMMARY_MAX_LENGTH = 500;
 
-  categoryUuid: string = '';
+  categoryUuid = '';
   category: ICategory | undefined;
 
   articles: Map<string, IArticle> = new Map<string, IArticle>();
@@ -63,11 +63,11 @@ export class CategoryViewerComponent implements OnInit {
     this.articles.clear();
     this.images.clear();
 
-    for (let articleUuid of this.category.articles) {
+    for (const articleUuid of this.category.articles) {
       this.articleService.getArticleByUUID(articleUuid).subscribe({
         next: (response: HttpResponse<IArticle>) => {
           if (response.ok && response.body) {
-            let article = response.body;
+            const article = response.body;
 
             if (article.html) {
               const imgMatch = article.html.match(/<img[^>]*src="([^"]*)"/);

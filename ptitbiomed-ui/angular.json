@@ -38,7 +38,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -75,39 +75,33 @@
               "browserTarget": "ptitbiomed-ui:build:production"
             },
             "development": {
-              "browserTarget": "ptitbiomed-ui:build:development"
+                "browserTarget": "ptitbiomed-ui:build:development"
             }
           },
-          "defaultConfiguration": "development"
+            "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "ptitbiomed-ui:build"
+          "extract-i18n": {
+              "builder": "@angular-devkit/build-angular:extract-i18n",
+              "options": {
+                  "browserTarget": "ptitbiomed-ui:build"
+              }
+          },
+          "lint": {
+              "builder": "@angular-eslint/builder:lint",
+              "options": {
+                  "lintFilePatterns": [
+                      "src/**/*.ts",
+                      "src/**/*.html"
+                  ]
+              }
           }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
-            ],
-            "scripts": []
-          }
-        }
       }
     }
   },
   "cli": {
-    "analytics": false
+      "analytics": false,
+      "schematicCollections": [
+          "@angular-eslint/schematics"
+      ]
   }
 }

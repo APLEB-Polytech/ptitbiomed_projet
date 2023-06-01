@@ -9,13 +9,14 @@ import {MatDialogRef} from "@angular/material/dialog";
 })
 export class CategoryCreationComponent {
 
-  formCreateCategory: FormGroup = new FormGroup<any>({
-    name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+  formCreateCategory: FormGroup = new FormGroup<{ name: FormControl<string> }>({
+    name: new FormControl<string>('', {nonNullable: true, validators: [Validators.required, Validators.minLength(4)]}),
   });
 
   constructor(
     public dialogRef: MatDialogRef<CategoryCreationComponent>,
-  ) { }
+  ) {
+  }
 
   validate(): void {
     this.dialogRef.close(this.formCreateCategory.controls['name'].value);

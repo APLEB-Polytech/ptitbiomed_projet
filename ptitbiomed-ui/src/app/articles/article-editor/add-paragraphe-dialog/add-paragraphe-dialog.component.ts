@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {MatDialogRef} from "@angular/material/dialog";
 
@@ -7,15 +7,10 @@ import {MatDialogRef} from "@angular/material/dialog";
   templateUrl: './add-paragraphe-dialog.component.html',
   styleUrls: ['./add-paragraphe-dialog.component.css']
 })
-export class AddParagrapheDialogComponent implements OnInit {
+export class AddParagrapheDialogComponent {
   content = new FormControl<string>('');
   return = new FormControl<boolean>(true)
-
-  constructor(public dialogRef: MatDialogRef<AddParagrapheDialogComponent>) {
-  }
-
-  ngOnInit(): void {
-  }
+  public dialogRef: MatDialogRef<AddParagrapheDialogComponent> = inject(MatDialogRef)
 
   valid(): void {
     this.dialogRef.close({content: this.content.value, return: this.return.value});
