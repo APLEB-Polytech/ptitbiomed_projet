@@ -1,7 +1,10 @@
 
 /gradle/wrapper/gradle-wrapper.jar
-/.idea/uiDesigner.xml
-/.idea/
+
+# IntelliJ
+.idea/
+*.iml
+
 /.jpb/
 /.gradle/
 /build.mv.db

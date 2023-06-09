@@ -76,6 +76,14 @@ export class NavbarComponent implements OnInit {
       idParent: -1,
       hidden: false,
     },
+    {
+      id: -15,
+      label: 'Configuration',
+      link: '/admin/configuration',
+      rank: 5,
+      idParent: -1,
+      hidden: false,
+    },
   ];
 
   menus: IMenu[] = []
