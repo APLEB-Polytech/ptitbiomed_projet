@@ -1,0 +1,17 @@
+<h1>Configuration du site</h1>
+
+<form [formGroup]="configurationForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="fill">
+    <mat-label>URL du logo</mat-label>
+    <input formControlName="logoUrl" placeholder="Ex. : https://www.exemple.com/logo.png" matInput/>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Texte du pied de page</mat-label>
+    <input formControlName="footer" placeholder="Ex. : Copyright © 2022 APLEB" matInput/>
+  </mat-form-field>
+
+  <button [disabled]="configurationForm.invalid" color="primary" mat-raised-button>Sauvegarder</button>
+
+</form>

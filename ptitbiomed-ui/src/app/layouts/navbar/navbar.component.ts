@@ -11,7 +11,6 @@ import {environment} from "../../../environments/environment";
 })
 export class NavbarComponent implements OnInit {
 
-  image = environment.logo
   env = environment.titre
   menuItems: IMenu[] = [];
   menuItemsAdmin: IMenu[] = [
@@ -73,6 +72,14 @@ export class NavbarComponent implements OnInit {
       label: 'Catégories',
       link: '/admin/category-panel',
       rank: 4,
+      idParent: -1,
+      hidden: false,
+    },
+    {
+      id: -15,
+      label: 'Configuration',
+      link: '/admin/configuration',
+      rank: 5,
       idParent: -1,
       hidden: false,
     },

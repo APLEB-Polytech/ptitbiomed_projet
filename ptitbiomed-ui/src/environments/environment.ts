@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   titre: "DEV APLEB",
-  logo: "apleb_logo.png"
 };
 
 /*
