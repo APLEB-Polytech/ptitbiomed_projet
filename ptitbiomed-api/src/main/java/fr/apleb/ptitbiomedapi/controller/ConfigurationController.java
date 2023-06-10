@@ -12,12 +12,12 @@ public class ConfigurationController {
 
     private final ConfigurationService configurationService;
 
-    @GetMapping("")
+    @GetMapping
     ConfigurationDto getConfig() {
         return configurationService.getConfiguration();
     }
 
-    @PatchMapping("")
+    @PatchMapping
     void patchConfig(@RequestBody ConfigurationDto patch) {
         configurationService.patchConfiguration(patch);
     }
