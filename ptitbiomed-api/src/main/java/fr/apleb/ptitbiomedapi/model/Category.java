@@ -20,9 +20,9 @@ public class Category {
 	@Column(nullable = false)
 	private String name;
 
-	@Column
+	@Column(name = "summary_html")
 	private String summaryHtml;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category", orphanRemoval = true)
 	@OrderBy("rank")
 	private List<CategoryArticle> articles;
