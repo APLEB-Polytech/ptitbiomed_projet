@@ -20,16 +20,23 @@ public class AssetController {
 
     private final ConfigurationService configurationService;
 
-    @GetMapping("/logo.png")
-    public ResponseEntity<Void> getLogoUrl() {
+    @GetMapping("/favicon.ico")
+    public ResponseEntity<Void> getFavicon() {
         return ResponseEntity.status(PERMANENT_REDIRECT)
-            .location(URI.create(configurationService.getConfiguration().logoUrl()))
+            .location(URI.create(configurationService.getConfiguration().faviconUrl()))
             .build();
     }
 
     @GetMapping(value = "/footer", produces = TEXT_PLAIN_VALUE)
     public ResponseEntity<String> getFooter() {
         return ResponseEntity.ok(configurationService.getConfiguration().footer());
+    }
+
+    @GetMapping("/logo.png")
+    public ResponseEntity<Void> getLogoUrl() {
+        return ResponseEntity.status(PERMANENT_REDIRECT)
+            .location(URI.create(configurationService.getConfiguration().logoUrl()))
+            .build();
     }
 
 }

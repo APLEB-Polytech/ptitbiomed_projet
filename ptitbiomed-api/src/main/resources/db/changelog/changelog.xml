@@ -388,4 +388,10 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="configurable-favicon" author="Alexis Giust">
+        <addColumn tableName="CONFIGURATION_CFG">
+            <column name="CFG_FAVICON_URL" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
