@@ -2,10 +2,7 @@ package fr.apleb.ptitbiomedapi.mapper;
 
 import fr.apleb.ptitbiomedapi.dto.ConfigurationDto;
 import fr.apleb.ptitbiomedapi.model.Configuration;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
@@ -16,6 +13,7 @@ public interface ConfigurationMapper {
 
     @InheritInverseConfiguration
     @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
+    @Mapping(target = "id", ignore = true)
     Configuration patch(@MappingTarget Configuration entity, ConfigurationDto patch);
 
 }

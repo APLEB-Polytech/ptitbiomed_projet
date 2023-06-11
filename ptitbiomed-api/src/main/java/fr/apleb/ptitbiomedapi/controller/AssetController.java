@@ -23,19 +23,19 @@ public class AssetController {
     @GetMapping("/favicon.ico")
     public ResponseEntity<Void> getFavicon() {
         return ResponseEntity.status(PERMANENT_REDIRECT)
-            .location(URI.create(configurationService.getConfiguration().faviconUrl()))
+            .location(URI.create(configurationService.getConfigurationEntity().getFaviconUrl()))
             .build();
     }
 
     @GetMapping(value = "/footer", produces = TEXT_PLAIN_VALUE)
     public ResponseEntity<String> getFooter() {
-        return ResponseEntity.ok(configurationService.getConfiguration().footer());
+        return ResponseEntity.ok(configurationService.getConfigurationEntity().getFooter());
     }
 
     @GetMapping("/logo.png")
     public ResponseEntity<Void> getLogoUrl() {
         return ResponseEntity.status(PERMANENT_REDIRECT)
-            .location(URI.create(configurationService.getConfiguration().logoUrl()))
+            .location(URI.create(configurationService.getConfigurationEntity().getLogoUrl()))
             .build();
     }
 

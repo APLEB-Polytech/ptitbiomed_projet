@@ -17,16 +17,16 @@ public final class ConfigurationService {
     private final ConfigurationMapper mapper;
 
     public ConfigurationDto getConfiguration() {
-        return mapper.map(retrieveConfiguration());
+        return mapper.map(getConfigurationEntity());
     }
 
     public void patchConfiguration(ConfigurationDto patch) {
         configurationRepository.save(mapper.patch(
-            retrieveConfiguration(), patch
+            getConfigurationEntity(), patch
         ));
     }
 
-    private Configuration retrieveConfiguration() {
+    public Configuration getConfigurationEntity() {
         return configurationRepository.findById(1).orElseThrow(NotFoundException::new);
     }
 
