@@ -11,6 +11,7 @@ import {Configuration} from "src/app/shared/model/Configuration";
 interface ConfigurationForm {
   logoUrl: FormControl<string>,
   footer: FormControl<string>,
+  faviconUrl: FormControl<string>,
 }
 
 @Component({
@@ -33,6 +34,7 @@ export class ConfigurationComponent implements OnInit {
   configurationForm = new FormGroup<ConfigurationForm>({
     logoUrl: new FormControl<string>('', {nonNullable: true, validators: [Validators.required]}),
     footer: new FormControl<string>('', {nonNullable: true, validators: [Validators.required]}),
+    faviconUrl: new FormControl<string>('', {nonNullable: true, validators: [Validators.required]}),
   });
 
   ngOnInit(): void {
