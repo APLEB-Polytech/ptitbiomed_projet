@@ -37,5 +37,4 @@ jobs:
     - name: Build the hello-world Docker image
       run: |
         docker build . --tag ghcr.io/apleb-polytech/ptitbiomed:latest
-        docker run ghcr.io/apleb-polytech/ptitbiomed:latest
         docker push ghcr.io/apleb-polytech/ptitbiomed:latest
