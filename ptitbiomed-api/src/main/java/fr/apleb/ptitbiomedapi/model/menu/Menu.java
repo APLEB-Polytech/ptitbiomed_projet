@@ -23,11 +23,11 @@ public class Menu {
 	@Column(name = "link")
 	private String link;
 
-	@Column(columnDefinition = "char(36)")
+	@Column(name = "id_article", columnDefinition = "char(36)")
 	@JdbcTypeCode(SqlTypes.CHAR)
 	private UUID idArticle;
 
-	@Column(columnDefinition = "char(36)")
+	@Column(name = "id_category", columnDefinition = "char(36)")
 	@JdbcTypeCode(SqlTypes.CHAR)
 	private UUID idCategory;
 

@@ -15,10 +15,10 @@ public class Article {
 	@JdbcTypeCode(SqlTypes.CHAR)
 	private UUID uuid;
 
-	@Column(nullable = false)
+	@Column(name = "creation_time", nullable = false)
 	private LocalDateTime creationTime;
 
-	@Column(nullable = false)
+	@Column(name = "update_time", nullable = false)
 	private LocalDateTime updateTime;
 
 	@Column(nullable = false)

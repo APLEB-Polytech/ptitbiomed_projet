@@ -176,4 +176,28 @@
                                  referencedTableName="users"/>
     </changeSet>
 
+    <changeSet id="configurable-footer-and-logo" author="Alexis Giust">
+        <createTable tableName="CONFIGURATION_CFG">
+            <column name="CFG_ID" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CFG_LOGO_URL" type="varchar(255)"/>
+            <column name="CFG_FOOTER" type="clob"/>
+        </createTable>
+
+        <insert tableName="CONFIGURATION_CFG">
+            <column name="CFG_ID">1</column>
+        </insert>
+
+        <rollback>
+            <dropTable tableName="CONFIGURATION_CFG"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="configurable-favicon" author="Alexis Giust">
+        <addColumn tableName="CONFIGURATION_CFG">
+            <column name="CFG_FAVICON_URL" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
