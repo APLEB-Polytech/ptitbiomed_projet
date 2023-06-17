@@ -36,7 +36,6 @@ jobs:
 
     - name: Build the hello-world Docker image
       run: |
-        VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
-        docker build . --tag ghcr.io/apleb-polytech/ptitbiomed:$VERSION
-        docker push ghcr.io/apleb-polytech/ptitbiomed:$VERSION
-
+        docker build . --tag ghcr.io/apleb-polytech/ptitbiomed:latest
+        docker run ghcr.io/apleb-polytech/ptitbiomed:latest
+        docker push ghcr.io/apleb-polytech/ptitbiomed:latest
