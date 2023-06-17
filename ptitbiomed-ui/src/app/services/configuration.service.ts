@@ -25,4 +25,8 @@ export class ConfigurationService {
     return this.http.patch<void>(`/api/config`, configuration, {observe: 'response'});
   }
 
+  getTitle() {
+    return this.http.get('/api/config/title', {responseType: 'text'});
+  }
+
 }

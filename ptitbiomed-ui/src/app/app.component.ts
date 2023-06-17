@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {environment} from "../environments/environment";
+import {ConfigurationService} from "./services/configuration.service";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +8,26 @@ import {environment} from "../environments/environment";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ptitbiomed-ui';
+  private static readonly APP_TITLE = 'APP_TITLE'
+  private readonly configurationService = inject(ConfigurationService);
+  private readonly titleService = inject(Title);
 
-  constructor(private titleService: Title) {
-    this.titleService.setTitle(`${environment.titre}`)
+  constructor() {
+    this.processTitle()
+  }
+
+  processTitle() {
+    const title = localStorage.getItem(AppComponent.APP_TITLE)
+    if (!title) {
+      return this.fetchTitle()
+    }
+    this.titleService.setTitle(`${title}`)
+  }
+
+  fetchTitle() {
+    this.configurationService.getTitle().subscribe((title) => {
+      this.titleService.setTitle(`${title}`)
+      localStorage.setItem(AppComponent.APP_TITLE, title)
+    })
   }
 }

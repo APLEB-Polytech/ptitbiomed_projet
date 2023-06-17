@@ -11,3 +11,4 @@ apleb:
     jwtSecret: 'mbRVgzyixGL5HkZDLRHNgYtEkEUqaUwFOxPm+fNs7PTqabZB+anYOk2p4M/xxYVUrABEwvYMv3P9cYPigdkjHw=='
     jwtExpiration: 86400000
     uploadDirectory: "${java.io.tmpdir:.}/ptitbiomed/medias"
+    title: "Ptitbiomed"
