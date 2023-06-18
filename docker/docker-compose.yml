@@ -15,11 +15,31 @@ services:
         depends_on:
             - mysqldb
         ports:
-            - "8080:8080"
+            - "8080:1655"
         volumes:
             - .m2:/root/.m2
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/ptitbiomed?useSSL=false&serverTimezone=UTC
+            SPRING_DATASOURCE_USERNAME: root
+            SPRING_DATASOURCE_PASSWORD: root
         stdin_open: true
         tty: true
+        network_mode: "host"
+    proxy-manager:
+        image: 'jc21/nginx-proxy-manager:latest'
+        restart: unless-stopped
+        ports:
+            #            - '80:80' # Public HTTP Port
+            #            - '443:443' # Public HTTPS Port
+            - '81:81' # Admin Web Port
+#    volumes:
+#        - ./data:/data
+#        - ./letsencrypt:/etc/letsencrypt
 
 volumes:
     db:
+
+networks:
+    host:
+        driver: host
+    deix:
