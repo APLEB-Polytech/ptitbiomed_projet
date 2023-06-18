@@ -1,15 +1,8 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Java CI with Maven
+name: Build developpement image
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "dev" ]
 
 jobs:
   build:
@@ -36,7 +29,6 @@ jobs:
 
     - name: Build the hello-world Docker image
       run: |
-        VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+        VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )-SNAPSHOT
         docker build . --tag ghcr.io/apleb-polytech/ptitbiomed:$VERSION
         docker push ghcr.io/apleb-polytech/ptitbiomed:$VERSION
-
