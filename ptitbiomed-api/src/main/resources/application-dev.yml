@@ -1,6 +1,3 @@
-server:
-    port: 1655
-
 spring:
     datasource:
         username: usersio
