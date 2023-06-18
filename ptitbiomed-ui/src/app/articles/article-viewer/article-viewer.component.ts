@@ -40,7 +40,7 @@ export class ArticleViewerComponent implements OnInit {
           throw new Error('Erreur lors du chargement de l\'article')
         }
         this.article.next(response.body)
-        this.titleService.setTitle(`${this.titleService.getTitle()} - ${response.body.title}`)
+        this.titleService.setTitle(`${this.titleService.defaultTitle} - ${response.body.title}`)
         this.content = response.body.html || ''
       },
       complete: () => {

@@ -6,7 +6,13 @@ import {ConfigurationService} from "./configuration.service";
   providedIn: 'root'
 })
 export class TitleService {
+  private _defaultTitle = 'Ptit Biomed';
+
   private static readonly APP_TITLE = 'APP_TITLE';
+
+  get defaultTitle(): string {
+    return this._defaultTitle;
+  }
 
   private readonly title: Title = inject(Title);
   private readonly configurationService: ConfigurationService = inject(ConfigurationService);
@@ -15,13 +21,13 @@ export class TitleService {
     this.processTitle()
   }
 
-  public getTitle(): string {
-    return this.title.getTitle()
-  }
 
   public setTitle(title: string) {
     this.title.setTitle(`${title}`)
-    localStorage.setItem(TitleService.APP_TITLE, title)
+  }
+
+  private setDefaultTitle(title: string) {
+    this._defaultTitle = title;
   }
 
   private processTitle() {
@@ -29,12 +35,14 @@ export class TitleService {
     if (!title) {
       return this.fetchTitle()
     }
+    this.setDefaultTitle(title)
     this.title.setTitle(`${title}`)
   }
 
   private fetchTitle() {
     this.configurationService.getTitle().subscribe((title) => {
       this.title.setTitle(`${title}`)
+      this.setDefaultTitle(title)
       localStorage.setItem(TitleService.APP_TITLE, title)
     })
   }
