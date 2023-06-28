@@ -8,6 +8,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: test
 
     steps:
     - uses: actions/checkout@v3
@@ -26,7 +27,10 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-
+    - name: Qodana
+      uses: JetBrains/qodana-action@main
+      env:
+        QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
     - name: Build the hello-world Docker image
       run: |
         VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )-SNAPSHOT
