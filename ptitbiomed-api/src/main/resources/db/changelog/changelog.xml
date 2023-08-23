@@ -200,4 +200,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="189-add-default-user" author="Alexis Giust">
+        <insert tableName="users">
+            <column name="username" value="apleb"/>
+            <column name="password" value="$2y$10$xiF4t5JEdfHlZJiQiR5U0etys5E/3AHcngF04M/miMauUV6154ukm"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
