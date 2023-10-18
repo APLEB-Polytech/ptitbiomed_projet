@@ -25,4 +25,11 @@ export class ConfigurationService {
     return this.http.patch<void>(`/api/config`, configuration, {observe: 'response'});
   }
 
+  /**
+   * Retrieves the title from the API.
+   */
+  getTitle(): Observable<string> {
+    return this.http.get('/api/config/title', {responseType: 'text'});
+  }
+
 }

@@ -12,13 +12,16 @@ import static lombok.AccessLevel.PACKAGE;
 @RequiredArgsConstructor(access = PACKAGE)
 public class ApplicationProperties {
 
-	@Value("${apleb.jwtSecret}")
-	private final String jwtSecret;
+    @Value("${apleb.jwtSecret}")
+    private final String jwtSecret;
 
-	@Value("${apleb.jwtExpiration}")
-	private final int jwtExpiration;
+    @Value("${apleb.jwtExpiration}")
+    private final int jwtExpiration;
 
-	@Value("${apleb.uploadDirectory}")
-	private final String uploadDirectory;
+    @Value("${apleb.uploadDirectory}")
+    private final String uploadDirectory;
+
+    @Value("${apleb.title}")
+    private final String title;
 
 }

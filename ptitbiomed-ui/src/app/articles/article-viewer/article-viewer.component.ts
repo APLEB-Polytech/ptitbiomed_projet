@@ -5,8 +5,7 @@ import {Subject} from "rxjs";
 import {IArticle} from "../../shared/model/IArticle";
 import {HttpResponse} from "@angular/common/http";
 import {UserService} from "../../services/user.service";
-import {Title} from "@angular/platform-browser";
-import {environment} from "../../../environments/environment";
+import {TitleService} from "../../services/title.service";
 
 @Component({
   selector: 'app-article-viewer',
@@ -20,7 +19,7 @@ export class ArticleViewerComponent implements OnInit {
   loading = false
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute, public userService: UserService, private router: Router,
-              private titleService: Title
+              private titleService: TitleService
   ) {
     if (this.route.snapshot.params['uuid']) {
       this.loadArticle(this.route.snapshot.params['uuid'])
@@ -41,7 +40,7 @@ export class ArticleViewerComponent implements OnInit {
           throw new Error('Erreur lors du chargement de l\'article')
         }
         this.article.next(response.body)
-        this.titleService.setTitle(`${environment.titre} - ${response.body.title}`)
+        this.titleService.setTitle(`${this.titleService.defaultTitle} - ${response.body.title}`)
         this.content = response.body.html || ''
       },
       complete: () => {

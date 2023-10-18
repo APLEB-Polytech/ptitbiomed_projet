@@ -62,6 +62,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/menu/with-hidden").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/menu").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/asset/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/config/title").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll())
             .csrf(AbstractHttpConfigurer::disable)
