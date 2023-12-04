@@ -19,3 +19,7 @@ target/
 
 # Used to test liquibase changesets locally
 /ptitbiomed-api/src/main/resources/liquibase.properties
+
+/ptitbiomed-api/src/main/resources/application-*.yml
+!/ptitbiomed-api/src/main/resources/application-dev.yml
+!/ptitbiomed-api/src/main/resources/application-docker.yml
