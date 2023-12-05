@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {HttpResponse} from "@angular/common/http";
 import {IMedia} from "../../../shared/model/IMedia";
 import {MediaService} from "../../../media/media.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Subject} from "rxjs";
-import {MatDialogRef} from "@angular/material/dialog";
 import {FormControl} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-add-image-dialog',

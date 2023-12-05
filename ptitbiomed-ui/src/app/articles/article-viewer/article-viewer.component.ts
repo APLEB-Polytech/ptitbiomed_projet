@@ -16,7 +16,7 @@ import {environment} from "../../../environments/environment";
 export class ArticleViewerComponent implements OnInit {
 
   article: Subject<IArticle> = new Subject<IArticle>();
-  content: string = ''
+  content = ''
   loading = false
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute, public userService: UserService, private router: Router,

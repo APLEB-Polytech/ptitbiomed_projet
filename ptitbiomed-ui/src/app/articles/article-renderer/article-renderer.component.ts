@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'app-article-renderer',
@@ -6,15 +6,8 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
   styleUrls: ['./article-renderer.component.css'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
-export class ArticleRendererComponent implements OnInit {
+export class ArticleRendererComponent {
 
-	@Input()
-	content: string = "";
-
-	constructor() {
-	}
-
-	ngOnInit(): void {
-	}
-
+  @Input()
+  content = "";
 }

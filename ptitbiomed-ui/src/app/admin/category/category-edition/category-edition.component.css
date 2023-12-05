@@ -5,7 +5,10 @@
 }
 
 #cat-title {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 #cat-controls {

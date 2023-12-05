@@ -6,10 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,13 +41,11 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManagerBean(HttpSecurity http, PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailService)
-            throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(userDetailService)
-                .passwordEncoder(passwordEncoder)
-                .and()
-                .build();
+    public AuthenticationManager authenticationManagerBean(PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailService) {
+        final DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        return new ProviderManager(daoAuthenticationProvider);
     }
 
     @Bean
@@ -55,19 +55,22 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests()
+        http.authorizeHttpRequests(authorized -> authorized
                 .requestMatchers("/api/auth/signin").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/article/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/category/**").permitAll()
                 .requestMatchers("/api/menu/with-hidden").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/menu").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/asset/**").permitAll()
                 .requestMatchers("/api/**").authenticated()
-                .anyRequest().permitAll();
-        http.addFilterBefore(angularFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+                .anyRequest().permitAll())
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .exceptionHandling(handling -> handling
+                .authenticationEntryPoint(unauthorizedHandler))
+            .addFilterBefore(angularFilter(), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

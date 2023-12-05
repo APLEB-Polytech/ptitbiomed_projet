@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {IMenu} from "../../../shared/model/IMenu";
 
 @Component({
@@ -6,22 +6,13 @@ import {IMenu} from "../../../shared/model/IMenu";
   templateUrl: './navbar-content.component.html',
   styleUrls: ['./navbar-content.component.css']
 })
-export class NavbarContentComponent implements OnInit {
+export class NavbarContentComponent {
 
   @Input()
   menus: IMenu[] = [];
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   getRootItems() {
     return this.menus.filter(menu => !menu.idParent);
-  }
-
-  hasChildren(item: IMenu): boolean {
-    return true;
   }
 
   getChildren(item: IMenu): IMenu[] {
@@ -29,11 +20,11 @@ export class NavbarContentComponent implements OnInit {
       .sort((a, b) => a.rank - b.rank);
   }
 
-  getLink(item: IMenu): string | undefined {
+  getLink(item: IMenu): string | null {
     if (item.link) return item.link;
     if (item.idArticle) return '/article/view/' + item.idArticle;
     if (item.idCategory) return '/category/view/' + item.idCategory;
-    return undefined;
+    return null;
   }
 
   isExternal(item: IMenu): boolean {

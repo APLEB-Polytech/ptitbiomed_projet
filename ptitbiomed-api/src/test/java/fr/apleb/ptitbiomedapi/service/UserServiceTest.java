@@ -1,86 +1,103 @@
 package fr.apleb.ptitbiomedapi.service;
 
+import java.util.*;
+
 import fr.apleb.ptitbiomedapi.dto.UserDto;
 import fr.apleb.ptitbiomedapi.exception.NotFoundException;
 import fr.apleb.ptitbiomedapi.model.user.User;
 import fr.apleb.ptitbiomedapi.repository.user.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
+import fr.apleb.ptitbiomedapi.testutils.UnitTest;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+/**
+ * Test class for {@link UserService}.
+ */
+class UserServiceTest implements UnitTest {
 
-@SpringBootTest
-class UserServiceTest {
-
-	private final User user1 = new User();
-	private final User user2 = new User();
-
-	@Autowired
+	@InjectMocks
 	private UserService userService;
 
-	@MockBean
-	private UserRepository mockRepository;
+	@Mock
+	private UserRepository userRepository;
 
-	@BeforeEach
-	@Test
-	public void init() {
-		user1.setId(1L);
-		user1.setEmail("test1@test.com");
-		user1.setPassword("passwordtest1");
-		user1.setUsername("test1");
-		user1.setRoles(new HashSet<>());
+	private static final User USER_1 = new User();
+	private static final User USER_2 = new User();
+	private static final List<User> ALL_USERS = List.of(USER_1, USER_2);
+	private static final List<UserDto> ALL_USERS_DTO = new ArrayList<>();
 
+	@BeforeAll
+	public static void init() {
+		USER_1.setId(1L);
+		USER_1.setEmail("test1@test.com");
+		USER_1.setPassword("passwordtest1");
+		USER_1.setUsername("test1");
+		USER_1.setRoles(new HashSet<>());
 
-		user2.setId(2L);
-		user2.setEmail("test2@test.com");
-		user2.setPassword("passwordtest2");
-		user2.setUsername("test2");
-		user2.setRoles(new HashSet<>());
+		USER_2.setId(2L);
+		USER_2.setEmail("test2@test.com");
+		USER_2.setPassword("passwordtest2");
+		USER_2.setUsername("test2");
+		USER_2.setRoles(new HashSet<>());
 
-		when(mockRepository.findById(1L)).thenReturn(Optional.of(user1));
-		when(mockRepository.findById(2L)).thenReturn(Optional.of(user2));
-		when(mockRepository.existsById(3L)).thenReturn(false);
-		when(mockRepository.existsById(2L)).thenReturn(true);
-		when(mockRepository.findAll()).thenReturn(List.of(user1, user2));
+		ALL_USERS_DTO.addAll(ALL_USERS.stream()
+				.map(user -> new UserDto(user.getId(), user.getUsername(), user.getEmail()))
+				.toList());
 	}
 
 
 	@Test
-	void getAllUsers() {
-		List<User> users = this.userService.getAllUsers();
-		assertEquals(2, users.size());
-		assertEquals(user1, users.get(0));
-		assertEquals(user2, users.get(1));
+	void Get_all_users() {
+		when(userRepository.findAll()).thenReturn(ALL_USERS);
+
+		assertEquals(ALL_USERS, userService.getAllUsers());
 	}
 
 	@Test
-	void getUserByID() {
-		assertEquals(user1, this.userService.getUserByID(1L).orElseThrow());
-		assertEquals(user2, this.userService.getUserByID(2L).orElseThrow());
-		assertEquals(Optional.empty(), this.userService.getUserByID(3L));
+	void Get_existing_user_by_id() {
+
+		when(userRepository.findById(USER_1.getId())).thenReturn(Optional.of(USER_1));
+
+		assertEquals(USER_1, userService.getUserByID(USER_1.getId()).orElseThrow());
 	}
 
 	@Test
-	void getAllUsersDTO() {
-		UserDto userDto1 = new UserDto(user1.getId(), user1.getUsername(), user1.getEmail());
-		UserDto userDto2 = new UserDto(user2.getId(), user2.getUsername(), user2.getEmail());
-		List<UserDto> userDtos = List.of(userDto1, userDto2);
-		assertEquals(userDtos, this.userService.getAllUsersDTO());
+	void Get_non_existent_user_by_id_returns_empty_optional() {
+		final long nonExistantUserId = 3;
 
+		when(userRepository.findById(nonExistantUserId)).thenReturn(Optional.empty());
+
+		assertEquals(Optional.empty(), userService.getUserByID(nonExistantUserId));
 	}
 
 	@Test
-	void deleteUser() {
-		assertThrows(NotFoundException.class, () -> this.userService.deleteUser(3L));
-		this.userService.deleteUser(2L);
+	void Get_all_users_dto() {
+		when(userRepository.findAll()).thenReturn(ALL_USERS);
+
+		assertEquals(ALL_USERS_DTO, userService.getAllUsersDTO());
 	}
+
+	@Test
+	void Delete_existing_user() {
+		when(userRepository.existsById(USER_1.getId())).thenReturn(true);
+
+		assertDoesNotThrow(() -> userService.deleteUser(USER_1.getId()));
+
+		verify(userRepository, times(1)).deleteById(USER_1.getId());
+	}
+
+	@Test
+	void Delete_non_existent_user_throws_NotFoundException() {
+		final long nonExistentUserId = 3;
+
+		assertThrows(NotFoundException.class, () -> this.userService.deleteUser(nonExistentUserId));
+
+		verify(userRepository, times(0)).deleteById(any());
+	}
+
 }

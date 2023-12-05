@@ -1,19 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {environment} from "../../../environments/environment";
+import {Component, inject, OnInit} from '@angular/core';
+import {AssetService} from "src/app/services/asset.service";
 
 @Component({
+  providers: [AssetService],
   selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styleUrls: ['./footer.component.css'],
+  template: '{{ footer }}',
 })
 export class FooterComponent implements OnInit {
 
-  env = environment.titre
+  private assetService = inject(AssetService);
 
-  constructor() {
-  }
+  footer: string = '';
 
   ngOnInit(): void {
+    this.assetService.getFooter().subscribe({
+      next: (footer: string) => {
+        this.footer = footer;
+      },
+    });
   }
 
 }

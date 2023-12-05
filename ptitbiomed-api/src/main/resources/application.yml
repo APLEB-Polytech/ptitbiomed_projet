@@ -1,0 +1,21 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+    jpa:
+        hibernate:
+            ddl-auto: validate
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MariaDBDialect
+
+    liquibase:
+        change-log: classpath:db/changelog/changelog.xml
+
+    servlet:
+        multipart:
+            max-file-size: 128MB
+            max-request-size: 128MB
+            enabled: true

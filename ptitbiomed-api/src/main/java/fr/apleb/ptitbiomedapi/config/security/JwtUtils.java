@@ -1,53 +1,59 @@
 package fr.apleb.ptitbiomedapi.config.security;
 
 import fr.apleb.ptitbiomedapi.config.ApplicationProperties;
-import fr.apleb.ptitbiomedapi.config.security.service.UserDetailsImpl;
 import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.jsonwebtoken.security.SignatureException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
+import java.time.Instant;
 import java.util.Date;
 
+import static java.time.temporal.ChronoUnit.MILLIS;
+
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class JwtUtils {
-	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-	private final ApplicationProperties applicationProperties;
+    private final Key jwtSignKey;
+    private final JwtParser jwtParser;
+    private final ApplicationProperties applicationProperties;
 
-	public JwtUtils(ApplicationProperties applicationProperties) {
-		this.applicationProperties = applicationProperties;
-	}
+    public String generateJwtToken(Authentication authentication) {
+        final UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+        final Instant issuanceInstant = Instant.now();
 
-	public String generateJwtToken(Authentication authentication) {
-		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-		return Jwts.builder()
-				.setSubject((userPrincipal.getUsername()))
-				.setIssuedAt(new Date())
-				.setExpiration(new Date((new Date()).getTime() + this.applicationProperties.getJwtExpiration()))
-				.signWith(SignatureAlgorithm.HS512, this.applicationProperties.getJwtSecret())
-				.compact();
-	}
+        return Jwts.builder()
+            .setSubject((userPrincipal.getUsername()))
+            .setIssuedAt(Date.from(issuanceInstant))
+            .setExpiration(Date.from(issuanceInstant.plus(applicationProperties.getJwtExpiration(), MILLIS)))
+            .signWith(jwtSignKey)
+            .compact();
+    }
 
     public String getUserNameFromJwtToken(String token) {
-	    return Jwts.parser().setSigningKey(this.applicationProperties.getJwtSecret()).parseClaimsJws(token).getBody().getSubject();
+        return jwtParser.parseClaimsJws(token).getBody().getSubject();
     }
 
     public boolean validateJwtToken(String authToken) {
         try {
-	        Jwts.parser().setSigningKey(this.applicationProperties.getJwtSecret()).parseClaimsJws(authToken);
+            jwtParser.parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
-            logger.error("Invalid JWT signature: {}", e.getMessage());
+            log.error("Invalid JWT signature: {}", e.getMessage());
         } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
+            log.error("Invalid JWT token: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
-            logger.error("JWT token is expired: {}", e.getMessage());
+            log.error("JWT token is expired: {}", e.getMessage());
         } catch (UnsupportedJwtException e) {
-            logger.error("JWT token is unsupported: {}", e.getMessage());
+            log.error("JWT token is unsupported: {}", e.getMessage());
         } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty: {}", e.getMessage());
+            log.error("JWT claims string is empty: {}", e.getMessage());
         }
         return false;
     }

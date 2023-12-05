@@ -1,7 +1,7 @@
 <a routerLink="add">
   <button color="primary" mat-raised-button>Ajouter un utilisateur</button>
 </a>
-<mat-form-field appearance="standard">
+<mat-form-field appearance="fill">
   <mat-label>Filtre</mat-label>
   <input #input (keyup)="applyFilter($event)" matInput placeholder="Ex. root">
 </mat-form-field>

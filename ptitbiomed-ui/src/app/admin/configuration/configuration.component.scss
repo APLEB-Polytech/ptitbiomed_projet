@@ -1,0 +1,18 @@
+h1 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 50em;
+  margin: auto;
+}
+
+button {
+  @media (min-width: 576px) {
+    align-self: flex-end;
+    width: 20em;
+  }
+}

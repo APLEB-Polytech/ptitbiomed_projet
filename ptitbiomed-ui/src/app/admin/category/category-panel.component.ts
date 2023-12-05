@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
 import {ICategory} from "../../shared/model/ICategory";
-import {MatDialog} from "@angular/material/dialog";
 import {CategoryCreationComponent} from "./category-creation/category-creation.component";
+import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-category-panel',
@@ -56,7 +55,8 @@ export class CategoryPanelComponent implements OnInit {
 
   deleteCategory(category: ICategory): void {
     if (!confirm("Confirmer la suppression de la catégorie '" + category.name + "' ?")) return;
-    this.categoryService.deleteCategory(category.uuid!).subscribe({
+    if (!category.uuid) throw "Invalid category UUID";
+    this.categoryService.deleteCategory(category.uuid).subscribe({
       next: () => {
         this.loadCategories();
         this.snackbar.open("Catégorie supprimée", 'OK', {duration: 2000});

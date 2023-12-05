@@ -6,4 +6,5 @@ export const AdminRoute: Routes = [
   {path: 'category-panel', component: CategoryPanelComponent},
   {path: 'category-panel/:uuid', component: CategoryEditionComponent},
   {path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule)},
+  {path: 'configuration', loadComponent: () => import('./configuration/configuration.component').then(m => m.ConfigurationComponent)}
 ];

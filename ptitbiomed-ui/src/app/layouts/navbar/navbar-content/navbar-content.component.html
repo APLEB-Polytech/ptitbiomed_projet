@@ -30,5 +30,5 @@
 
 <ng-template #routerLink let-menu="menu">
   <a class="dropdown-button" [class.hidden]="menu.hidden"
-     [routerLink]="getLink(menu) ?? []">{{menu.label}}</a>
+     [routerLink]="getLink(menu)">{{menu.label}}</a>
 </ng-template>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialogRef} from "@angular/material/dialog";
 
@@ -7,17 +7,14 @@ import {MatDialogRef} from "@angular/material/dialog";
   templateUrl: './add-lien-dialog.component.html',
   styleUrls: ['./add-lien-dialog.component.css']
 })
-export class AddLienDialogComponent implements OnInit {
+export class AddLienDialogComponent {
 
-  formGroup: FormGroup = new FormGroup<any>({
-    lien: new FormControl<string>("", [Validators.required]),
-    nom: new FormControl<string>("", [Validators.required]),
+  formGroup: FormGroup = new FormGroup<{ lien: FormControl<string>, nom: FormControl<string> }>({
+    lien: new FormControl<string>("", {nonNullable: true, validators: [Validators.required]}),
+    nom: new FormControl<string>("", {nonNullable: true, validators: [Validators.required]}),
   })
 
   constructor(public dialogRef: MatDialogRef<AddLienDialogComponent>) {
-  }
-
-  ngOnInit(): void {
   }
 
   valid() {

@@ -1,11 +1,11 @@
 import {AfterContentInit, Component, ViewChild} from '@angular/core';
 import {UserService} from "../user.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {HttpResponse} from "@angular/common/http";
 import {IUser} from "../../../shared/model/IUser";
-import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-liste-users',
@@ -17,10 +17,8 @@ export class ListeUsersComponent implements AfterContentInit {
   displayedColumns: string[] = ['id', 'username', 'email', 'outils'];
   dataSource: MatTableDataSource<IUser> = new MatTableDataSource<IUser>();
 
-  // @ts-ignore
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ts-ignore
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private userService: UserService, private snackbar: MatSnackBar) {
   }

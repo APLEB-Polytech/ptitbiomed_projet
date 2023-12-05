@@ -1,8 +1,8 @@
 <div mat-dialog-content>
-  <form [formGroup]="formSummary">
+  <form>
     <mat-form-field appearance="fill">
       <mat-label>HTML du résumé de la catégorie</mat-label>
-      <textarea matInput formControlName="summaryHtml" cdkTextareaAutosize></textarea>
+      <textarea [formControl]="summaryHtml" cdkTextareaAutosize matInput></textarea>
     </mat-form-field>
   </form>
 </div>

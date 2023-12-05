@@ -1,0 +1,13 @@
+server:
+    port: 1655
+
+spring:
+    datasource:
+        username: usersio
+        password: sio
+        url: jdbc:mysql://localhost:3306/ptitbiomed
+
+apleb:
+    jwtSecret: 'mbRVgzyixGL5HkZDLRHNgYtEkEUqaUwFOxPm+fNs7PTqabZB+anYOk2p4M/xxYVUrABEwvYMv3P9cYPigdkjHw=='
+    jwtExpiration: 86400000
+    uploadDirectory: "${java.io.tmpdir:.}/ptitbiomed/medias"

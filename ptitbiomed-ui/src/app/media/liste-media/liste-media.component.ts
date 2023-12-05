@@ -32,7 +32,7 @@ export class ListeMediaComponent implements OnInit {
     itemMax: 0,
     actualPage: 0
   }
-  isLoaded: boolean = false
+  isLoaded = false
 
   constructor(private mediaService: MediaService, public dialog: MatDialog) {
   }

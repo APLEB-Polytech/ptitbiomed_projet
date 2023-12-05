@@ -11,9 +11,8 @@ import {environment} from "../../../environments/environment";
 })
 export class NavbarComponent implements OnInit {
 
-  image = environment.logo
   env = environment.titre
-  menuItems?: IMenu[];
+  menuItems: IMenu[] = [];
   menuItemsAdmin: IMenu[] = [
     {
       id: -1,
@@ -76,26 +75,53 @@ export class NavbarComponent implements OnInit {
       idParent: -1,
       hidden: false,
     },
+    {
+      id: -15,
+      label: 'Configuration',
+      link: '/admin/configuration',
+      rank: 5,
+      idParent: -1,
+      hidden: false,
+    },
   ];
+
+  menus: IMenu[] = []
 
   constructor(public userService: UserService, public menuService: MenuService) {
   }
 
   ngOnInit(): void {
+    this.loadMenu();
+    this.menuService.refreshNavbar.subscribe(() => {
       this.loadMenu();
-      this.menuService.refreshNavbar.subscribe(() => {
-        this.loadMenu();
-      });
+    });
   }
 
   loadMenu() {
     this.userService.isConnected.subscribe((connected: boolean) => {
-      let menuRequest = connected
+      const menuRequest = connected
         ? this.menuService.getAllMenuWithHidden()
         : this.menuService.getAllMenu();
 
       menuRequest.subscribe((menus: IMenu[]) => {
         this.menuItems = menus;
+        if (connected) {
+          this.menus = this.menuItems.concat(this.menuItemsAdmin).concat([{
+            id: -999,
+            label: 'Déconnexion',
+            'rank': 999,
+            'link': '/logout',
+            hidden: false
+          }])
+        } else {
+          this.menus = this.menuItems.concat([{
+            id: -999,
+            label: 'Connexion',
+            'rank': 999,
+            'link': '/login',
+            hidden: false
+          }]);
+        }
       });
     });
   }
